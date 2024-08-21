@@ -1,4 +1,4 @@
-package presentation.events
+package presentation.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add

@@ -1,4 +1,4 @@
-package presentation.events
+package presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,7 +22,8 @@ import data.Event
 @Composable
 fun EventCard(
     event: Event,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick : () -> Unit
 ) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
@@ -31,7 +32,8 @@ fun EventCard(
         modifier = modifier
             .fillMaxWidth()
             .height(200.dp)
-            .padding(16.dp)
+            .padding(16.dp),
+        onClick = onClick
     ) {
         Row(
             modifier = Modifier.fillMaxWidth().padding(16.dp),

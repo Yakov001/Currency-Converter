@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.serialization)
 }
 
 kotlin {
@@ -60,6 +61,12 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+
+            implementation(libs.decompose)
+            implementation(libs.decompose.compose)
+        }
+        wasmJsMain.dependencies {
+            implementation(libs.serialization.json)
         }
     }
 }
@@ -100,7 +107,10 @@ android {
         debugImplementation(compose.uiTooling)
     }
 }
-dependencies {
-    implementation(libs.androidx.material3.android)
-}
+//dependencies {
+//    implementation(libs.androidx.material3.android)
+//
+//    implementation(libs.decompose)
+//    implementation(libs.decompose.compose)
+//}
 
