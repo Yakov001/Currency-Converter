@@ -6,25 +6,30 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
+import com.arkivanov.decompose.router.stack.pushToFront
+import com.arkivanov.decompose.router.stack.replaceAll
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.backhandler.BackHandlerOwner
 import data.Event
-import data.EventsRepository
 import kotlinx.serialization.Serializable
 import presentation.decompose.RootComponent.Child.EventChild
 import presentation.decompose.RootComponent.Child.ListChild
 import presentation.decompose.RootComponent.Child.SettingsChild
-import presentation.decompose.component_event.EventComponent
-import presentation.decompose.component_event.EventComponentImpl
-import presentation.decompose.component_list.ListComponent
-import presentation.decompose.component_list.ListComponentImpl
-import presentation.decompose.component_settings.SettingsComponent
-import presentation.decompose.component_settings.SettingsComponentImpl
+import presentation.decompose.event.EventComponent
+import presentation.decompose.event.EventComponentImpl
+import presentation.decompose.list.ListComponent
+import presentation.decompose.list.ListComponentImpl
+import presentation.decompose.settings.SettingsComponent
+import presentation.decompose.settings.SettingsComponentImpl
 
 interface RootComponent : BackHandlerOwner {
     val stack: Value<ChildStack<*, Child>>
 
     fun onBackClicked()
+
+    fun navigateToList()
+
+    fun navigateToSettings()
 
     // Defines all possible child components
     sealed class Child {
@@ -51,6 +56,14 @@ class RootComponentImpl(
 
     override fun onBackClicked() {
         navigation.pop()
+    }
+
+    override fun navigateToList() {
+        navigation.replaceAll(Config.List)
+    }
+
+    override fun navigateToSettings() {
+        navigation.replaceAll(Config.Settings)
     }
 
     private fun child(config: Config, componentContext: ComponentContext): RootComponent.Child =

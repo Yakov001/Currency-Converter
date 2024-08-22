@@ -1,3 +1,5 @@
+@file:SuppressWarnings("UnstableApiUsage")
+
 rootProject.name = "Resonanse"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 

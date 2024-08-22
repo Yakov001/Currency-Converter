@@ -1,4 +1,4 @@
-package presentation.decompose.component_list
+package presentation.decompose.list
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize

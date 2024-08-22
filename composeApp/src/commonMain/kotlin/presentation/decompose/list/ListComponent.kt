@@ -1,4 +1,4 @@
-package presentation.decompose.component_list
+package presentation.decompose.list
 
 import com.arkivanov.decompose.ComponentContext
 import data.Event

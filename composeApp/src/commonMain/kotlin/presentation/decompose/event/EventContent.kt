@@ -1,4 +1,4 @@
-package presentation.decompose.component_event
+package presentation.decompose.event
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

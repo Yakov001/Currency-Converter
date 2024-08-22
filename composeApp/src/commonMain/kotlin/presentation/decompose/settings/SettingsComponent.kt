@@ -1,4 +1,4 @@
-package presentation.decompose.component_settings
+package presentation.decompose.settings
 
 import com.arkivanov.decompose.ComponentContext
 

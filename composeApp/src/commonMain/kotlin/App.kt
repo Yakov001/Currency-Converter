@@ -11,12 +11,15 @@ import com.arkivanov.decompose.extensions.compose.stack.animation.plus
 import com.arkivanov.decompose.extensions.compose.stack.animation.predictiveback.predictiveBackAnimation
 import com.arkivanov.decompose.extensions.compose.stack.animation.scale
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
+import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import presentation.components.AddEventFab
 import presentation.components.MyNavBar
 import presentation.decompose.RootComponent
-import presentation.decompose.component_event.EventContent
-import presentation.decompose.component_list.ListContent
+import presentation.decompose.event.EventContent
+import presentation.decompose.list.ListContent
+import presentation.decompose.settings.SettingsContent
 import presentation.theme.ResonanseTheme
+import utils.Log
 
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable
@@ -25,17 +28,19 @@ fun App(
 ) = ResonanseTheme {
 
     val (onFabClick, setOnFabClick) = remember { mutableStateOf({}) }
+    val currentScreen = rootComponent.stack.subscribeAsState().value.active.instance
 
     Scaffold(
         floatingActionButton = {
-            AddEventFab(onFabClick = onFabClick)
+            if (currentScreen is RootComponent.Child.ListChild) {
+                AddEventFab(onFabClick = onFabClick)
+            }
         },
         bottomBar = {
             MyNavBar(
-                selectedItemIndex = 1,
-                onItemSelected = {
-
-                }
+                currentScreen = currentScreen,
+                toList = rootComponent::navigateToList,
+                toSettings = rootComponent::navigateToSettings
             )
         }
     ) { paddingValues ->
@@ -64,7 +69,9 @@ fun App(
                 }
 
                 is RootComponent.Child.SettingsChild -> {
-
+                    SettingsContent(
+                        component = child.component
+                    )
                 }
             }
         }
