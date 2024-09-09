@@ -49,11 +49,7 @@ kotlin {
     }
     
     sourceSets {
-        
-        androidMain.dependencies {
-            implementation(compose.preview)
-            implementation(libs.androidx.activity.compose)
-        }
+
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -64,9 +60,18 @@ kotlin {
 
             implementation(libs.decompose)
             implementation(libs.decompose.compose)
+
+            implementation(libs.ktor.client.core)
+        }
+        androidMain.dependencies {
+            implementation(compose.preview)
+            implementation(libs.androidx.activity.compose)
+
+            implementation(libs.ktor.client.android)
         }
         wasmJsMain.dependencies {
             implementation(libs.serialization.json)
+
         }
     }
 }
@@ -107,10 +112,3 @@ android {
         debugImplementation(compose.uiTooling)
     }
 }
-//dependencies {
-//    implementation(libs.androidx.material3.android)
-//
-//    implementation(libs.decompose)
-//    implementation(libs.decompose.compose)
-//}
-
