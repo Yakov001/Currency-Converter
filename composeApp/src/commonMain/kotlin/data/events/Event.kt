@@ -1,4 +1,4 @@
-package data
+package data.events
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountBox

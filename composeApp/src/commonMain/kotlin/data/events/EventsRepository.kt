@@ -1,4 +1,4 @@
-package data
+package data.events
 
 import androidx.compose.runtime.toMutableStateList
 import kotlinx.coroutines.flow.MutableStateFlow

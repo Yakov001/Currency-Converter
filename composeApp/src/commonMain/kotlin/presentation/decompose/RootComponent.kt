@@ -6,11 +6,10 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
-import com.arkivanov.decompose.router.stack.pushToFront
 import com.arkivanov.decompose.router.stack.replaceAll
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.backhandler.BackHandlerOwner
-import data.Event
+import data.events.Event
 import kotlinx.serialization.Serializable
 import presentation.decompose.RootComponent.Child.EventChild
 import presentation.decompose.RootComponent.Child.ListChild
@@ -109,7 +108,7 @@ class RootComponentImpl(
         data object Settings : Config
 
         @Serializable
-        data class Event(val event: data.Event) : Config
+        data class Event(val event: data.events.Event) : Config
     }
 
 }

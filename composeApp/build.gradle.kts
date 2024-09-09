@@ -62,16 +62,17 @@ kotlin {
             implementation(libs.decompose.compose)
 
             implementation(libs.ktor.client.core)
+            implementation(libs.ktor.serialization.json)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.client.logging)
         }
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
-
-            implementation(libs.ktor.client.android)
+            implementation(libs.ktor.client.okhttp)
         }
         wasmJsMain.dependencies {
             implementation(libs.serialization.json)
-
         }
     }
 }

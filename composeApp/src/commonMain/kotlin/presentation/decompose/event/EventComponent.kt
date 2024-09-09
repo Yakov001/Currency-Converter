@@ -1,7 +1,7 @@
 package presentation.decompose.event
 
 import com.arkivanov.decompose.ComponentContext
-import data.Event
+import data.events.Event
 
 interface EventComponent {
     val event : Event

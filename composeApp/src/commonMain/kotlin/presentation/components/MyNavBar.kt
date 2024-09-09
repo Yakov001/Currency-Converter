@@ -17,7 +17,6 @@ fun MyNavBar(
     toList : () -> Unit,
     toSettings : () -> Unit
 ) {
-    Log.d(currentScreen::class.simpleName.toString())
     NavigationBar {
         NavigationBarItem(
             icon = {

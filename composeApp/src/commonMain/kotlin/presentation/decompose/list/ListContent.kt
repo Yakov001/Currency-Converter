@@ -9,8 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import data.Event
-import data.EventsRepository
+import data.events.Event
+import data.events.EventsRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import presentation.components.EventCard

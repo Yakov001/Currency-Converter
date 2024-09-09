@@ -1,7 +1,7 @@
 package presentation.decompose.list
 
 import com.arkivanov.decompose.ComponentContext
-import data.Event
+import data.events.Event
 
 interface ListComponent {
     fun navigateToEvent(event : Event)
