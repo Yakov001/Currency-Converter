@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.targets.js.binaryen.BinaryenExec
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
@@ -65,6 +66,9 @@ kotlin {
             implementation(libs.ktor.serialization.json)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.client.logging)
+
+            implementation(libs.coil)
+            implementation(libs.coil.network.ktor)
         }
         androidMain.dependencies {
             implementation(compose.preview)
@@ -112,4 +116,8 @@ android {
     dependencies {
         debugImplementation(compose.uiTooling)
     }
+}
+
+tasks.named<BinaryenExec>("compileProductionExecutableKotlinWasmJsOptimize") {
+    binaryenArgs = mutableListOf("-O1", "--all-features")
 }
