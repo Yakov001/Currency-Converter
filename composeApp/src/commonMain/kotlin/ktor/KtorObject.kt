@@ -1,7 +1,7 @@
 package ktor
 
-import data.people.Person
-import data.people.PersonWrapper
+import data.characters.Character
+import data.characters.CharacterWrapper
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
@@ -17,7 +17,8 @@ import kotlinx.serialization.json.Json
 
 object KtorObject {
 
-    private const val BASE_URL = "https://swapi.dev/api/"
+    private const val BASE_URL = "https://rickandmortyapi.com/api/"
+
     private val client = ktorClient {
         install(ContentNegotiation) {
             json(Json {
@@ -33,21 +34,14 @@ object KtorObject {
         }
     }
 
-    suspend fun getPersonString() : String {
-        return client.get("people/1/?format=json").body()
-    }
-
-    suspend fun getPeople() : List<Person> {
-        val wrapper : PersonWrapper = client.get {
+    suspend fun getCharacters(page : Int = 0) : List<Character> {
+        val characters : CharacterWrapper = client.get {
             url {
-                path("people/")
-                parameter("format", "json")
+                path("character/")
+                parameter("page", page)
             }
         }.body()
-        return wrapper.person
+        return characters.results
     }
 
-    suspend fun getPeopleJson() : String {
-        return client.get{url{path("people/?format=json")}}.body()
-    }
 }

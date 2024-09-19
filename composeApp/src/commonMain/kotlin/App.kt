@@ -17,9 +17,8 @@ import presentation.components.MyNavBar
 import presentation.decompose.RootComponent
 import presentation.decompose.event.EventContent
 import presentation.decompose.list.ListContent
-import presentation.decompose.settings.SettingsContent
+import presentation.decompose.settings.CharacterListContent
 import presentation.theme.ResonanseTheme
-import utils.Log
 
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable
@@ -40,7 +39,7 @@ fun App(
             MyNavBar(
                 currentScreen = currentScreen,
                 toList = rootComponent::navigateToList,
-                toSettings = rootComponent::navigateToSettings
+                toSettings = rootComponent::navigateToCharacterList
             )
         }
     ) { paddingValues ->
@@ -68,8 +67,8 @@ fun App(
                     )
                 }
 
-                is RootComponent.Child.SettingsChild -> {
-                    SettingsContent(
+                is RootComponent.Child.CharacterListChild -> {
+                    CharacterListContent(
                         component = child.component
                     )
                 }

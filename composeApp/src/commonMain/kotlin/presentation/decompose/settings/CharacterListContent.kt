@@ -23,8 +23,8 @@ import coil3.request.crossfade
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 
 @Composable
-fun SettingsContent(component: SettingsComponent) {
-    val people by component.people.subscribeAsState()
+fun CharacterListContent(component: CharacterListComponent) {
+    val characters by component.characters.subscribeAsState()
     Column(
         verticalArrangement = Arrangement.spacedBy(
             space = 16.dp,
@@ -37,13 +37,13 @@ fun SettingsContent(component: SettingsComponent) {
             modifier = Modifier.padding(16.dp)
         ) {
             items(
-                items = people
+                items = characters
             ) {
                 Card(
                     modifier = Modifier.fillMaxWidth().padding(16.dp)
                 ) {
                     SubcomposeAsyncImage(
-                        model = "https://cdn1.ozone.ru/s3/multimedia-n/6805339511.jpg",
+                        model = it.imageUrl,
                         contentDescription = null,
                         imageLoader = ImageLoader.Builder(LocalPlatformContext.current)
                             .crossfade(true)
@@ -53,7 +53,6 @@ fun SettingsContent(component: SettingsComponent) {
                     )
                     Text(text = it.name)
                     Text(text = it.gender)
-                    Text(text = it.height)
                 }
             }
         }

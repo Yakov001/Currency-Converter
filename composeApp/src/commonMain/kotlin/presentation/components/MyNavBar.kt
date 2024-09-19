@@ -9,7 +9,6 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import presentation.decompose.RootComponent
-import utils.Log
 
 @Composable
 fun MyNavBar(
@@ -37,7 +36,7 @@ fun MyNavBar(
                 )
             },
             label = { Text("Settings") },
-            selected = currentScreen is RootComponent.Child.SettingsChild,
+            selected = currentScreen is RootComponent.Child.CharacterListChild,
             onClick = toSettings
         )
     }
