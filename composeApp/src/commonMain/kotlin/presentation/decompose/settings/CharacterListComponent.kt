@@ -23,6 +23,7 @@ interface CharacterListComponent {
     val characters: Value<List<Character>>
     val searchText: StateFlow<String>
     fun onSearchTextChange(newText: String)
+    fun onCharacterClick(character: Character)
 }
 
 @OptIn(FlowPreview::class)
@@ -60,8 +61,12 @@ class CharacterListComponentImpl(
         _searchText.update { newText }
     }
 
+    override fun onCharacterClick(character: Character) {
+
+    }
+
     private suspend fun searchCharacter(name: String) {
-        val characters = KtorObject.searchCharacter(name = name)
+        val characters = KtorObject.getCharacters(name = name)
         _characters.update { characters }
     }
 

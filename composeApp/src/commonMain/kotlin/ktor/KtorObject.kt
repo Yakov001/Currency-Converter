@@ -35,21 +35,12 @@ object KtorObject {
         }
     }
 
-    suspend fun getCharacters(page : Int = 0) : List<Character> {
+    suspend fun getCharacters(page : Int? = null, name : String? = null) : List<Character> {
         val characters : CharacterWrapper = client.get {
             url {
                 path("character/")
-                parameter("page", page)
-            }
-        }.body()
-        return characters.results
-    }
-
-    suspend fun searchCharacter(name : String = "") : List<Character> {
-        val characters : CharacterWrapper = client.get {
-            url {
-                path("character/")
-                parameter("name", name)
+                page?.let { parameter("page", page) }
+                name?.let { parameter("name", name) }
             }
         }.body()
         return characters.results
