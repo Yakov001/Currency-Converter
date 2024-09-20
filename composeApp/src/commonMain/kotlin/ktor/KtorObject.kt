@@ -13,6 +13,7 @@ import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.http.path
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.json.Json
 
 object KtorObject {
@@ -39,6 +40,16 @@ object KtorObject {
             url {
                 path("character/")
                 parameter("page", page)
+            }
+        }.body()
+        return characters.results
+    }
+
+    suspend fun searchCharacter(name : String = "") : List<Character> {
+        val characters : CharacterWrapper = client.get {
+            url {
+                path("character/")
+                parameter("name", name)
             }
         }.body()
         return characters.results

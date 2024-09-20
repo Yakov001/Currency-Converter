@@ -11,7 +11,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,6 +27,7 @@ import com.arkivanov.decompose.extensions.compose.subscribeAsState
 @Composable
 fun CharacterListContent(component: CharacterListComponent) {
     val characters by component.characters.subscribeAsState()
+    val searchText by component.searchText.collectAsState()
     Column(
         verticalArrangement = Arrangement.spacedBy(
             space = 16.dp,
@@ -33,6 +36,11 @@ fun CharacterListContent(component: CharacterListComponent) {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()
     ) {
+        TextField(
+            value = searchText,
+            onValueChange = component::onSearchTextChange,
+            modifier = Modifier
+        )
         LazyColumn(
             modifier = Modifier.padding(16.dp)
         ) {
