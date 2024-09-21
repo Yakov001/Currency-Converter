@@ -15,6 +15,7 @@ import io.ktor.http.path
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.json.Json
+import utils.Log
 
 object KtorObject {
 
@@ -36,14 +37,17 @@ object KtorObject {
     }
 
     suspend fun getCharacters(page : Int? = null, name : String? = null) : List<Character> {
-        val characters : CharacterWrapper = client.get {
+        val response = client.get {
             url {
                 path("character/")
                 page?.let { parameter("page", page) }
                 name?.let { parameter("name", name) }
             }
-        }.body()
-        return characters.results
+        }
+        if (response.status.value in 200..299) {
+            val body : CharacterWrapper = response.body()
+            return body.results
+        } else return emptyList()
     }
 
 }

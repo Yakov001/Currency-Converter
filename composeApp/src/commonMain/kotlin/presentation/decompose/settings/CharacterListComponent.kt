@@ -42,10 +42,9 @@ class CharacterListComponentImpl(
         CoroutineScope(Dispatchers.Default).launch {
             _searchText
                 .debounce(500)
-                .filterNot { it.isBlank() }
                 .collectLatest {
-                    Log.d("search: $it")
-                    searchCharacter(it)
+                    if (it.isBlank()) fetchCharacters()
+                    else searchCharacter(it)
                 }
         }
     }
@@ -58,7 +57,7 @@ class CharacterListComponentImpl(
     }
 
     override fun onSearchTextChange(newText: String) {
-        _searchText.update { newText }
+        _searchText.update { newText.trim() }
     }
 
     override fun onCharacterClick(character: Character) {

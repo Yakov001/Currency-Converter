@@ -35,8 +35,7 @@ fun CharacterListCard(
         ),
         modifier = Modifier
             .fillMaxWidth()
-            .height(150.dp)
-            .padding(16.dp),
+            .height(150.dp),
         onClick = onClick
     ) {
         Row(
