@@ -15,9 +15,10 @@ import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import presentation.components.AddEventFab
 import presentation.components.MyNavBar
 import presentation.decompose.RootComponent
+import presentation.decompose.character.CharacterContent
 import presentation.decompose.event.EventContent
 import presentation.decompose.list.ListContent
-import presentation.decompose.settings.CharacterListContent
+import presentation.decompose.characters.CharacterListContent
 import presentation.theme.ResonanseTheme
 
 @OptIn(ExperimentalDecomposeApi::class)
@@ -69,6 +70,12 @@ fun App(
 
                 is RootComponent.Child.CharacterListChild -> {
                     CharacterListContent(
+                        component = child.component
+                    )
+                }
+
+                is RootComponent.Child.CharacterChild -> {
+                    CharacterContent(
                         component = child.component
                     )
                 }

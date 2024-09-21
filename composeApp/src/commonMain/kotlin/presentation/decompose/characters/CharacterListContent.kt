@@ -1,4 +1,4 @@
-package presentation.decompose.settings
+package presentation.decompose.characters
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -51,7 +51,7 @@ fun CharacterListContent(component: CharacterListComponent) {
             ) {
                 CharacterListCard(
                     character = it,
-                    onClick = { component.onCharacterClick(it) }
+                    onClick = { component.navigateToCharacter(it) }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
             }
@@ -71,7 +71,7 @@ private fun CharacterListContentPreview() {
 
                 override fun onSearchTextChange(newText: String) {}
 
-                override fun onCharacterClick(character: Character) {}
+                override fun navigateToCharacter(character: Character) {}
 
             }
         )

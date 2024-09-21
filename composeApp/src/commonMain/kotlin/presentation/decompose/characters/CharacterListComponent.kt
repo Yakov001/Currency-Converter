@@ -1,4 +1,4 @@
-package presentation.decompose.settings
+package presentation.decompose.characters
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.MutableValue
@@ -13,22 +13,22 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.filterNot
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ktor.KtorObject
-import utils.Log
 
 interface CharacterListComponent {
     val characters: Value<List<Character>>
     val searchText: StateFlow<String>
     fun onSearchTextChange(newText: String)
-    fun onCharacterClick(character: Character)
+
+    fun navigateToCharacter(character: Character)
 }
 
 @OptIn(FlowPreview::class)
 class CharacterListComponentImpl(
-    componentContext: ComponentContext
+    componentContext: ComponentContext,
+    private val navigateToCharacter : (Character) -> Unit
 ) : CharacterListComponent, ComponentContext by componentContext {
 
     private val _characters: MutableValue<List<Character>> = MutableValue(emptyList())
@@ -44,14 +44,14 @@ class CharacterListComponentImpl(
                 .debounce(500)
                 .collectLatest {
                     if (it.isBlank()) fetchCharacters()
-                    else searchCharacter(it)
+                    else fetchCharacters(name = it)
                 }
         }
     }
 
-    private fun fetchCharacters() {
+    private fun fetchCharacters(name: String? = null) {
         CoroutineScope(Dispatchers.Default).launch {
-            val characters = KtorObject.getCharacters()
+            val characters = KtorObject.getCharacters(name = name)
             _characters.update { characters }
         }
     }
@@ -60,13 +60,8 @@ class CharacterListComponentImpl(
         _searchText.update { newText.trim() }
     }
 
-    override fun onCharacterClick(character: Character) {
-
-    }
-
-    private suspend fun searchCharacter(name: String) {
-        val characters = KtorObject.getCharacters(name = name)
-        _characters.update { characters }
+    override fun navigateToCharacter(character: Character) {
+        navigateToCharacter.invoke(character)
     }
 
 }

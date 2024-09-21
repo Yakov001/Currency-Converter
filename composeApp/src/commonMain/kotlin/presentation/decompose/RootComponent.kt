@@ -9,17 +9,21 @@ import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.router.stack.replaceAll
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.backhandler.BackHandlerOwner
+import data.characters.Character
 import data.events.Event
 import kotlinx.serialization.Serializable
 import presentation.decompose.RootComponent.Child.EventChild
 import presentation.decompose.RootComponent.Child.ListChild
 import presentation.decompose.RootComponent.Child.CharacterListChild
+import presentation.decompose.RootComponent.Child.CharacterChild
+import presentation.decompose.character.CharacterComponent
+import presentation.decompose.character.CharacterComponentImpl
 import presentation.decompose.event.EventComponent
 import presentation.decompose.event.EventComponentImpl
 import presentation.decompose.list.ListComponent
 import presentation.decompose.list.ListComponentImpl
-import presentation.decompose.settings.CharacterListComponent
-import presentation.decompose.settings.CharacterListComponentImpl
+import presentation.decompose.characters.CharacterListComponent
+import presentation.decompose.characters.CharacterListComponentImpl
 
 interface RootComponent : BackHandlerOwner {
     val stack: Value<ChildStack<*, Child>>
@@ -35,6 +39,7 @@ interface RootComponent : BackHandlerOwner {
         class ListChild(val component: ListComponent) : Child()
         class CharacterListChild(val component: CharacterListComponent) : Child()
         class EventChild(val component: EventComponent) : Child()
+        class CharacterChild(val component: CharacterComponent) : Child()
     }
 }
 
@@ -68,10 +73,14 @@ class RootComponentImpl(
     private fun child(config: Config, componentContext: ComponentContext): RootComponent.Child =
         when (config) {
             is Config.List -> ListChild(listComponent(componentContext))
-            is Config.CharacterList -> CharacterListChild(detailsComponent(componentContext))
+            is Config.CharacterList -> CharacterListChild(characterListComponent(componentContext))
             is Config.Event -> EventChild(eventComponent(
                 componentContext = componentContext,
                 event = config.event
+            ))
+            is Config.Character -> CharacterChild(characterComponent(
+                componentContext = componentContext,
+                character = config.character
             ))
         }
 
@@ -87,15 +96,28 @@ class RootComponentImpl(
             },
         )
 
-    private fun detailsComponent(componentContext: ComponentContext): CharacterListComponent =
+    private fun characterListComponent(componentContext: ComponentContext): CharacterListComponent =
         CharacterListComponentImpl(
-            componentContext = componentContext
+            componentContext = componentContext,
+            navigateToCharacter = { character ->
+                navigation.push(
+                    Config.Character(
+                        character = character
+                    )
+                )
+            }
         )
 
     private fun eventComponent(componentContext: ComponentContext, event: Event): EventComponent =
         EventComponentImpl(
             componentContext = componentContext,
             event = event
+        )
+
+    private fun characterComponent(componentContext: ComponentContext, character: Character): CharacterComponent =
+        CharacterComponentImpl(
+            componentContext = componentContext,
+            character = character
         )
 
     @Serializable
@@ -109,6 +131,9 @@ class RootComponentImpl(
 
         @Serializable
         data class Event(val event: data.events.Event) : Config
+
+        @Serializable
+        data class Character(val character: data.characters.Character) : Config
     }
 
 }

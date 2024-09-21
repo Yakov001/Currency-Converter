@@ -21,7 +21,6 @@ fun ListContent(
     setOnFabClick: (() -> Unit) -> Unit
 ) {
     val scope = rememberCoroutineScope()
-//    val events by remember { mutableStateOf(Events.startEvents.toMutableStateList()) }
     val listState = rememberLazyListState()
     val onFabClick: () -> Unit = {
         EventsRepository.addEvent()
