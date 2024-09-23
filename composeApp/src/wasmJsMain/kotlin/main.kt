@@ -5,7 +5,7 @@ import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.arkivanov.essenty.lifecycle.resume
 import com.arkivanov.essenty.statekeeper.SerializableContainer
 import com.arkivanov.essenty.statekeeper.StateKeeperDispatcher
-import di.koinApplication
+import di.resonanseKoinApplication
 import kotlinx.browser.document
 import kotlinx.browser.localStorage
 import kotlinx.browser.window
@@ -39,7 +39,7 @@ fun main() {
     val rootComponent = RootComponentImpl(componentContext = componentContext)
 
     ComposeViewport(document.body!!) {
-        KoinApplication(application = koinApplication) {
+        KoinApplication(application = resonanseKoinApplication) {
             App(
                 rootComponent = rootComponent
             )
