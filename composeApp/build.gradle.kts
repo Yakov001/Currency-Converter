@@ -62,10 +62,7 @@ kotlin {
             implementation(libs.decompose)
             implementation(libs.decompose.compose)
 
-            implementation(libs.ktor.client.core)
-            implementation(libs.ktor.serialization.json)
-            implementation(libs.ktor.client.content.negotiation)
-            implementation(libs.ktor.client.logging)
+            implementation(libs.bundles.ktor.client)
 
             implementation(libs.coil)
             implementation(libs.coil.network.ktor)
