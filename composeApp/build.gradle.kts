@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.binaryen.BinaryenExec
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
@@ -30,7 +30,7 @@ kotlin {
         }
         binaries.executable()
     }
-    
+
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
@@ -66,11 +66,15 @@ kotlin {
 
             implementation(libs.coil)
             implementation(libs.coil.network.ktor)
+
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
         }
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
+            implementation(libs.koin.android)
         }
         wasmJsMain.dependencies {
             implementation(libs.serialization.json)

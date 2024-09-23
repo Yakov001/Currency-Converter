@@ -15,7 +15,9 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ktor.KtorObject
+import data.ktor.KtorInstance
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 interface CharacterListComponent {
     val characters: Value<List<Character>>
@@ -29,7 +31,9 @@ interface CharacterListComponent {
 class CharacterListComponentImpl(
     componentContext: ComponentContext,
     private val navigateToCharacter : (Character) -> Unit
-) : CharacterListComponent, ComponentContext by componentContext {
+) : CharacterListComponent, ComponentContext by componentContext, KoinComponent {
+
+    private val ktorInstance : KtorInstance by inject()
 
     private val _characters: MutableValue<List<Character>> = MutableValue(emptyList())
     override val characters: Value<List<Character>> = _characters
@@ -51,7 +55,7 @@ class CharacterListComponentImpl(
 
     private fun fetchCharacters(name: String? = null) {
         CoroutineScope(Dispatchers.Default).launch {
-            val characters = KtorObject.getCharacters(name = name)
+            val characters = ktorInstance.getCharacters(name = name)
             _characters.update { characters }
         }
     }

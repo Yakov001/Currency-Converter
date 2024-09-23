@@ -5,10 +5,12 @@ import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import com.arkivanov.essenty.lifecycle.resume
 import com.arkivanov.essenty.statekeeper.SerializableContainer
 import com.arkivanov.essenty.statekeeper.StateKeeperDispatcher
+import di.koinApplication
 import kotlinx.browser.document
 import kotlinx.browser.localStorage
 import kotlinx.browser.window
 import kotlinx.serialization.json.Json
+import org.koin.compose.KoinApplication
 import org.w3c.dom.get
 import org.w3c.dom.set
 import presentation.decompose.RootComponentImpl
@@ -37,9 +39,11 @@ fun main() {
     val rootComponent = RootComponentImpl(componentContext = componentContext)
 
     ComposeViewport(document.body!!) {
-        App(
-            rootComponent = rootComponent
-        )
+        KoinApplication(application = koinApplication) {
+            App(
+                rootComponent = rootComponent
+            )
+        }
     }
 
 }

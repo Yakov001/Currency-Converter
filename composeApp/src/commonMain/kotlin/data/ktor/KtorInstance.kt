@@ -1,4 +1,4 @@
-package ktor
+package data.ktor
 
 import data.characters.Character
 import data.characters.CharacterWrapper
@@ -13,13 +13,13 @@ import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.http.path
 import io.ktor.serialization.kotlinx.json.json
-import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.json.Json
-import utils.Log
 
-object KtorObject {
+class KtorInstance {
 
-    private const val BASE_URL = "https://rickandmortyapi.com/api/"
+    companion object {
+        private const val BASE_URL = "https://rickandmortyapi.com/api/"
+    }
 
     private val client = ktorClient {
         install(ContentNegotiation) {
