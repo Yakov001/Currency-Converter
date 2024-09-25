@@ -1,16 +1,14 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.jetbrainsCompose)
-    alias(libs.plugins.compose.compiler)
+    id(libs.plugins.kotlinMultiplatform.get().pluginId)
+    id(libs.plugins.androidLibrary.get().pluginId)
+    id(libs.plugins.jetbrainsCompose.get().pluginId)
+    id(libs.plugins.composeCompiler.get().pluginId)
 }
 
 kotlin {
     sourceSets {
-
-        jvmToolchain(17)
 
         @OptIn(ExperimentalWasmDsl::class)
         wasmJs {

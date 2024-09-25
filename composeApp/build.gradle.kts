@@ -1,18 +1,19 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.binaryen.BinaryenExec
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsCompose)
-    alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.serialization)
+    id(libs.plugins.kotlinMultiplatform.get().pluginId)
+    id(libs.plugins.androidApplication.get().pluginId)
+    id(libs.plugins.jetbrainsCompose.get().pluginId)
+    id(libs.plugins.composeCompiler.get().pluginId)
+    id(libs.plugins.serialization.get().pluginId)
 }
 
 kotlin {
+    
+    jvmToolchain(17)
+
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         moduleName = "composeApp"
@@ -31,12 +32,7 @@ kotlin {
         binaries.executable()
     }
 
-    androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
-        }
-    }
+    androidTarget()
     
     listOf(
         iosX64(),
@@ -109,10 +105,6 @@ android {
             isShrinkResources = true
             signingConfig = signingConfigs.getByName("debug")
         }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
     }
     buildFeatures {
         compose = true
