@@ -11,8 +11,8 @@ plugins {
 }
 
 kotlin {
-    
-    jvmToolchain(17)
+
+    jvmToolchain(libs.versions.jdk.get().toInt())
 
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {

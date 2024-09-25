@@ -1,4 +1,7 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.gradle.accessors.dm.LibrariesForLibs
+
+val libs = the<LibrariesForLibs>()
 
 plugins {
     id("kotlin-multiplatform")
@@ -10,7 +13,7 @@ plugins {
 kotlin {
     sourceSets {
 
-        jvmToolchain(17)
+        jvmToolchain(libs.versions.jdk.get().toInt())
 
         @OptIn(ExperimentalWasmDsl::class)
         wasmJs {
@@ -34,5 +37,5 @@ kotlin {
 }
 
 android {
-    compileSdk = 34
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 }
