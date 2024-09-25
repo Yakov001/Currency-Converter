@@ -69,6 +69,8 @@ kotlin {
 
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
+
+            implementation(projects.common.core)
         }
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)

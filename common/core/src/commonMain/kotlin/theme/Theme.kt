@@ -1,4 +1,4 @@
-package presentation.theme
+package theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -103,7 +103,7 @@ private val AppTypography = Typography(
 internal val LocalThemeIsDark = compositionLocalOf { mutableStateOf(true) }
 
 @Composable
-internal fun ResonanseTheme(
+fun ResonanseTheme(
     content: @Composable () -> Unit
 ) {
     val systemIsDark = isSystemInDarkTheme()

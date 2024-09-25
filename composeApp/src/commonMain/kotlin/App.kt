@@ -19,7 +19,7 @@ import presentation.decompose.character.CharacterContent
 import presentation.decompose.event.EventContent
 import presentation.decompose.list.ListContent
 import presentation.decompose.characters.CharacterListContent
-import presentation.theme.ResonanseTheme
+import theme.ResonanseTheme
 
 @OptIn(ExperimentalDecomposeApi::class)
 @Composable

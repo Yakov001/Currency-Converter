@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import presentation.components.CharacterListCard
-import presentation.theme.ResonanseTheme
+import theme.ResonanseTheme
 
 @Composable
 fun CharacterListContent(component: CharacterListComponent) {
