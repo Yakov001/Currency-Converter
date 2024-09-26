@@ -64,6 +64,7 @@ kotlin {
             implementation(libs.coil.network.ktor)
 
             implementation(projects.common.core)
+            implementation(projects.common.coins)
         }
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)

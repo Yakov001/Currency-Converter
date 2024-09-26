@@ -19,6 +19,7 @@ val resonanseKoinApplication : KoinAppDeclaration = {
     modules(
         commonModule(),
         remoteModule(),
-        coreModule()
+        coreModule(),
+        coinsModule()
     )
 }

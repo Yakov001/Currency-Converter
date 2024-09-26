@@ -12,10 +12,7 @@ import com.arkivanov.essenty.backhandler.BackHandlerOwner
 import data.characters.Character
 import data.events.Event
 import kotlinx.serialization.Serializable
-import presentation.decompose.RootComponent.Child.EventChild
-import presentation.decompose.RootComponent.Child.ListChild
-import presentation.decompose.RootComponent.Child.CharacterListChild
-import presentation.decompose.RootComponent.Child.CharacterChild
+import presentation.decompose.RootComponent.Child.*
 import presentation.decompose.character.CharacterComponent
 import presentation.decompose.character.CharacterComponentImpl
 import presentation.decompose.event.EventComponent
@@ -34,12 +31,15 @@ interface RootComponent : BackHandlerOwner {
 
     fun navigateToCharacterList()
 
+    fun navigateToCurrencyList()
+
     // Defines all possible child components
     sealed class Child {
         class ListChild(val component: ListComponent) : Child()
         class CharacterListChild(val component: CharacterListComponent) : Child()
         class EventChild(val component: EventComponent) : Child()
         class CharacterChild(val component: CharacterComponent) : Child()
+        class CurrencyListChild(val component: CurrencyListComponent) : Child()
     }
 }
 
@@ -53,7 +53,7 @@ class RootComponentImpl(
         childStack(
             source = navigation,
             serializer = Config.serializer(),
-            initialConfiguration = Config.List, // The initial child component is List
+            initialConfiguration = Config.CurrencyList, // The initial child component is List
             handleBackButton = true, // Automatically pop from the stack on back button presses
             childFactory = ::child,
         )
@@ -70,6 +70,10 @@ class RootComponentImpl(
         navigation.replaceAll(Config.CharacterList)
     }
 
+    override fun navigateToCurrencyList() {
+        navigation.replaceAll(Config.CurrencyList)
+    }
+
     private fun child(config: Config, componentContext: ComponentContext): RootComponent.Child =
         when (config) {
             is Config.List -> ListChild(listComponent(componentContext))
@@ -82,6 +86,7 @@ class RootComponentImpl(
                 componentContext = componentContext,
                 character = config.character
             ))
+            is Config.CurrencyList -> CurrencyListChild(currencyListComponent(componentContext))
         }
 
     private fun listComponent(componentContext: ComponentContext): ListComponent =
@@ -120,6 +125,11 @@ class RootComponentImpl(
             character = character
         )
 
+    private fun currencyListComponent(componentContext: ComponentContext) : CurrencyListComponent =
+        CurrencyListComponentImpl(
+            componentContext = componentContext
+        )
+
     @Serializable
     private sealed interface Config {
 
@@ -128,6 +138,9 @@ class RootComponentImpl(
 
         @Serializable
         data object CharacterList : Config
+
+        @Serializable
+        data object CurrencyList : Config
 
         @Serializable
         data class Event(val event: data.events.Event) : Config

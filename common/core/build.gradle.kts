@@ -10,6 +10,9 @@ kotlin {
             api(libs.koin.core)
             api(libs.koin.compose)
         }
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
+        }
     }
 }
 

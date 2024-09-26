@@ -23,7 +23,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import presentation.components.CharacterListCard
+import presentation.composables.CharacterListCard
 import theme.ResonanseTheme
 
 @Composable

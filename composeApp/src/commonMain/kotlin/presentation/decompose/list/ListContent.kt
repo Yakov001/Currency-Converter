@@ -13,7 +13,7 @@ import data.events.Event
 import data.events.EventsRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import presentation.components.EventCard
+import presentation.composables.EventCard
 
 @[Composable OptIn(ExperimentalFoundationApi::class)]
 fun ListContent(
