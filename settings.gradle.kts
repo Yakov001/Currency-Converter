@@ -18,3 +18,4 @@ dependencyResolutionManagement {
 rootProject.name = "Resonanse"
 include(":composeApp")
 include(":common:core")
+include(":common:coins")

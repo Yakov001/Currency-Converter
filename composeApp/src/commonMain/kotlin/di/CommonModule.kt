@@ -16,5 +16,9 @@ fun remoteModule() = module {
 }
 
 val resonanseKoinApplication : KoinAppDeclaration = {
-    modules(commonModule(), remoteModule())
+    modules(
+        commonModule(),
+        remoteModule(),
+        coreModule()
+    )
 }
