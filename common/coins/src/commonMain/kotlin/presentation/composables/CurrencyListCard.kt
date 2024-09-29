@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import data.ktor.model.Currency
+import data.model.Currency
 
 @Composable
 fun CurrencyListCard(currency: Currency) {
@@ -35,7 +35,7 @@ fun CurrencyListCard(currency: Currency) {
             modifier = Modifier.fillMaxSize().padding(16.dp)
         ) {
             Text(
-                text = currency.name,
+                text = currency.currencyCode,
                 style = MaterialTheme.typography.headlineSmall
             )
             Text(

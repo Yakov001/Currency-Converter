@@ -1,8 +1,9 @@
 package presentation.decompose
 
 import com.arkivanov.decompose.ComponentContext
-import data.ktor.KtorCoinDataSource
-import data.ktor.model.Currency
+import data.CoinRepository
+import data.Response
+import data.model.Currency
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -24,7 +25,7 @@ class CurrencyListComponentImpl(
     componentContext: ComponentContext,
 ) : CurrencyListComponent, ComponentContext by componentContext, KoinComponent {
 
-    private val dataSource : KtorCoinDataSource by inject()
+    private val repo : CoinRepository by inject()
 
     private val componentScope: CoroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
 
@@ -39,8 +40,8 @@ class CurrencyListComponentImpl(
 
     private fun fetchCurrencies() {
         componentScope.launch {
-            val currencies = dataSource.getCurrencies()
-            _currencies.update { currencies }
+            val currencies = repo.getCurrencies()
+            if (currencies is Response.Success) _currencies.update { currencies.data }
         }
     }
 }

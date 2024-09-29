@@ -1,6 +1,6 @@
-package data.ktor.model
+package data.model
 
-data class Currency(
+data class CurrencyInitial(
     val name : String,
     val usdRate : Double
 )
