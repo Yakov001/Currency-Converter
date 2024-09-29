@@ -2,6 +2,7 @@ package presentation.composables
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -13,7 +14,7 @@ import presentation.decompose.RootComponent
 @Composable
 fun MyNavBar(
     currentScreen: RootComponent.Child,
-    toList : () -> Unit,
+    toCurrencyList : () -> Unit,
     toSettings : () -> Unit
 ) {
     NavigationBar {
@@ -24,9 +25,9 @@ fun MyNavBar(
                     contentDescription = null
                 )
             },
-            label = { Text("Events") },
-            selected = currentScreen is RootComponent.Child.ListChild,
-            onClick = toList
+            label = { Text("Currencies") },
+            selected = currentScreen is RootComponent.Child.CurrencyListChild,
+            onClick = toCurrencyList
         )
         NavigationBarItem(
             icon = {

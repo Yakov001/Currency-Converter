@@ -1,8 +1,6 @@
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.stack.Children
@@ -12,13 +10,10 @@ import com.arkivanov.decompose.extensions.compose.stack.animation.predictiveback
 import com.arkivanov.decompose.extensions.compose.stack.animation.scale
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import presentation.composables.AddEventFab
 import presentation.composables.MyNavBar
 import presentation.decompose.CurrencyListContent
 import presentation.decompose.RootComponent
 import presentation.decompose.character.CharacterContent
-import presentation.decompose.event.EventContent
-import presentation.decompose.list.ListContent
 import presentation.decompose.characters.CharacterListContent
 import theme.ResonanseTheme
 
@@ -28,19 +23,13 @@ fun App(
     rootComponent: RootComponent
 ) = ResonanseTheme {
 
-    val (onFabClick, setOnFabClick) = remember { mutableStateOf({}) }
     val currentScreen = rootComponent.stack.subscribeAsState().value.active.instance
 
     Scaffold(
-        floatingActionButton = {
-            if (currentScreen is RootComponent.Child.ListChild) {
-                AddEventFab(onFabClick = onFabClick)
-            }
-        },
         bottomBar = {
             MyNavBar(
                 currentScreen = currentScreen,
-                toList = rootComponent::navigateToList,
+                toCurrencyList = rootComponent::navigateToCurrencyList,
                 toSettings = rootComponent::navigateToCharacterList
             )
         }
@@ -56,18 +45,6 @@ fun App(
             )
         ) {
             when (val child = it.instance) {
-                is RootComponent.Child.ListChild -> {
-                    ListContent(
-                        component = child.component,
-                        setOnFabClick = setOnFabClick
-                    )
-                }
-
-                is RootComponent.Child.EventChild -> {
-                    EventContent(
-                        component = child.component
-                    )
-                }
 
                 is RootComponent.Child.CharacterListChild -> {
                     CharacterListContent(
