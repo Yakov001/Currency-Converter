@@ -2,7 +2,7 @@ package presentation.decompose
 
 import com.arkivanov.decompose.ComponentContext
 import data.ktor.KtorCoinDataSource
-import data.ktor.dto.Currency
+import data.ktor.model.Currency
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
