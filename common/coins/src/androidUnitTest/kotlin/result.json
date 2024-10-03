@@ -1,0 +1,15 @@
+{
+  "countryCode": "code",
+  "countryName": "cName",
+  "currencyCode": "CODE",
+  "currencyName": "name",
+  "currencySymbol": "amog",
+  "flagImage": "sdlfjsd",
+  "rates": {
+    "date": "24072001",
+    "map": {
+      "usd": 1.0,
+      "rub": 2.0
+    }
+  }
+}

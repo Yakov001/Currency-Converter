@@ -3,25 +3,28 @@ package data
 import data.ktor.KtorCoinDataSource
 import data.model.Currency
 import data.model.CurrencyInitial
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.joinAll
+import kotlinx.coroutines.launch
 import utils.Log
 
 class CoinRepository(
     private val dataSource: KtorCoinDataSource
 ) {
-    suspend fun getCurrencies(): Response<List<Currency>> = coroutineScope {
+    suspend fun getCurrencies(): Flow<Response<List<Currency>>> = channelFlow {
         when (val initResponse = dataSource.getCurrenciesInitial()) {
-            is Response.Failure -> return@coroutineScope Response.Failure(initResponse.message)
+            is Response.Loading -> send(Response.Loading())
+            is Response.Failure -> send(Response.Failure(initResponse.message))
             is Response.Success -> {
-                val mappedObject = initResponse.data.rates.usdRates.map { CurrencyInitial(it.key, it.value) }
-
+                val mappedObject = initResponse.data.rates.rates.map { CurrencyInitial(it.key, it.value) }
+                Log.d("mappedObjectCount = ${mappedObject.count()}")
                 val currencies : ArrayList<Currency> = arrayListOf()
                 mappedObject.mapIndexed { i, obj ->
-                    async {
+                    launch {
                         Log.d(text = "$i start")
-                        val response = dataSource.getCurrenciesInitial(currencyCode = obj.name)
+                        val response = dataSource.getCurrenciesInitial(currencyCode = obj.currencyCode)
                         if (response is Response.Success) {
                             val data = response.data
                             currencies.add(
@@ -30,14 +33,15 @@ class CoinRepository(
                                     countryCode = data.countryCode,
                                     currencySymbol = data.currencySymbol,
                                     flagImageUrl = data.flagImage,
-                                    usdRate = initResponse.data.rates.usdRates.getOrElse(data.currencyCode, {0.0})
+                                    usdRate = obj.usdRate
                                 )
                             )
+                            send(Response.Success(currencies))
                         }
                         Log.d(text = "$i end")
                     }
-                }.awaitAll()
-                return@coroutineScope if (!currencies.isEmpty()) Response.Success(currencies) else Response.Failure()
+                }.joinAll()
+                if (currencies.isEmpty()) send(Response.Failure("List empty"))
             }
         }
     }

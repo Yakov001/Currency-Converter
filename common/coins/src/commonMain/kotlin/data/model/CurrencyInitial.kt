@@ -1,6 +1,6 @@
 package data.model
 
 data class CurrencyInitial(
-    val name : String,
+    val currencyCode : String,
     val usdRate : Double
 )

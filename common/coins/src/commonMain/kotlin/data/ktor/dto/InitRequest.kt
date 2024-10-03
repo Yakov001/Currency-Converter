@@ -1,6 +1,6 @@
 package data.ktor.dto
 
-
+import data.ktor.RatesSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -19,5 +19,6 @@ data class InitRequest(
     @SerialName("flagImage")
     val flagImage: String,
     @SerialName("rates")
+    @Serializable(with = RatesSerializer::class)
     val rates: Rates
 )

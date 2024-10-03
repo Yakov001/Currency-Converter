@@ -11,6 +11,13 @@ kotlin {
             implementation(libs.bundles.ktor.client)
             implementation(libs.decompose)
         }
+        androidUnitTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.serialization.json)
+            implementation(libs.mockito.core)
+            implementation(libs.mockito.kotlin)
+        }
     }
 }
 
