@@ -51,6 +51,6 @@ object RatesSerializer : KSerializer<Rates> {
                 it.value.jsonPrimitive.content.toDouble()
             }
 
-        return Rates(date = date, rates = currencyRates)
+        return Rates(date = date, ratesMap = currencyRates)
     }
 }

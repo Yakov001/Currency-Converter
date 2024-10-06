@@ -25,7 +25,7 @@ class KtorCoinDataSource(
                 return Response.Failure("error code: ${response.status.description}")
             }
         } catch (e : Exception) {
-            Log.d("caught exception: ${e.message}")
+            Log.d("Caught: ${e.message?.take(20)}")
             return Response.Failure("caught exception: ${e.message}")
         }
     }

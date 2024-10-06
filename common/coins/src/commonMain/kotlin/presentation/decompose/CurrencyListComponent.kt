@@ -18,6 +18,9 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import utils.Log
+import utils.SnackbarAction
+import utils.SnackbarController
+import utils.SnackbarEvent
 
 interface CurrencyListComponent {
     val currencies : StateFlow<List<Currency>>
@@ -42,9 +45,24 @@ class CurrencyListComponentImpl(
 
     private fun fetchCurrencies() {
         componentScope.launch {
-            repo.getCurrencies().collect { new ->
-                Log.d("collect: $new")
-                if (new is Response.Success) _currencies.update { new.data }
+            repo.getCurrencies().collectLatest { new ->
+                when (new) {
+                    is Response.Success -> _currencies.update { new.data }
+                    is Response.Loading -> {  }
+                    is Response.Failure -> {
+                        SnackbarController.sendEvent(
+                            SnackbarEvent(
+                                message = new.message,
+                                action = SnackbarAction(
+                                    name = "Retry",
+                                    action = {
+                                        fetchCurrencies()
+                                    }
+                                )
+                            )
+                        )
+                    }
+                }
             }
         }
     }

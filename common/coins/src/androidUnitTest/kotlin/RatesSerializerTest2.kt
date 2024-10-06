@@ -2,7 +2,6 @@ import data.ktor.dto.InitRequest
 import data.ktor.dto.Rates
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
-import kotlin.test.assertEquals
 
 class RatesSerializerTest2 {
 
@@ -23,7 +22,7 @@ class RatesSerializerTest2 {
         )
         println("rates = $rates")
         assert(rates.rates.date.isNotEmpty())
-        assert(rates.rates.rates.isNotEmpty())
+        assert(rates.rates.ratesMap.isNotEmpty())
     }
 
     private fun encodeStubToJson() : String = json.encodeToJsonElement(
@@ -41,7 +40,7 @@ class RatesSerializerTest2 {
             currencyName = "name",
             rates = Rates(
                 date = "24072001",
-                rates = mapOf(
+                ratesMap = mapOf(
                     "usd" to 1.0,
                     "rub" to 2.0,
                     "zwl" to 35207.56422877
