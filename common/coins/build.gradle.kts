@@ -10,6 +10,8 @@ kotlin {
 
             implementation(libs.bundles.ktor.client)
             implementation(libs.decompose)
+
+            implementation(libs.coil)
         }
         androidUnitTest.dependencies {
             implementation(libs.kotlin.test)

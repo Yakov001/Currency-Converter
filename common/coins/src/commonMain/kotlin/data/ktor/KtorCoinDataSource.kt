@@ -11,7 +11,7 @@ import utils.Log
 class KtorCoinDataSource(
     private val httpClient: HttpClient
 ) {
-    suspend fun getCurrenciesInitial(currencyCode : String = "usd"): Response<InitRequest> {
+    suspend fun getCurrenciesInitial(currencyCode: String = "usd"): Response<InitRequest> {
         try {
             val response = httpClient.get {
                 url {
@@ -24,9 +24,8 @@ class KtorCoinDataSource(
             } else {
                 return Response.Failure("error code: ${response.status.description}")
             }
-        } catch (e : Exception) {
-            Log.d("Caught: ${e.message?.take(20)}")
-            return Response.Failure("caught exception: ${e.message}")
+        } catch (e: Exception) {
+            return Response.Failure(e.message?.take(20).toString())
         }
     }
 

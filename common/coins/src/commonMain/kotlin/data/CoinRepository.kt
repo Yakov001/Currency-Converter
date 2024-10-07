@@ -22,12 +22,10 @@ class CoinRepository(
             is Response.Failure -> send(Response.Failure(initResponse.message))
             is Response.Success -> {
                 val mappedObject = initResponse.data.rates.ratesMap.map { CurrencyInitial(it.key, it.value) }
-                Log.d("mappedObject size:${mappedObject.size} object = ${mappedObject.joinToString(" ")}")
                 val currencies = mutableListOf<Currency>()
                 val mutex = Mutex()
                 mappedObject.mapIndexed { i, obj ->
                     launch {
-                        Log.d(text = "$i start")
                         val response = dataSource.getCurrenciesInitial(currencyCode = obj.currencyCode)
                         if (response is Response.Success) {
                             val data = response.data
@@ -35,17 +33,16 @@ class CoinRepository(
                                 currencies.add(
                                     Currency(
                                         currencyCode = data.currencyCode,
+                                        currencyName = data.currencyName,
                                         countryCode = data.countryCode,
                                         currencySymbol = data.currencySymbol,
                                         flagImageUrl = data.flagImage,
                                         usdRate = obj.usdRate
                                     )
                                 )
-                                Log.d("send ${currencies.size} elements")
                                 send(Response.Success(currencies.toList()))
                             }
                         }
-                        Log.d(text = "$i end")
                     }
                 }.joinAll()
                 if (currencies.isEmpty()) send(Response.Failure("List empty"))
