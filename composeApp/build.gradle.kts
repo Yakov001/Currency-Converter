@@ -58,17 +58,11 @@ kotlin {
             implementation(libs.decompose)
             implementation(libs.decompose.compose)
 
-            implementation(libs.bundles.ktor.client)
-
-            implementation(libs.coil)
-            implementation(libs.coil.network.ktor)
-
             implementation(projects.common.core)
             implementation(projects.common.coins)
         }
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
-            implementation(libs.ktor.client.okhttp)
             implementation(libs.koin.android)
         }
         wasmJsMain.dependencies {

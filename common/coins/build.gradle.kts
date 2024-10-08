@@ -12,6 +12,7 @@ kotlin {
             implementation(libs.decompose)
 
             implementation(libs.coil)
+            implementation(libs.coil.network.ktor)
         }
         androidUnitTest.dependencies {
             implementation(libs.kotlin.test)

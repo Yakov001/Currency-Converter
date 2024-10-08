@@ -15,13 +15,8 @@ import com.arkivanov.decompose.extensions.compose.stack.animation.plus
 import com.arkivanov.decompose.extensions.compose.stack.animation.predictiveback.predictiveBackAnimation
 import com.arkivanov.decompose.extensions.compose.stack.animation.scale
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
-import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import kotlinx.coroutines.launch
-import presentation.composables.MyNavBar
 import presentation.decompose.CurrencyListContent
-import presentation.decompose.RootComponent
-import presentation.decompose.character.CharacterContent
-import presentation.decompose.characters.CharacterListContent
 import theme.ResonanseTheme
 import utils.ObserveAsEvents
 import utils.SnackbarController
@@ -31,8 +26,6 @@ import utils.SnackbarController
 fun App(
     rootComponent: RootComponent
 ) = ResonanseTheme {
-
-    val currentScreen = rootComponent.stack.subscribeAsState().value.active.instance
 
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -49,7 +42,7 @@ fun App(
                 duration = SnackbarDuration.Long
             )
 
-            if(result == SnackbarResult.ActionPerformed) {
+            if (result == SnackbarResult.ActionPerformed) {
                 event.action?.action?.invoke()
             }
         }
@@ -60,13 +53,6 @@ fun App(
             SnackbarHost(
                 hostState = snackbarHostState
             )
-        },
-        bottomBar = {
-            MyNavBar(
-                currentScreen = currentScreen,
-                toCurrencyList = rootComponent::navigateToCurrencyList,
-                toSettings = rootComponent::navigateToCharacterList
-            )
         }
     ) { paddingValues ->
 
@@ -75,24 +61,11 @@ fun App(
             stack = rootComponent.stack,
             animation = predictiveBackAnimation(
                 backHandler = rootComponent.backHandler,
-                fallbackAnimation = stackAnimation (fade() + scale()),
+                fallbackAnimation = stackAnimation(fade() + scale()),
                 onBack = rootComponent::onBackClicked
             )
         ) {
             when (val child = it.instance) {
-
-                is RootComponent.Child.CharacterListChild -> {
-                    CharacterListContent(
-                        component = child.component
-                    )
-                }
-
-                is RootComponent.Child.CharacterChild -> {
-                    CharacterContent(
-                        component = child.component
-                    )
-                }
-
                 is RootComponent.Child.CurrencyListChild -> {
                     CurrencyListContent(
                         component = child.component

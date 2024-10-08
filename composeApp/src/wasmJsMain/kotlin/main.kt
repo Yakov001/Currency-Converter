@@ -13,7 +13,6 @@ import kotlinx.serialization.json.Json
 import org.koin.compose.KoinApplication
 import org.w3c.dom.get
 import org.w3c.dom.set
-import presentation.decompose.RootComponentImpl
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
@@ -25,11 +24,10 @@ fun main() {
 
     lifecycle.resume()
 
-    window.onbeforeunload =
-        {
-            localStorage[KEY_SAVED_STATE] = stateKeeper.save().encodeToString()
-            null
-        }
+    window.onbeforeunload = {
+        localStorage[KEY_SAVED_STATE] = stateKeeper.save().encodeToString()
+        null
+    }
 
     val componentContext = DefaultComponentContext(
         lifecycle = lifecycle,
@@ -50,10 +48,7 @@ fun main() {
 
 private const val KEY_SAVED_STATE = "saved_state"
 
-private val json =
-    Json {
-        allowStructuredMapKeys = true
-    }
+private val json = Json { allowStructuredMapKeys = true }
 
 private fun SerializableContainer.encodeToString(): String =
     json.encodeToString(SerializableContainer.serializer(), this)
