@@ -5,13 +5,11 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.common.currencies.api)
-
             implementation(libs.decompose)
         }
     }
 }
 
 android {
-    namespace = "com.resonanse.common.converter.api"
+    namespace = "com.resonanse.common.currencies.api"
 }

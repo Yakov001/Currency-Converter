@@ -22,11 +22,6 @@ import utils.SnackbarAction
 import utils.SnackbarController
 import utils.SnackbarEvent
 
-interface CurrencyListComponent {
-    val screenState: StateFlow<CurrencyListScreenState>
-    fun refreshCurrencies()
-}
-
 class CurrencyListComponentImpl(
     componentContext: ComponentContext,
     private val componentScope: CoroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())

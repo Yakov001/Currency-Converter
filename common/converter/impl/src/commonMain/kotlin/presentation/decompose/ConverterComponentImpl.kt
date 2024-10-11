@@ -1,6 +1,7 @@
 package presentation.decompose
 
 import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.router.slot.ChildSlot
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -14,7 +15,6 @@ import org.koin.core.component.KoinComponent
 
 class ConverterComponentImpl(
     componentContext: ComponentContext,
-    private val toCurrencyList : () -> Unit,
     private val componentScope: CoroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
 ) : ConverterComponent, ComponentContext by componentContext, KoinComponent {
 
@@ -27,12 +27,14 @@ class ConverterComponentImpl(
             initialValue = ConverterScreenState()
         )
 
+    override val currencyListSlot: StateFlow<ChildSlot<*, String>> = TODO()
+
     override fun changeFromCurrency() {
-        toCurrencyList()
+
     }
 
     override fun changeToCurrency() {
-        toCurrencyList()
+
     }
 
     override fun changeFromAmount(text: String) {
@@ -42,9 +44,5 @@ class ConverterComponentImpl(
             if (double < 0 || double.toString().length > 10) return
             _screenState.update { it.copy(fromAmount = double) }
         }
-    }
-
-    override fun navigateToCurrencyList() {
-        toCurrencyList.invoke()
     }
 }

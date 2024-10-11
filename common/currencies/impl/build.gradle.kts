@@ -7,6 +7,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.common.core)
+            implementation(projects.common.currencies.api)
 
             implementation(libs.bundles.ktor.client)
             implementation(libs.decompose)
@@ -25,5 +26,5 @@ kotlin {
 }
 
 android {
-    namespace = "com.resonanse.common.coins"
+    namespace = "com.resonanse.currencies.impl"
 }

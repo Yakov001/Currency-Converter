@@ -48,6 +48,12 @@ kotlin {
     sourceSets {
 
         commonMain.dependencies {
+            implementation(projects.common.core)
+            implementation(projects.common.currencies.api)
+            implementation(projects.common.currencies.impl)
+            implementation(projects.common.converter.api)
+            implementation(projects.common.converter.impl)
+
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
@@ -57,11 +63,6 @@ kotlin {
 
             implementation(libs.decompose)
             implementation(libs.decompose.compose)
-
-            implementation(projects.common.core)
-            implementation(projects.common.coins)
-            implementation(projects.common.converter.api)
-            implementation(projects.common.converter.impl)
         }
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
