@@ -16,6 +16,7 @@ import com.arkivanov.decompose.extensions.compose.stack.animation.predictiveback
 import com.arkivanov.decompose.extensions.compose.stack.animation.scale
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import kotlinx.coroutines.launch
+import presentation.decompose.ConverterContent
 import presentation.decompose.CurrencyListContent
 import theme.ResonanseTheme
 import utils.ObserveAsEvents
@@ -68,6 +69,12 @@ fun App(
             when (val child = it.instance) {
                 is RootComponent.Child.CurrencyListChild -> {
                     CurrencyListContent(
+                        component = child.component
+                    )
+                }
+
+                is RootComponent.Child.ConverterChild -> {
+                    ConverterContent(
                         component = child.component
                     )
                 }

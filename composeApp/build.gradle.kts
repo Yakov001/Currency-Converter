@@ -60,6 +60,8 @@ kotlin {
 
             implementation(projects.common.core)
             implementation(projects.common.coins)
+            implementation(projects.common.converter.api)
+            implementation(projects.common.converter.impl)
         }
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)

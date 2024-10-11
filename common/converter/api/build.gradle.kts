@@ -1,8 +1,7 @@
 plugins {
-    id(libs.plugins.javaLibrary.get().pluginId)
-    id(libs.plugins.kotlinJvm.get().pluginId)
+    id("multiplatform-api-setup")
 }
 
-dependencies {
-    implementation(libs.kotlinx.coroutines.core)
+android {
+    namespace = "com.resonanse.common.converter.api"
 }

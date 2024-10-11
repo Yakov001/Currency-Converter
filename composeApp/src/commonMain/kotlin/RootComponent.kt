@@ -1,13 +1,15 @@
+import RootComponent.Child.*
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.pop
-import com.arkivanov.decompose.router.stack.replaceAll
+import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.backhandler.BackHandlerOwner
 import kotlinx.serialization.Serializable
-import RootComponent.Child.CurrencyListChild
+import presentation.decompose.ConverterComponent
+import presentation.decompose.ConverterComponentImpl
 import presentation.decompose.CurrencyListComponent
 import presentation.decompose.CurrencyListComponentImpl
 
@@ -16,10 +18,9 @@ interface RootComponent : BackHandlerOwner {
 
     fun onBackClicked()
 
-    fun navigateToCurrencyList()
-
     sealed class Child {
         class CurrencyListChild(val component: CurrencyListComponent) : Child()
+        class ConverterChild(val component: ConverterComponent) : Child()
     }
 }
 
@@ -33,22 +34,19 @@ class RootComponentImpl(
         childStack(
             source = navigation,
             serializer = Config.serializer(),
-            initialConfiguration = Config.CurrencyList,
+            initialConfiguration = Config.Converter,
             handleBackButton = true, // Automatically pop from the stack on back button presses
-            childFactory = ::child,
+            childFactory = ::child
         )
 
     override fun onBackClicked() {
         navigation.pop()
     }
 
-    override fun navigateToCurrencyList() {
-        navigation.replaceAll(Config.CurrencyList)
-    }
-
     private fun child(config: Config, componentContext: ComponentContext): RootComponent.Child =
         when (config) {
             is Config.CurrencyList -> CurrencyListChild(currencyListComponent(componentContext))
+            is Config.Converter -> ConverterChild(converterComponent(componentContext))
         }
 
     private fun currencyListComponent(componentContext: ComponentContext) : CurrencyListComponent =
@@ -56,11 +54,22 @@ class RootComponentImpl(
             componentContext = componentContext
         )
 
+    private fun converterComponent(componentContext: ComponentContext) : ConverterComponent =
+        ConverterComponentImpl(
+            componentContext = componentContext,
+            toCurrencyList = {
+                navigation.push(Config.CurrencyList)
+            }
+        )
+
     @Serializable
     private sealed interface Config {
 
         @Serializable
         data object CurrencyList : Config
+
+        @Serializable
+        data object Converter : Config
 
     }
 

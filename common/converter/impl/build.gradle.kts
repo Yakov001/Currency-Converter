@@ -7,8 +7,8 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.common.core)
+            implementation(projects.common.converter.api)
 
-            implementation(libs.bundles.ktor.client)
             implementation(libs.decompose)
 
             implementation(libs.coil)
