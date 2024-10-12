@@ -5,7 +5,7 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.common.currencies.api)
+            api(projects.common.currencies.api)
 
             implementation(libs.decompose)
         }

@@ -28,11 +28,12 @@ import coil3.request.crossfade
 import data.model.Currency
 
 @Composable
-fun CurrencyListCard(currency: Currency) {
+fun CurrencyListCard(currency: Currency, onClick: () -> Unit) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 3.dp
         ),
+        onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
             .height(150.dp)
@@ -59,8 +60,7 @@ fun CurrencyListCard(currency: Currency) {
                         width = 2.dp,
                         color = MaterialTheme.colorScheme.primary,
                         shape = CircleShape
-                    )
-                ,
+                    ),
                 loading = { CircularProgressIndicator() },
                 contentScale = ContentScale.Crop
             )

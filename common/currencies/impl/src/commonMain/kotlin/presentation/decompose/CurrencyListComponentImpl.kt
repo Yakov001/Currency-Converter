@@ -3,6 +3,7 @@ package presentation.decompose
 import com.arkivanov.decompose.ComponentContext
 import data.CoinRepository
 import data.Response
+import data.model.Currency
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -24,6 +25,7 @@ import utils.SnackbarEvent
 
 class CurrencyListComponentImpl(
     componentContext: ComponentContext,
+    private val onCurrencySelected: (Currency) -> Unit,
     private val componentScope: CoroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
 ) : CurrencyListComponent, ComponentContext by componentContext, KoinComponent {
 
@@ -41,6 +43,10 @@ class CurrencyListComponentImpl(
 
     override fun refreshCurrencies() {
         fetchCurrencies()
+    }
+
+    override fun onCurrencyClick(currency: Currency) {
+        onCurrencySelected.invoke(currency)
     }
 
     private fun fetchCurrencies() {

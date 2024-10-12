@@ -1,4 +1,4 @@
-import RootComponent.Child.*
+import RootComponent.Child.ConverterChild
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation

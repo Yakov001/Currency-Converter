@@ -43,6 +43,7 @@ fun CurrencyListContent(component: CurrencyListComponent) {
             ) {
                 CurrencyListCard(
                     currency = it,
+                    onClick = { component.onCurrencyClick(it) }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
             }

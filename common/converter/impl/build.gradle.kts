@@ -8,8 +8,10 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.common.core)
             implementation(projects.common.converter.api)
+            implementation(projects.common.currencies.impl)
 
             implementation(libs.decompose)
+            implementation(libs.decompose.compose)
 
             implementation(libs.coil)
             implementation(libs.coil.network.ktor)
