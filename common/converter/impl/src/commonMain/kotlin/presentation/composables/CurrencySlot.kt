@@ -4,8 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -75,12 +77,11 @@ fun CurrencySlot(
                 )
         )
         Column(
-            verticalArrangement = Arrangement.spacedBy(
-                space = 16.dp,
-                alignment = Alignment.CenterVertically
-            ),
+            verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.Start,
-            modifier = Modifier.fillMaxHeight()
+            modifier = Modifier
+                .fillMaxHeight()
+                .weight(1f)
         ) {
             Text(
                 text = currencyCode,
@@ -88,10 +89,12 @@ fun CurrencySlot(
             )
             Text(
                 text = currencyName,
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodySmall
             )
         }
-        textField()
+        Box(Modifier.weight(2f)) {
+            textField()
+        }
     }
 }
 
@@ -104,11 +107,8 @@ fun CurrencySlotTextView(
 ) {
     OutlinedTextField(
         value = text,
-        singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-        onValueChange = {
-            onTextChange(it)
-        },
+        onValueChange = onTextChange,
         enabled = enabled,
         shape = MaterialTheme.shapes.medium,
         modifier = modifier

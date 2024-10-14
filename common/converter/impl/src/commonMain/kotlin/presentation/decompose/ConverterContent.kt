@@ -44,10 +44,7 @@ fun ConverterContent(component: ConverterComponent) {
                 textField = {
                     CurrencySlotTextView(
                         text = state.fromAmountText,
-                        onTextChange = {
-                            component.changeFromAmount(it)
-                        },
-                        modifier = Modifier
+                        onTextChange = component::changeFromAmount
                     )
                 }
             )
@@ -60,8 +57,7 @@ fun ConverterContent(component: ConverterComponent) {
                     CurrencySlotTextView(
                         text = state.toAmountText,
                         onTextChange = { },
-                        enabled = false,
-                        modifier = Modifier
+                        enabled = false
                     )
                 }
             )

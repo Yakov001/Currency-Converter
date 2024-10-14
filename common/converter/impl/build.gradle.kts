@@ -28,4 +28,8 @@ kotlin {
 
 android {
     namespace = "com.resonanse.common.converter.impl"
+    dependencies {
+        implementation(libs.compose.ui.tooling.preview)
+        debugImplementation(libs.compose.ui.tooling)
+    }
 }
