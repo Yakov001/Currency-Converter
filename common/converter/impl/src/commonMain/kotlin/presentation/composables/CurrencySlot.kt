@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,12 +24,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import coil3.ImageLoader
 import coil3.compose.LocalPlatformContext
 import coil3.compose.SubcomposeAsyncImage
 import coil3.request.crossfade
+import presentation.decompose.TextFieldState
 
 @Composable
 fun CurrencySlot(
@@ -100,17 +102,20 @@ fun CurrencySlot(
 
 @Composable
 fun CurrencySlotTextView(
-    text: String,
-    onTextChange: (String) -> Unit,
+    amountState: TextFieldState,
+    onTextChange: (TextFieldState) -> Unit,
     enabled: Boolean = true,
     modifier: Modifier = Modifier
 ) {
     OutlinedTextField(
-        value = text,
+        value = amountState.toCompose(),
+        onValueChange = { onTextChange(it.toModel()) },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-        onValueChange = onTextChange,
         enabled = enabled,
         shape = MaterialTheme.shapes.medium,
         modifier = modifier
     )
 }
+
+fun TextFieldState.toCompose() = TextFieldValue(amountText, TextRange(caretPos))
+fun TextFieldValue.toModel() = TextFieldState(text.toDoubleOrNull() ?: 0.0, selection.start)

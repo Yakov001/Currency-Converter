@@ -1,31 +1,12 @@
 package presentation.decompose
 
-import kotlin.math.ceil
-import kotlin.math.floor
-
 data class ConverterScreenState(
     val fromCurrency: Currency = Currency.stubFrom(),
     val toCurrency: Currency = Currency.stubTo(),
 
-    val fromAmount: Double = 0.0,
-    val toAmount: Double = 0.0
-) {
-    val fromAmountText: String
-        get() {
-            return if (floor(fromAmount) == ceil(fromAmount))
-                fromAmount.toInt().toString()
-            else
-                fromAmount.toString()
-        }
-
-    val toAmountText: String
-        get() {
-            return if (floor(toAmount) == ceil(toAmount))
-                toAmount.toInt().toString()
-            else
-                toAmount.toString()
-        }
-}
+    val fromAmountState: TextFieldState = TextFieldState(),
+    val toAmountState: TextFieldState = TextFieldState()
+)
 
 data class Currency(
     val currencyCode: String,
@@ -50,6 +31,6 @@ data class Currency(
     }
 }
 
-fun data.model.Currency.toConverterCurrency() : Currency = Currency(
+fun data.model.Currency.toConverterCurrency(): Currency = Currency(
     currencyCode, currencyName, flagImageUrl, usdRate
 )

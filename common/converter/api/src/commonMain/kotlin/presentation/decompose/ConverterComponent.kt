@@ -9,5 +9,5 @@ interface ConverterComponent {
     val screenState: StateFlow<ConverterScreenState>
     fun changeFromCurrency()
     fun changeToCurrency()
-    fun changeFromAmount(text: String)
+    fun changeFromState(state: TextFieldState)
 }

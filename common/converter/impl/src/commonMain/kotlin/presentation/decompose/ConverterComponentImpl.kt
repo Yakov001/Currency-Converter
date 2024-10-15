@@ -33,16 +33,16 @@ class ConverterComponentImpl(
             initialValue = ConverterScreenState()
         )
 
-    private val dialogNavigation = SlotNavigation<CurrenciesConfig>()
+    private val slotNavigation = SlotNavigation<CurrenciesConfig>()
     override val currencyListSlot: Value<ChildSlot<*, CurrencyListComponent>> = childSlot(
-        source = dialogNavigation,
+        source = slotNavigation,
         serializer = CurrenciesConfig.serializer(), // Or null to disable navigation state saving
         handleBackButton = true, // Close the dialog on back button press
     ) { config, childComponentContext ->
         CurrencyListComponentImpl(
             componentContext = childComponentContext,
             onCurrencySelected = { currencySelected ->
-                dialogNavigation.dismiss()
+                slotNavigation.dismiss()
                 when (config.changedCurrenciesConfig) {
                     CurrenciesConfig.ChangedCurrency.From -> {
                         _screenState.update { it.copy(fromCurrency = currencySelected.toConverterCurrency()) }
@@ -56,19 +56,19 @@ class ConverterComponentImpl(
     }
 
     override fun changeFromCurrency() {
-        dialogNavigation.activate(CurrenciesConfig(CurrenciesConfig.ChangedCurrency.From))
+        slotNavigation.activate(CurrenciesConfig(CurrenciesConfig.ChangedCurrency.From))
     }
 
     override fun changeToCurrency() {
-        dialogNavigation.activate(CurrenciesConfig(CurrenciesConfig.ChangedCurrency.To))
+        slotNavigation.activate(CurrenciesConfig(CurrenciesConfig.ChangedCurrency.To))
     }
 
-    override fun changeFromAmount(text: String) {
-        if (text.isBlank()) _screenState.update { it.copy(fromAmount = 0.0) }
-        if (text.contains("-")) return
-        text.toDoubleOrNull()?.let { double ->
+    override fun changeFromState(state: TextFieldState) {
+        if (state.amountText.contains("-")) return
+        state.amount.let { double ->
             if (double < 0 || double.toString().length > 10) return
-            _screenState.update { it.copy(fromAmount = double) }
+            if (double == 0.0) _screenState.update { it.copy(fromAmountState = state.copy(caretPos = 1)) }
+            else _screenState.update { it.copy(fromAmountState = state) }
         }
     }
 
