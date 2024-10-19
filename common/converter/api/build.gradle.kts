@@ -9,6 +9,11 @@ kotlin {
 
             implementation(libs.decompose)
         }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.mockito.core)
+            implementation(libs.mockito.kotlin)
+        }
     }
 }
 

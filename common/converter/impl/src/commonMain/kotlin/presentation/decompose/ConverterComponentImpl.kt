@@ -7,6 +7,7 @@ import com.arkivanov.decompose.router.slot.activate
 import com.arkivanov.decompose.router.slot.childSlot
 import com.arkivanov.decompose.router.slot.dismiss
 import com.arkivanov.decompose.value.Value
+import domain.ConversionUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -18,6 +19,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.serialization.Serializable
 import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 class ConverterComponentImpl(
     componentContext: ComponentContext,
@@ -43,16 +45,33 @@ class ConverterComponentImpl(
             componentContext = childComponentContext,
             onCurrencySelected = { currencySelected ->
                 slotNavigation.dismiss()
-                when (config.changedCurrenciesConfig) {
-                    CurrenciesConfig.ChangedCurrency.From -> {
-                        _screenState.update { it.copy(fromCurrency = currencySelected.toConverterCurrency()) }
-                    }
-                    CurrenciesConfig.ChangedCurrency.To -> {
-                        _screenState.update { it.copy(toCurrency = currencySelected.toConverterCurrency()) }
+                _screenState.update {
+                    when (config.changedCurrenciesConfig) {
+                        CurrenciesConfig.ChangedCurrency.From -> {
+                            it.copy(fromCurrency = currencySelected.toConverterCurrency())
+                        }
+                        CurrenciesConfig.ChangedCurrency.To -> {
+                            it.copy(toCurrency = currencySelected.toConverterCurrency())
+                        }
                     }
                 }
+                recalculateToAmount()
             }
         )
+    }
+
+    private val useCase : ConversionUseCase by inject()
+    override fun recalculateToAmount() {
+        _screenState.update { state ->
+            val newAmount = useCase.calculateToAmount(
+                fromAmount = state.fromAmountState.amount,
+                fromCurrency = state.fromCurrency,
+                toCurrency = state.toCurrency
+            )
+            state.copy(
+                toAmountState = state.toAmountState.copy(newAmount)
+            )
+        }
     }
 
     override fun changeFromCurrency() {
@@ -70,6 +89,7 @@ class ConverterComponentImpl(
             if (double == 0.0) _screenState.update { it.copy(fromAmountState = state.copy(caretPos = 1)) }
             else _screenState.update { it.copy(fromAmountState = state) }
         }
+        recalculateToAmount()
     }
 
     @Serializable
