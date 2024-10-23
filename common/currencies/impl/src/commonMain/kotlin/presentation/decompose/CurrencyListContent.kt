@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -33,13 +34,19 @@ fun CurrencyListContent(component: CurrencyListComponent) {
 
     Column(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Bottom
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        TextField(
+            value = screenState.searchText,
+            onValueChange = component::searchByName,
+            modifier = Modifier.height(50.dp)
+        )
         LazyColumn(
             modifier = Modifier.weight(9f)
         ) {
             items(
-                items = screenState.data ?: emptyList()
+                items = screenState.sortedData ?: emptyList()
             ) {
                 CurrencyListCard(
                     currency = it,
