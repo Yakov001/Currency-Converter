@@ -1,14 +1,24 @@
 package di
 
-import data.CoinRepository
-import data.ktor.KtorCoinDataSource
+import data.repository.CurrenciesRepository
+import data.data_source.ktor.KtorCurrenciesDataSource
+import data.data_source.local.KStoreDataSource
 import org.koin.dsl.module
 
-fun coinsModule() = module {
+fun currenciesModule() = module {
+    includes(
+        kStoreFactoryModule(),
+        kStoreDataSourceModule()
+    )
     single {
-        KtorCoinDataSource(httpClient = get())
+        KStoreDataSource(
+            store = get()
+        )
     }
     single {
-        CoinRepository(dataSource = get())
+        KtorCurrenciesDataSource(httpClient = get())
+    }
+    single {
+        CurrenciesRepository(dataSource = get(), kStore = get())
     }
 }

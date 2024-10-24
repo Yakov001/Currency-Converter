@@ -1,13 +1,13 @@
-package data.ktor
+package data.data_source.ktor
 
 import data.Response
-import data.ktor.dto.InitRequest
+import data.data_source.ktor.dto.InitRequest
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.http.path
 
-class KtorCoinDataSource(
+class KtorCurrenciesDataSource(
     private val httpClient: HttpClient
 ) {
     suspend fun getCurrenciesInitial(currencyCode: String = "usd"): Response<InitRequest> {

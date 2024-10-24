@@ -2,10 +2,11 @@ package di
 
 import org.koin.dsl.KoinAppDeclaration
 
-val resonanseKoinApplication : KoinAppDeclaration = {
+fun resonanseKoinAppDeclaration(block : KoinAppDeclaration? = null) : KoinAppDeclaration = {
+    block?.invoke(this)
     modules(
         coreModule(),
-        coinsModule(),
+        currenciesModule(),
         converterModule()
     )
 }

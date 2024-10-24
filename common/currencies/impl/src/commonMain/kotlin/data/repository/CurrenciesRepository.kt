@@ -1,6 +1,8 @@
-package data
+package data.repository
 
-import data.ktor.KtorCoinDataSource
+import data.Response
+import data.data_source.ktor.KtorCurrenciesDataSource
+import data.data_source.local.KStoreDataSource
 import data.model.Currency
 import data.model.CurrencyInitial
 import kotlinx.coroutines.channels.BufferOverflow
@@ -12,8 +14,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
-class CoinRepository(
-    private val dataSource: KtorCoinDataSource
+class CurrenciesRepository(
+    private val dataSource: KtorCurrenciesDataSource,
+    private val kStore : KStoreDataSource
 ) {
     suspend fun getCurrencies(): Flow<Response<List<Currency>>> = channelFlow {
         when (val initResponse = dataSource.getCurrenciesInitial()) {
@@ -39,6 +42,7 @@ class CoinRepository(
                                         usdRate = obj.usdRate
                                     )
                                 )
+                                kStore.addCurrencies(currencies)
                                 send(Response.Success(currencies.toList()))
                             }
                         }

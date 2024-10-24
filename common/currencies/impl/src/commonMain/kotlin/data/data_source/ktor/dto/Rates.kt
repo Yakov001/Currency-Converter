@@ -1,4 +1,4 @@
-package data.ktor.dto
+package data.data_source.ktor.dto
 
 data class Rates(
     val date: String,

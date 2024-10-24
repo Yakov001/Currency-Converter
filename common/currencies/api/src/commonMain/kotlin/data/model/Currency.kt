@@ -1,5 +1,8 @@
 package data.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Currency(
     val currencyCode: String,
     val currencyName: String,

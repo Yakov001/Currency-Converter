@@ -26,6 +26,14 @@ kotlin {
         iosArm64()
         iosSimulatorArm64()
 
+        targets.configureEach {
+            compilations.configureEach {
+                compileTaskProvider.get().compilerOptions {
+                    freeCompilerArgs.add("-Xexpect-actual-classes")
+                }
+            }
+        }
+
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)

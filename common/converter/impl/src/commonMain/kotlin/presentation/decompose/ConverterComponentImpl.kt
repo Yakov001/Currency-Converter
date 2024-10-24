@@ -96,6 +96,7 @@ class ConverterComponentImpl(
     private data class CurrenciesConfig(
         val changedCurrenciesConfig: ChangedCurrency
     ) {
+        @Serializable
         sealed interface ChangedCurrency {
             data object From : ChangedCurrency
             data object To : ChangedCurrency

@@ -10,18 +10,16 @@ kotlin {
             implementation(projects.common.converter.api)
             implementation(projects.common.currencies.impl)
 
+            implementation(libs.bundles.coil)
+
             implementation(libs.decompose)
             implementation(libs.decompose.compose)
-
-            implementation(libs.coil)
-            implementation(libs.coil.network.ktor)
         }
         androidUnitTest.dependencies {
             implementation(libs.kotlin.test)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.serialization.json)
-            implementation(libs.mockito.core)
-            implementation(libs.mockito.kotlin)
+            implementation(libs.bundles.mockito)
         }
     }
 }

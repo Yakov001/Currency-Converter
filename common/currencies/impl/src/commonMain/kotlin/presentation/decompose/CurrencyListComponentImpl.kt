@@ -2,7 +2,7 @@ package presentation.decompose
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnDestroy
-import data.CoinRepository
+import data.repository.CurrenciesRepository
 import data.Response
 import data.model.Currency
 import kotlinx.coroutines.CoroutineScope
@@ -13,7 +13,6 @@ import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -36,7 +35,7 @@ class CurrencyListComponentImpl(
     private val componentScope: CoroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
 ) : CurrencyListComponent, ComponentContext by componentContext, KoinComponent {
 
-    private val repo: CoinRepository by inject()
+    private val repo: CurrenciesRepository by inject()
 
     private val _screenState = MutableStateFlow(CurrencyListScreenState())
     override val screenState: StateFlow<CurrencyListScreenState> = _screenState

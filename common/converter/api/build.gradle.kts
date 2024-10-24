@@ -11,8 +11,7 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-            implementation(libs.mockito.core)
-            implementation(libs.mockito.kotlin)
+            implementation(libs.bundles.mockito)
         }
     }
 }
