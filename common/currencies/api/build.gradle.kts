@@ -7,6 +7,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(libs.decompose)
+            api(libs.kotlinx.datetime)
         }
     }
 }

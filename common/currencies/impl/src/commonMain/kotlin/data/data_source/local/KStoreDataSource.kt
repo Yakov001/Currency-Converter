@@ -1,18 +1,15 @@
 package data.data_source.local
 
-import data.model.Currency
+import data.model.CurrencyDto
 import io.github.xxfast.kstore.KStore
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import utils.Log
 
 class KStoreDataSource(
-    private val store : KStore<List<Currency>>
+    private val store : KStore<List<CurrencyDto>>
 ) {
 
-    suspend fun getAllCurrencies() : List<Currency>? = store.get()
+    suspend fun getAllCurrencies() : List<CurrencyDto>? = store.get()
 
-    suspend fun addCurrency(cur : Currency) {
+    suspend fun addCurrency(cur : CurrencyDto) {
         store.update { nullableList ->
             nullableList?.let { list ->
                 list.toMutableList().apply { add(cur) }
@@ -20,7 +17,7 @@ class KStoreDataSource(
         }
     }
 
-    suspend fun addCurrencies(curs : List<Currency>) {
+    suspend fun addCurrencies(curs : List<CurrencyDto>) {
         // TODO() not drop old results, just replace them with new ones
         store.update { oldList ->
             curs

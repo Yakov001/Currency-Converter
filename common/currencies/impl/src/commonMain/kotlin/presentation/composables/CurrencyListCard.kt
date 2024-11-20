@@ -25,10 +25,10 @@ import coil3.ImageLoader
 import coil3.compose.LocalPlatformContext
 import coil3.compose.SubcomposeAsyncImage
 import coil3.request.crossfade
-import data.model.Currency
+import presentation.model.CurrencyEntity
 
 @Composable
-fun CurrencyListCard(currency: Currency, onClick: () -> Unit) {
+fun CurrencyListCard(currency: CurrencyEntity, onClick: () -> Unit) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 3.dp

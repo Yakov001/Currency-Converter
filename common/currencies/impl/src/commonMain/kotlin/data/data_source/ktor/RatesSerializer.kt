@@ -20,7 +20,6 @@ import kotlinx.serialization.json.jsonPrimitive
 object RatesSerializer : KSerializer<Rates> {
 
     override val descriptor: SerialDescriptor by lazy {
-        ;
         buildClassSerialDescriptor("data.ktor.dto.Rates") {
             element<String>("date")
             element<Map<String, Double>>("currencyRates")
@@ -31,7 +30,6 @@ object RatesSerializer : KSerializer<Rates> {
         val jsonEncoder = encoder as JsonEncoder
         val jsonObject = buildJsonObject {
             put("date", JsonPrimitive(value.date))
-//            putAll(value.rates.mapValues { JsonPrimitive(it.value) })
         }
         jsonEncoder.encodeJsonElement(jsonObject)
     }

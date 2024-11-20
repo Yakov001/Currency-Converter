@@ -31,6 +31,6 @@ data class Currency(
     }
 }
 
-fun data.model.Currency.toConverterCurrency(): Currency = Currency(
+fun data.model.CurrencyDto.toConverterCurrency(): Currency = Currency(
     currencyCode, currencyName, flagImageUrl, usdRate
 )

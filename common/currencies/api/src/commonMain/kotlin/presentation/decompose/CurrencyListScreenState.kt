@@ -1,10 +1,10 @@
 package presentation.decompose
 
-import data.model.Currency
+import data.model.CurrencyDto
 
 data class CurrencyListScreenState(
-    val data: List<Currency>? = null,
-    val sortedData : List<Currency>? = data,
+    val data: List<CurrencyDto>? = null,
+    val sortedData : List<CurrencyDto>? = data,
     val loadingStatus: LoadingStatus = LoadingStatus.Idle,
     val searchText : String = ""
 ) {

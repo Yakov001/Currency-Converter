@@ -3,7 +3,7 @@ package data.repository
 import data.Response
 import data.data_source.ktor.KtorCurrenciesDataSource
 import data.data_source.local.KStoreDataSource
-import data.model.Currency
+import data.model.CurrencyDto
 import data.model.CurrencyInitial
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +18,7 @@ class CurrenciesRepository(
     private val dataSource: KtorCurrenciesDataSource,
     private val kStore : KStoreDataSource
 ) {
-    suspend fun getCurrencies(): Flow<Response<List<Currency>>> = channelFlow {
+    suspend fun getCurrencies(): Flow<Response<List<CurrencyDto>>> = channelFlow {
         // first, return what we have saved locally, then try to get updates
         val localData = kStore.getAllCurrencies()
         if (localData != null) {
@@ -31,7 +31,7 @@ class CurrenciesRepository(
             is Response.Failure -> send(Response.Failure(initResponse.message))
             is Response.Success -> {
                 val mappedObject = initResponse.data.rates.ratesMap.map { CurrencyInitial(it.key, it.value) }
-                val currencies = mutableListOf<Currency>()
+                val currencies = mutableListOf<CurrencyDto>()
                 val mutex = Mutex()
                 mappedObject.mapIndexed { _, obj ->
                     // for every currency in initial response, request detailed info (with flag)
@@ -41,7 +41,7 @@ class CurrenciesRepository(
                             val data = response.data
                             mutex.withLock {
                                 currencies.add(
-                                    Currency(
+                                    CurrencyDto(
                                         currencyCode = data.currencyCode,
                                         currencyName = data.currencyName,
                                         countryCode = data.countryCode,

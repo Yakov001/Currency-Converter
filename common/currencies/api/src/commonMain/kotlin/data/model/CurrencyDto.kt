@@ -3,7 +3,7 @@ package data.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Currency(
+data class CurrencyDto(
     val currencyCode: String,
     val currencyName: String,
     val countryCode: String,

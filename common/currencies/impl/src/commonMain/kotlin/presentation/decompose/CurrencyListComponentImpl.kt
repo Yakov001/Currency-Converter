@@ -4,7 +4,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import data.repository.CurrenciesRepository
 import data.Response
-import data.model.Currency
+import data.model.CurrencyDto
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
@@ -31,7 +31,7 @@ import utils.SnackbarEvent
 @OptIn(FlowPreview::class)
 class CurrencyListComponentImpl(
     componentContext: ComponentContext,
-    private val onCurrencySelected: (Currency) -> Unit,
+    private val onCurrencySelected: (CurrencyDto) -> Unit,
     private val componentScope: CoroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
 ) : CurrencyListComponent, ComponentContext by componentContext, KoinComponent {
 
@@ -67,7 +67,7 @@ class CurrencyListComponentImpl(
         fetchCurrencies()
     }
 
-    override fun onCurrencyClick(currency: Currency) {
+    override fun onCurrencyClick(currency: CurrencyDto) {
         onCurrencySelected.invoke(currency)
     }
 
