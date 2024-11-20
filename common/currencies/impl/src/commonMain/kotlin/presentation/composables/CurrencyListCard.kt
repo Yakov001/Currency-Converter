@@ -25,7 +25,7 @@ import coil3.ImageLoader
 import coil3.compose.LocalPlatformContext
 import coil3.compose.SubcomposeAsyncImage
 import coil3.request.crossfade
-import presentation.model.CurrencyEntity
+import domain.model.CurrencyEntity
 
 @Composable
 fun CurrencyListCard(currency: CurrencyEntity, onClick: () -> Unit) {

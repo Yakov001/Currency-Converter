@@ -1,15 +1,15 @@
 package presentation.decompose
 
-import data.model.CurrencyDto
 import kotlinx.coroutines.flow.StateFlow
+import domain.model.CurrencyEntity
 
 interface CurrencyListComponent {
     val screenState: StateFlow<CurrencyListScreenState>
     fun searchByName(searchText: String)
     fun refreshCurrencies()
-    fun onCurrencyClick(currency: CurrencyDto)
+    fun onCurrencyClick(currency: CurrencyEntity)
 
-    fun List<CurrencyDto>?.sortedBySearchText(): List<CurrencyDto>? = this?.filter { cur ->
+    fun List<CurrencyEntity>?.sortedBySearchText(): List<CurrencyEntity>? = this?.filter { cur ->
         val searchText = screenState.value.searchText
         if (searchText.isBlank()) true
         else cur.currencyName.contains(other = searchText, ignoreCase = true)

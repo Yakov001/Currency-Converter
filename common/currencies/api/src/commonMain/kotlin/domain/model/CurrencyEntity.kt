@@ -1,4 +1,4 @@
-package presentation.model
+package domain.model
 
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant

@@ -1,7 +1,7 @@
 package utils
 
 import data.model.CurrencyDto
-import presentation.model.CurrencyEntity
+import domain.model.CurrencyEntity
 
 fun CurrencyDto.toEntity() = CurrencyEntity(
     currencyCode = currencyCode,
@@ -10,6 +10,7 @@ fun CurrencyDto.toEntity() = CurrencyEntity(
     currencySymbol = currencySymbol,
     flagImageUrl = flagImageUrl,
     usdRate = usdRate,
+    fetchTimeInstant = fetchTimeInstant
 )
 
 fun CurrencyEntity.toDto() = CurrencyDto(
@@ -19,4 +20,5 @@ fun CurrencyEntity.toDto() = CurrencyDto(
     currencySymbol = currencySymbol,
     flagImageUrl = flagImageUrl,
     usdRate = usdRate,
+    fetchTimeInstant = fetchTimeInstant
 )

@@ -1,5 +1,7 @@
 package presentation.decompose
 
+import domain.model.CurrencyEntity
+
 data class ConverterScreenState(
     val fromCurrency: Currency = Currency.stubFrom(),
     val toCurrency: Currency = Currency.stubTo(),
@@ -31,6 +33,6 @@ data class Currency(
     }
 }
 
-fun data.model.CurrencyDto.toConverterCurrency(): Currency = Currency(
+fun CurrencyEntity.toConverterCurrency(): Currency = Currency(
     currencyCode, currencyName, flagImageUrl, usdRate
 )

@@ -26,8 +26,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import presentation.composables.CurrencyListCard
-import utils.toDto
-import utils.toEntity
 
 @Composable
 fun CurrencyListContent(component: CurrencyListComponent) {
@@ -48,11 +46,11 @@ fun CurrencyListContent(component: CurrencyListComponent) {
             modifier = Modifier.weight(9f)
         ) {
             items(
-                items = screenState.sortedData?.map { it.toEntity() } ?: emptyList()
+                items = screenState.sortedData ?: emptyList()
             ) {
                 CurrencyListCard(
                     currency = it,
-                    onClick = { component.onCurrencyClick(it.toDto()) }
+                    onClick = { component.onCurrencyClick(it) }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
             }

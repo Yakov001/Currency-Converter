@@ -3,7 +3,6 @@ package data.repository
 import data.Response
 import data.data_source.ktor.KtorCurrenciesDataSource
 import data.data_source.local.KStoreDataSource
-import data.model.CurrencyDto
 import data.model.CurrencyInitial
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
@@ -13,12 +12,15 @@ import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import domain.model.CurrencyEntity
+import utils.toDto
+import utils.toEntity
 
 class CurrenciesRepository(
     private val dataSource: KtorCurrenciesDataSource,
-    private val kStore : KStoreDataSource
+    private val kStore: KStoreDataSource
 ) {
-    suspend fun getCurrencies(): Flow<Response<List<CurrencyDto>>> = channelFlow {
+    suspend fun getCurrencies(): Flow<Response<List<CurrencyEntity>>> = channelFlow {
         // first, return what we have saved locally, then try to get updates
         val localData = kStore.getAllCurrencies()
         if (localData != null) {
@@ -31,7 +33,7 @@ class CurrenciesRepository(
             is Response.Failure -> send(Response.Failure(initResponse.message))
             is Response.Success -> {
                 val mappedObject = initResponse.data.rates.ratesMap.map { CurrencyInitial(it.key, it.value) }
-                val currencies = mutableListOf<CurrencyDto>()
+                val currencies = mutableListOf<CurrencyEntity>()
                 val mutex = Mutex()
                 mappedObject.mapIndexed { _, obj ->
                     // for every currency in initial response, request detailed info (with flag)
@@ -41,7 +43,7 @@ class CurrenciesRepository(
                             val data = response.data
                             mutex.withLock {
                                 currencies.add(
-                                    CurrencyDto(
+                                    CurrencyEntity(
                                         currencyCode = data.currencyCode,
                                         currencyName = data.currencyName,
                                         countryCode = data.countryCode,
