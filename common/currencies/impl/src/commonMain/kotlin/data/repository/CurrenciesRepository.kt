@@ -19,6 +19,13 @@ class CurrenciesRepository(
     private val kStore : KStoreDataSource
 ) {
     suspend fun getCurrencies(): Flow<Response<List<Currency>>> = channelFlow {
+        // first, return what we have saved locally, then try to get updates
+        val localData = kStore.getAllCurrencies()
+        if (localData != null) {
+            send(Response.Success(localData))
+            return@channelFlow
+        }
+        // Request rates for USD, then request every currency (just for flag image)
         when (val initResponse = dataSource.getCurrenciesInitial()) {
             is Response.Loading -> send(Response.Loading())
             is Response.Failure -> send(Response.Failure(initResponse.message))
@@ -26,7 +33,8 @@ class CurrenciesRepository(
                 val mappedObject = initResponse.data.rates.ratesMap.map { CurrencyInitial(it.key, it.value) }
                 val currencies = mutableListOf<Currency>()
                 val mutex = Mutex()
-                mappedObject.mapIndexed { i, obj ->
+                mappedObject.mapIndexed { _, obj ->
+                    // for every currency in initial response, request detailed info (with flag)
                     launch {
                         val response = dataSource.getCurrenciesInitial(currencyCode = obj.currencyCode)
                         if (response is Response.Success) {
@@ -42,6 +50,7 @@ class CurrenciesRepository(
                                         usdRate = obj.usdRate
                                     )
                                 )
+                                // save to local storage
                                 kStore.addCurrencies(currencies)
                                 send(Response.Success(currencies.toList()))
                             }

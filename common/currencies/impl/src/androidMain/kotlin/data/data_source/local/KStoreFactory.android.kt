@@ -10,7 +10,13 @@ actual class KStoreFactory (
     private val context : Context
 ) {
     actual fun createCurrencyStore(): KStore<List<Currency>> {
-        val path = Path("${context.filesDir}/currencies.json")
-        return storeOf(file = path)
+        val appStorage = Path(context.filesDir.path)
+        return storeOf<List<Currency>>(
+            file = Path(path = "$appStorage/$FILE_NAME"),
+            default = emptyList()
+        )
+    }
+    companion object {
+        private const val FILE_NAME = "currencies.json"
     }
 }
