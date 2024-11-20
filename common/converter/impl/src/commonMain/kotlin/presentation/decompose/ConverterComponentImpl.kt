@@ -7,6 +7,8 @@ import com.arkivanov.decompose.router.slot.activate
 import com.arkivanov.decompose.router.slot.childSlot
 import com.arkivanov.decompose.router.slot.dismiss
 import com.arkivanov.decompose.value.Value
+import data.Response
+import data.repository.CurrenciesRepository
 import domain.ConversionUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,6 +16,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -26,9 +29,21 @@ class ConverterComponentImpl(
     private val componentScope: CoroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
 ) : ConverterComponent, ComponentContext by componentContext, KoinComponent {
 
+    private val repo: CurrenciesRepository by inject()
+
     private val _screenState: MutableStateFlow<ConverterScreenState> = MutableStateFlow(ConverterScreenState())
     override val screenState: StateFlow<ConverterScreenState> = _screenState
-        .onStart {  }
+        .onStart {
+            repo.getCurrencies().collectLatest { currencies ->
+                if (currencies !is Response.Success) return@collectLatest
+                _screenState.update { state ->
+                    state.copy(
+                        fromCurrency = currencies.data.find { it.currencyCode == "RUB" }?.toConverterCurrency() ?: Currency.stubFrom(),
+                        toCurrency = currencies.data.find { it.currencyCode == "USD" }?.toConverterCurrency() ?: Currency.stubTo()
+                    )
+                }
+            }
+        }
         .stateIn(
             scope = componentScope,
             started = SharingStarted.WhileSubscribed(5000),

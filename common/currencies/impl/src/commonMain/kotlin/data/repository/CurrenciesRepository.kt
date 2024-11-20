@@ -4,6 +4,7 @@ import data.Response
 import data.data_source.ktor.KtorCurrenciesDataSource
 import data.data_source.local.KStoreDataSource
 import data.model.CurrencyInitial
+import domain.model.CurrencyEntity
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.buffer
@@ -12,9 +13,6 @@ import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import domain.model.CurrencyEntity
-import utils.toDto
-import utils.toEntity
 
 class CurrenciesRepository(
     private val dataSource: KtorCurrenciesDataSource,
