@@ -1,16 +1,19 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.targets.js.binaryen.BinaryenExec
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsCompose)
-    alias(libs.plugins.compose.compiler)
+    id(libs.plugins.kotlinMultiplatform.get().pluginId)
+    id(libs.plugins.androidApplication.get().pluginId)
+    id(libs.plugins.jetbrainsCompose.get().pluginId)
+    id(libs.plugins.composeCompiler.get().pluginId)
+    id(libs.plugins.serialization.get().pluginId)
 }
 
 kotlin {
+
+    jvmToolchain(libs.versions.jdk.get().toInt())
+
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         moduleName = "composeApp"
@@ -28,13 +31,8 @@ kotlin {
         }
         binaries.executable()
     }
-    
-    androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
-        }
-    }
+
+    androidTarget()
     
     listOf(
         iosX64(),
@@ -48,18 +46,30 @@ kotlin {
     }
     
     sourceSets {
-        
-        androidMain.dependencies {
-            implementation(compose.preview)
-            implementation(libs.androidx.activity.compose)
-        }
+
         commonMain.dependencies {
+            implementation(projects.common.core)
+            implementation(projects.common.currencies.api)
+            implementation(projects.common.currencies.impl)
+            implementation(projects.common.converter.api)
+            implementation(projects.common.converter.impl)
+
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+
+            implementation(libs.decompose)
+            implementation(libs.decompose.compose)
+        }
+        androidMain.dependencies {
+            implementation(libs.androidx.activity.compose)
+            implementation(libs.koin.android)
+        }
+        wasmJsMain.dependencies {
+            implementation(libs.serialization.json)
         }
     }
 }
@@ -86,12 +96,10 @@ android {
     }
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+            signingConfig = signingConfigs.getByName("debug")
         }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
     }
     buildFeatures {
         compose = true
@@ -100,7 +108,7 @@ android {
         debugImplementation(compose.uiTooling)
     }
 }
-dependencies {
-    implementation(libs.androidx.material3.android)
-}
 
+tasks.named<BinaryenExec>("compileProductionExecutableKotlinWasmJsOptimize") {
+    binaryenArgs = mutableListOf("-O1", "--all-features")
+}

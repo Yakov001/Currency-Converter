@@ -1,24 +1,24 @@
 package com.resonanse
 
 import App
+import RootComponentImpl
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import com.arkivanov.decompose.retainedComponent
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val rootComponent = retainedComponent { componentContext ->
+            RootComponentImpl(
+                componentContext = componentContext
+            )
+        }
+
         setContent {
-            App()
+            App(rootComponent = rootComponent)
         }
     }
-}
-
-@Preview
-@Composable
-fun AppAndroidPreview() {
-    App()
 }

@@ -1,52 +1,74 @@
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
-import data.Event
-import data.Events
-import kotlinx.coroutines.delay
+import com.arkivanov.decompose.ExperimentalDecomposeApi
+import com.arkivanov.decompose.extensions.compose.stack.Children
+import com.arkivanov.decompose.extensions.compose.stack.animation.fade
+import com.arkivanov.decompose.extensions.compose.stack.animation.plus
+import com.arkivanov.decompose.extensions.compose.stack.animation.predictiveback.predictiveBackAnimation
+import com.arkivanov.decompose.extensions.compose.stack.animation.scale
+import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import kotlinx.coroutines.launch
-import presentation.events.AddEventFab
-import presentation.events.EventCard
-import presentation.theme.ResonanseTheme
+import presentation.decompose.ConverterContent
+import theme.ResonanseTheme
+import utils.ObserveAsEvents
+import utils.SnackbarController
 
-@[Composable OptIn(ExperimentalFoundationApi::class)]
-fun App() {
+@OptIn(ExperimentalDecomposeApi::class)
+@Composable
+fun App(
+    rootComponent: RootComponent
+) = ResonanseTheme {
+
+    val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
-    ResonanseTheme {
-        val events by remember { mutableStateOf(Events.startEvents.toMutableStateList()) }
-        val listState = rememberLazyListState()
-        val onFabClick : () -> Unit = {
-            events.add(
-                index = 0,
-                element = Event.newRandom(events.size)
+    ObserveAsEvents(
+        flow = SnackbarController.events,
+        key1 = snackbarHostState
+    ) { event ->
+        scope.launch {
+            snackbarHostState.currentSnackbarData?.dismiss()
+
+            val result = snackbarHostState.showSnackbar(
+                message = event.message,
+                actionLabel = event.action?.name,
+                duration = SnackbarDuration.Long
             )
-            scope.launch {
-                delay(100)
-                listState.animateScrollToItem(0)
+
+            if (result == SnackbarResult.ActionPerformed) {
+                event.action?.action?.invoke()
             }
         }
-        Scaffold(
-            floatingActionButton = { AddEventFab(onFabClick = onFabClick) }
+    }
+
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(
+                hostState = snackbarHostState
+            )
+        }
+    ) { paddingValues ->
+        Children(
+            modifier = Modifier.padding(paddingValues),
+            stack = rootComponent.stack,
+            animation = predictiveBackAnimation(
+                backHandler = rootComponent.backHandler,
+                fallbackAnimation = stackAnimation(fade() + scale()),
+                onBack = rootComponent::onBackClicked
+            )
         ) {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                state = listState
-            ) {
-                items(
-                    items = events,
-                    key = { item: Event -> item.title }
-                ) {
-                    EventCard(event = it, modifier = Modifier.animateItemPlacement())
+            when (val child = it.instance) {
+                is RootComponent.Child.ConverterChild -> {
+                    ConverterContent(
+                        component = child.component
+                    )
                 }
             }
         }
