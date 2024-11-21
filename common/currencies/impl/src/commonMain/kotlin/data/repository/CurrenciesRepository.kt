@@ -20,18 +20,17 @@ class CurrenciesRepository(
 ) {
     suspend fun getCurrencies(): Flow<Response<List<CurrencyEntity>>> = channelFlow {
         // first, return what we have saved locally, then try to get updates
-        val localData = kStore.getAllCurrencies()
-        if (localData != null) {
-            send(Response.Success(localData))
-            return@channelFlow
+        val localData = kStore.getAllCurrencies()?.also {
+            send(Response.Success(it))
         }
+        // Try to get updates from remote
         // Request rates for USD, then request every currency (just for flag image)
         when (val initResponse = dataSource.getCurrenciesInitial()) {
             is Response.Loading -> send(Response.Loading())
             is Response.Failure -> send(Response.Failure(initResponse.message))
             is Response.Success -> {
                 val mappedObject = initResponse.data.rates.ratesMap.map { CurrencyInitial(it.key, it.value) }
-                val currencies = mutableListOf<CurrencyEntity>()
+                val result: MutableList<CurrencyEntity> = localData?.toMutableList() ?: mutableListOf()
                 val mutex = Mutex()
                 mappedObject.mapIndexed { _, obj ->
                     // for every currency in initial response, request detailed info (with flag)
@@ -40,25 +39,41 @@ class CurrenciesRepository(
                         if (response is Response.Success) {
                             val data = response.data
                             mutex.withLock {
-                                currencies.add(
-                                    CurrencyEntity(
-                                        currencyCode = data.currencyCode,
-                                        currencyName = data.currencyName,
-                                        countryCode = data.countryCode,
-                                        currencySymbol = data.currencySymbol,
-                                        flagImageUrl = data.flagImage,
-                                        usdRate = obj.usdRate
-                                    )
+                                val newCurrencyData = CurrencyEntity(
+                                    currencyCode = data.currencyCode,
+                                    currencyName = data.currencyName,
+                                    countryCode = data.countryCode,
+                                    currencySymbol = data.currencySymbol,
+                                    flagImageUrl = data.flagImage,
+                                    usdRate = obj.usdRate
                                 )
+                                val updated = result.swapElementWithNew(
+                                    findOldElement = { it.currencyCode == newCurrencyData.currencyCode },
+                                    newElement = newCurrencyData
+                                )
+                                if (!updated) result.add(newCurrencyData)
                                 // save to local storage
-                                kStore.addCurrencies(currencies)
-                                send(Response.Success(currencies.toList()))
+                                kStore.addCurrencies(result)
+                                send(Response.Success(result.toList()))
                             }
                         }
                     }
                 }.joinAll()
-                if (currencies.isEmpty()) send(Response.Failure("List empty"))
+                if (result.isEmpty()) send(Response.Failure("List empty"))
             }
         }
     }.buffer(onBufferOverflow = BufferOverflow.DROP_OLDEST)
+
+    companion object {
+        private fun <T> MutableList<T>.swapElementWithNew(
+            findOldElement: (T) -> Boolean,
+            newElement: T
+        ) : Boolean {
+            val oldElement = this.find(findOldElement)
+            val i = this.indexOf(oldElement)
+            if (i == -1) return false
+            this[i] = newElement
+            return true
+        }
+    }
 }
