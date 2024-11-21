@@ -9,6 +9,6 @@ data class CurrencyEntity(
     val countryCode: String,
     val currencySymbol: String,
     val flagImageUrl: String,
-    val usdRate : Double,
+    val usdRate: Double,
     val fetchTimeInstant: Instant = Clock.System.now()
 )

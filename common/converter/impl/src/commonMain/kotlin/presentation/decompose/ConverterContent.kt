@@ -40,6 +40,7 @@ fun ConverterContent(component: ConverterComponent) {
                 flagImageUrl = state.fromCurrency.flagImageUrl,
                 currencyName = state.fromCurrency.currencyName,
                 currencyCode = state.fromCurrency.currencyCode,
+                fetchDate = state.fromCurrency.fetchDate,
                 onClick = component::changeFromCurrency,
                 textField = {
                     CurrencySlotTextView(
@@ -52,6 +53,7 @@ fun ConverterContent(component: ConverterComponent) {
                 flagImageUrl = state.toCurrency.flagImageUrl,
                 currencyName = state.toCurrency.currencyName,
                 currencyCode = state.toCurrency.currencyCode,
+                fetchDate = state.fromCurrency.fetchDate,
                 onClick = component::changeToCurrency,
                 textField = {
                     CurrencySlotTextView(

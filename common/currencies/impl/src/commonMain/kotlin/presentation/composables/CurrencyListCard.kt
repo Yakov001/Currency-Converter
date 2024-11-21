@@ -26,6 +26,7 @@ import coil3.compose.LocalPlatformContext
 import coil3.compose.SubcomposeAsyncImage
 import coil3.request.crossfade
 import domain.model.CurrencyEntity
+import utils.toLocalDateTimeText
 
 @Composable
 fun CurrencyListCard(currency: CurrencyEntity, onClick: () -> Unit) {
@@ -79,6 +80,10 @@ fun CurrencyListCard(currency: CurrencyEntity, onClick: () -> Unit) {
                 Text(
                     text = currency.currencyName,
                     style = MaterialTheme.typography.bodySmall
+                )
+                Text(
+                    text = currency.fetchTimeInstant.toLocalDateTimeText(),
+                    style = MaterialTheme.typography.labelSmall
                 )
             }
         }

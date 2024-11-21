@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -39,6 +40,7 @@ fun CurrencySlot(
     flagImageUrl: String,
     currencyName: String,
     currencyCode: String,
+    fetchDate: String,
     onClick: () -> Unit,
     textField: @Composable () -> Unit
 ) {
@@ -51,7 +53,7 @@ fun CurrencySlot(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .height(100.dp)
+            .height(IntrinsicSize.Min)
             .clip(shape)
             .clickable { onClick() }
             .background(
@@ -93,8 +95,12 @@ fun CurrencySlot(
                 text = currencyName,
                 style = MaterialTheme.typography.bodySmall
             )
+            Text(
+                text = fetchDate,
+                style = MaterialTheme.typography.bodySmall
+            )
         }
-        Box(Modifier.weight(2f)) {
+        Box(Modifier.weight(1f)) {
             textField()
         }
     }
