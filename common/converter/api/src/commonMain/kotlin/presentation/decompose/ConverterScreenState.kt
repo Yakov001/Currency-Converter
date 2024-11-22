@@ -4,14 +4,14 @@ import domain.model.CurrencyEntity
 import utils.toLocalDateTimeText
 
 data class ConverterScreenState(
-    val fromCurrency: Currency = Currency.stubFrom(),
-    val toCurrency: Currency = Currency.stubTo(),
+    val fromCurrency: CurrencyUiModel = CurrencyUiModel.defaultFrom(),
+    val toCurrency: CurrencyUiModel = CurrencyUiModel.defaultTo(),
 
     val fromAmountState: TextFieldState = TextFieldState(),
     val toAmountState: TextFieldState = TextFieldState()
 )
 
-data class Currency(
+data class CurrencyUiModel(
     val currencyCode: String,
     val currencyName: String,
     val flagImageUrl: String,
@@ -19,7 +19,7 @@ data class Currency(
     val fetchDate: String
 ) {
     companion object {
-        fun stubFrom(): Currency = Currency(
+        fun defaultFrom(): CurrencyUiModel = CurrencyUiModel(
             currencyCode = "RUB",
             currencyName = "Russian Rouble",
             flagImageUrl = "img",
@@ -27,7 +27,7 @@ data class Currency(
             fetchDate = "2 November 2024"
         )
 
-        fun stubTo(): Currency = Currency(
+        fun defaultTo(): CurrencyUiModel = CurrencyUiModel(
             currencyCode = "USD",
             currencyName = "US Dollar",
             flagImageUrl = "stub",
@@ -37,7 +37,7 @@ data class Currency(
     }
 }
 
-fun CurrencyEntity.toConverterCurrency(): Currency = Currency(
+fun CurrencyEntity.toUiModel(): CurrencyUiModel = CurrencyUiModel(
     currencyCode = currencyCode,
     currencyName = currencyName,
     flagImageUrl = flagImageUrl,

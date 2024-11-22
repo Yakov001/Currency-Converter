@@ -10,15 +10,17 @@ import com.arkivanov.decompose.value.Value
 import data.Response
 import data.repository.CurrenciesRepository
 import domain.ConversionUseCase
+import domain.model.CurrencyEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
 import kotlinx.serialization.Serializable
 import org.koin.core.component.KoinComponent
@@ -34,15 +36,18 @@ class ConverterComponentImpl(
     private val _screenState: MutableStateFlow<ConverterScreenState> = MutableStateFlow(ConverterScreenState())
     override val screenState: StateFlow<ConverterScreenState> = _screenState
         .onStart {
-            repo.getCurrencies().collectLatest { currencies ->
-                if (currencies !is Response.Success) return@collectLatest
-                _screenState.update { state ->
-                    state.copy(
-                        fromCurrency = currencies.data.find { it.currencyCode == "RUB" }?.toConverterCurrency() ?: Currency.stubFrom(),
-                        toCurrency = currencies.data.find { it.currencyCode == "USD" }?.toConverterCurrency() ?: Currency.stubTo()
-                    )
+            // Get the first successful response (likely from local storage)
+            repo.getCurrencies()
+                .filterIsInstance<Response.Success<List<CurrencyEntity>>>()
+                .take(1)
+                .collect { currencies ->
+                    _screenState.update { state ->
+                        state.copy(
+                            fromCurrency = currencies.data.findFromCurrency(),
+                            toCurrency = currencies.data.findToCurrency()
+                        )
+                    }
                 }
-            }
         }
         .stateIn(
             scope = componentScope,
@@ -63,10 +68,10 @@ class ConverterComponentImpl(
                 _screenState.update {
                     when (config.changedCurrenciesConfig) {
                         CurrenciesConfig.ChangedCurrency.From -> {
-                            it.copy(fromCurrency = currencySelected.toConverterCurrency())
+                            it.copy(fromCurrency = currencySelected.toUiModel())
                         }
                         CurrenciesConfig.ChangedCurrency.To -> {
-                            it.copy(toCurrency = currencySelected.toConverterCurrency())
+                            it.copy(toCurrency = currencySelected.toUiModel())
                         }
                     }
                 }
@@ -105,6 +110,17 @@ class ConverterComponentImpl(
             else _screenState.update { it.copy(fromAmountState = state) }
         }
         recalculateToAmount()
+    }
+
+    companion object {
+        private val defaultFrom = CurrencyUiModel.defaultFrom()
+        private val defaultTo = CurrencyUiModel.defaultTo()
+
+        private fun List<CurrencyEntity>.findFromCurrency() : CurrencyUiModel =
+            find { it.currencyCode == defaultFrom.currencyCode }?.toUiModel() ?: defaultFrom
+        private fun List<CurrencyEntity>.findToCurrency() : CurrencyUiModel =
+            find { it.currencyCode == defaultTo.currencyCode }?.toUiModel() ?: defaultTo
+
     }
 
     @Serializable

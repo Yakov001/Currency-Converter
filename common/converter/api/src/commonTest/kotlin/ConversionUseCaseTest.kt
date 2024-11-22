@@ -1,5 +1,5 @@
 import domain.ConversionUseCase
-import presentation.decompose.Currency
+import presentation.decompose.CurrencyUiModel
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -7,9 +7,9 @@ class ConversionUseCaseTest {
 
     private val useCase = ConversionUseCase()
 
-    private val rub = Currency.stubFrom().copy(usdRate = 0.010429639)
-    private val usd = Currency.stubTo().copy(usdRate = 1.0)
-    private val eur = Currency.stubTo().copy(currencyCode = "EUR", currencyName = "Euro", usdRate = 1.08753394)
+    private val rub = CurrencyUiModel.defaultFrom().copy(usdRate = 0.010429639)
+    private val usd = CurrencyUiModel.defaultTo().copy(usdRate = 1.0)
+    private val eur = CurrencyUiModel.defaultTo().copy(currencyCode = "EUR", currencyName = "Euro", usdRate = 1.08753394)
 
     @Test
     fun correctly_convert_RUB_to_USD() {
