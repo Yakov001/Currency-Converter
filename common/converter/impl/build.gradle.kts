@@ -14,6 +14,8 @@ kotlin {
 
             implementation(libs.decompose)
             implementation(libs.decompose.compose)
+
+            implementation(compose.components.resources)
         }
         androidUnitTest.dependencies {
             implementation(libs.kotlin.test)

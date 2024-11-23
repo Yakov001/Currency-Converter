@@ -84,22 +84,6 @@ private val DarkColorScheme = darkColorScheme(
     scrim = md_theme_dark_scrim,
 )
 
-private val AppShapes = Shapes(
-    extraSmall = RoundedCornerShape(4.dp),
-    small = RoundedCornerShape(8.dp),
-    medium = RoundedCornerShape(16.dp),
-    large = RoundedCornerShape(32.dp),
-    extraLarge = RoundedCornerShape(64.dp)
-)
-
-private val AppTypography = Typography(
-    bodyMedium = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Medium,
-        fontSize = 16.sp
-    )
-)
-
 internal val LocalThemeIsDark = compositionLocalOf { mutableStateOf(true) }
 
 @Composable
@@ -114,8 +98,6 @@ fun ResonanseTheme(
         val isDark by isDarkState
         MaterialTheme(
             colorScheme = if (isDark) DarkColorScheme else LightColorScheme,
-            typography = AppTypography,
-            shapes = AppShapes,
             content = {
                 Surface(content = content)
             }

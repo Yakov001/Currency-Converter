@@ -19,6 +19,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -44,7 +45,7 @@ fun CurrencySlot(
     onClick: () -> Unit,
     textField: @Composable () -> Unit
 ) {
-    val shape = MaterialTheme.shapes.large
+    val shape = MaterialTheme.shapes.medium
     Row(
         horizontalArrangement = Arrangement.spacedBy(
             space = 8.dp,
@@ -111,17 +112,26 @@ fun CurrencySlotTextView(
     amountState: TextFieldState,
     onTextChange: (TextFieldState) -> Unit,
     enabled: Boolean = true,
+    singleLine: Boolean = true,
     modifier: Modifier = Modifier
 ) {
+    val textColor = MaterialTheme.typography.bodyMedium.color
     OutlinedTextField(
         value = amountState.toCompose(),
         onValueChange = { onTextChange(it.toModel()) },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
         enabled = enabled,
         shape = MaterialTheme.shapes.medium,
-        modifier = modifier
+        modifier = modifier,
+        colors = OutlinedTextFieldDefaults.colors(
+            disabledTextColor = textColor,
+            focusedTextColor = textColor,
+            unfocusedTextColor = textColor,
+
+        ),
+        singleLine = singleLine
     )
 }
 
-fun TextFieldState.toCompose() = TextFieldValue(amountText, TextRange(caretPos))
+fun TextFieldState.toCompose() = TextFieldValue(text = amountText, selection = TextRange(caretPos))
 fun TextFieldValue.toModel() = TextFieldState(text.toDoubleOrNull() ?: 0.0, selection.start)
