@@ -33,7 +33,6 @@ fun ConverterLayer(
             .padding(16.dp)
     ) {
         ConverterBlock(state, component)
-        Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.ime))
     }
 }
 

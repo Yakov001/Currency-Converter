@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.shape.CornerSize
@@ -37,6 +38,7 @@ fun BackgroundLayer() {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
+            .padding(bottom = 100.dp)
     ) {
         val shape = MaterialTheme.shapes.extraLarge.copy(
             topStart = CornerSize(0.dp),
@@ -64,11 +66,6 @@ fun BackgroundLayer() {
                     ),
                     shape = shape
                 )
-        )
-        Spacer(
-            modifier = Modifier
-                .windowInsetsPadding(WindowInsets.ime)
-                .height(100.dp)
         )
     }
 }
