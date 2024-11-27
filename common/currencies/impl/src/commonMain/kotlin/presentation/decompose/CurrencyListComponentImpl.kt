@@ -24,6 +24,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import presentation.decompose.CurrencyListScreenState.LoadingStatus
 import domain.model.CurrencyEntity
+import kotlinx.coroutines.flow.Flow
 import utils.SnackbarAction
 import utils.SnackbarController
 import utils.SnackbarEvent
@@ -64,7 +65,20 @@ class CurrencyListComponentImpl(
     }
 
     override fun refreshCurrencies() {
-        fetchCurrencies()
+        _screenState.update { it.copy(loadingStatus = LoadingStatus.Loading) }
+        componentScope.launch {
+            repo.updateCurrenciesFromRemote()
+                .onCompletion { _screenState.update { it.copy(loadingStatus = LoadingStatus.Idle) } }
+                .handleResponse()
+        }
+    }
+
+    private fun fetchCurrencies() {
+        componentScope.launch {
+            repo.getCurrencies()
+                .onCompletion { _screenState.update { it.copy(loadingStatus = LoadingStatus.Idle) } }
+                .handleResponse()
+        }
     }
 
     override fun onCurrencyClick(currency: CurrencyEntity) {
@@ -73,55 +87,42 @@ class CurrencyListComponentImpl(
 
     private fun sortCurrenciesByName() {
         _screenState.update {
-            it.copy(
-                sortedData = it.data.sortedBySearchText()
-            )
+            it.copy(sortedData = it.data.sortedBySearchText())
         }
     }
 
-    private fun fetchCurrencies() {
-        _screenState.update { it.copy(loadingStatus = LoadingStatus.Loading) }
-        componentScope.launch {
-            repo.getCurrencies()
-                .onCompletion { _screenState.update { it.copy(loadingStatus = LoadingStatus.Idle) } }
-                .collectLatest { response ->
-                    when (response) {
-                        is Response.Success -> {
-                            _screenState.update {
-                                it.copy(
-                                    data = response.data,
-                                    sortedData = response.data
-                                )
-                            }
-                            sortCurrenciesByName()
-                        }
-
-                        is Response.Loading -> {
-                            _screenState.update {
-                                it.copy(
-                                    loadingStatus = LoadingStatus.Loading
-                                )
-                            }
-                        }
-
-                        is Response.Failure -> {
-                            _screenState.update {
-                                it.copy(loadingStatus = LoadingStatus.Idle)
-                            }
-                            SnackbarController.sendEvent(
-                                SnackbarEvent(
-                                    message = response.message,
-                                    action = SnackbarAction(
-                                        name = "Retry",
-                                        action = {
-                                            fetchCurrencies()
-                                        }
-                                    )
-                                )
-                            )
-                        }
+    private suspend fun Flow<Response<List<CurrencyEntity>>>.handleResponse() {
+        collectLatest { response ->
+            when (response) {
+                is Response.Success -> {
+                    _screenState.update {
+                        it.copy(
+                            data = response.data,
+                            sortedData = response.data
+                        )
                     }
+                    sortCurrenciesByName()
                 }
+
+                is Response.Loading -> {
+                    _screenState.update { it.copy(loadingStatus = LoadingStatus.Loading) }
+                }
+
+                is Response.Failure -> {
+                    _screenState.update { it.copy(loadingStatus = LoadingStatus.Idle) }
+                    SnackbarController.sendEvent(
+                        SnackbarEvent(
+                            message = response.message,
+                            action = SnackbarAction(
+                                name = "Retry",
+                                action = {
+                                    fetchCurrencies()
+                                }
+                            )
+                        )
+                    )
+                }
+            }
         }
     }
 }

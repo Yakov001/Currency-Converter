@@ -9,6 +9,7 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
@@ -20,9 +21,14 @@ class CurrenciesRepository(
 ) {
     suspend fun getCurrencies(): Flow<Response<List<CurrencyEntity>>> = channelFlow {
         // first, return what we have saved locally, then try to get updates
-        val localData = kStore.getAllCurrencies()?.also {
+        kStore.getAllCurrencies()?.also {
             send(Response.Success(it))
+        } ?: launch {
+            updateCurrenciesFromRemote().collectLatest { send(it) }
         }
+    }.buffer(onBufferOverflow = BufferOverflow.DROP_OLDEST)
+
+    fun updateCurrenciesFromRemote() : Flow<Response<List<CurrencyEntity>>> = channelFlow {
         // Try to get updates from remote
         // Request rates for USD, then request every currency (just for flag image)
         when (val initResponse = dataSource.getCurrenciesInitial()) {
@@ -30,7 +36,7 @@ class CurrenciesRepository(
             is Response.Failure -> send(Response.Failure(initResponse.message))
             is Response.Success -> {
                 val mappedObject = initResponse.data.rates.ratesMap.map { CurrencyInitial(it.key, it.value) }
-                val result: MutableList<CurrencyEntity> = localData?.toMutableList() ?: mutableListOf()
+                val result: MutableList<CurrencyEntity> = mutableListOf()
                 val mutex = Mutex()
                 mappedObject.mapIndexed { _, obj ->
                     // for every currency in initial response, request detailed info (with flag)
