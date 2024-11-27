@@ -1,6 +1,8 @@
 package domain
 
 import presentation.decompose.CurrencyUiModel
+import kotlin.math.pow
+import kotlin.math.round
 
 class ConversionUseCase {
 
@@ -11,7 +13,14 @@ class ConversionUseCase {
     ) : Double {
         val dollars: Double = fromCurrency.usdRate * fromAmount
         val toAmount: Double = dollars / toCurrency.usdRate
-        return toAmount
+
+        return toAmount.roundToNDecimals(3)
+    }
+
+    private fun Double.roundToNDecimals(decimalPlaces: Int): Double {
+        val factor = 10.0.pow(decimalPlaces)
+        val roundedValue = round(this * factor) / factor
+        return roundedValue
     }
 
 }
