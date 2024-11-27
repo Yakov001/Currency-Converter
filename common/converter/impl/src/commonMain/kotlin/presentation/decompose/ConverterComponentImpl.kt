@@ -102,6 +102,17 @@ class ConverterComponentImpl(
         slotNavigation.activate(CurrenciesConfig(CurrenciesConfig.ChangedCurrency.To))
     }
 
+    override fun switchCurrencies() {
+        _screenState.update {
+            it.copy(
+                fromCurrency = it.toCurrency,
+                toCurrency = it.fromCurrency,
+                fromAmountState = it.toAmountState.copy(caretPos = it.toAmountState.amountText.length),
+                toAmountState = it.fromAmountState.copy(caretPos = 0)
+            )
+        }
+    }
+
     override fun changeFromState(state: TextFieldState) {
         if (state.amountText.contains("-")) return
         state.amount.let { double ->

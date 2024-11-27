@@ -11,4 +11,5 @@ interface ConverterComponent {
     fun changeFromCurrency()
     fun changeToCurrency()
     fun changeFromState(state: TextFieldState)
+    fun switchCurrencies()
 }

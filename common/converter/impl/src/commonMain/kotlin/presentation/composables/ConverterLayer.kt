@@ -100,9 +100,7 @@ fun ConverterBlock(
                 modifier = Modifier.padding(start = 32.dp)
             ) {
                 ButtonSwitchCurrencies(
-                    onClick = {
-                        // TODO()
-                    }
+                    onClick = component::switchCurrencies
                 )
             }
         }
