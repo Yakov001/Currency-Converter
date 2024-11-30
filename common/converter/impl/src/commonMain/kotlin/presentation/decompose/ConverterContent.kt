@@ -23,7 +23,6 @@ fun ConverterContent(component: ConverterComponent) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .windowInsetsPadding(WindowInsets.navigationBars)
     ) {
         BackgroundLayer()
         ConverterLayer(
