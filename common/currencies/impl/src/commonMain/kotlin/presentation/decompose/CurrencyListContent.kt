@@ -19,15 +19,23 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontVariation.weight
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import presentation.composables.CurrencyListCard
@@ -36,6 +44,7 @@ import resonanse.common.currencies.impl.generated.resources.Res
 import resonanse.common.currencies.impl.generated.resources.button_back_desc
 import utils.toLocalDateTimeText
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CurrencyListContent(component: CurrencyListComponent) {
 
@@ -81,25 +90,42 @@ fun CurrencyListContent(component: CurrencyListComponent) {
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
         )
-        LazyColumn(
+
+        val pullToRefreshState = rememberPullToRefreshState()
+        val isRefreshing by remember {
+            derivedStateOf {
+                screenState.loadingStatus == CurrencyListScreenState.LoadingStatus.Loading
+            }
+        }
+        PullToRefreshBox(
+            state = pullToRefreshState,
+            isRefreshing = isRefreshing,
+            onRefresh = {
+                component.refreshCurrencies()
+            },
             modifier = Modifier
                 .weight(9f)
-                .padding(top = 16.dp),
-            contentPadding = PaddingValues(
-                bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
-            ),
         ) {
-            items(
-                items = screenState.sortedData ?: emptyList()
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = 16.dp),
+                contentPadding = PaddingValues(
+                    bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
+                ),
             ) {
-                Column(
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                items(
+                    items = screenState.sortedData ?: emptyList()
                 ) {
-                    CurrencyListCard(
-                        currency = it,
-                        onClick = { component.onCurrencyClick(it) }
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Column(
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    ) {
+                        CurrencyListCard(
+                            currency = it,
+                            onClick = { component.onCurrencyClick(it) }
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                    }
                 }
             }
         }
