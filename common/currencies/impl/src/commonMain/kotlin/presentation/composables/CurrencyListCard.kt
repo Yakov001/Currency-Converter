@@ -6,9 +6,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -19,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.ImageLoader
@@ -37,55 +40,52 @@ fun CurrencyListCard(currency: CurrencyEntity, onClick: () -> Unit) {
         onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
-            .height(150.dp)
+            .height(80.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(
-                space = 16.dp,
-                alignment = Alignment.Start
-            ),
-            modifier = Modifier.padding(16.dp)
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
         ) {
-            SubcomposeAsyncImage(
-                model = currency.flagImageUrl,
-                contentDescription = null,
-                imageLoader = ImageLoader.Builder(LocalPlatformContext.current)
-                    .crossfade(true)
-                    .build(),
-                modifier = Modifier
-                    .fillMaxHeight(0.3f)
-                    .aspectRatio(1f)
-                    .clip(CircleShape)
-                    .border(
-                        width = 2.dp,
-                        color = MaterialTheme.colorScheme.primary,
-                        shape = CircleShape
-                    ),
-                loading = { CircularProgressIndicator() },
-                contentScale = ContentScale.Crop
-            )
-            Column(
-                verticalArrangement = Arrangement.spacedBy(
-                    space = 16.dp,
-                    alignment = Alignment.CenterVertically
-                ),
-                horizontalAlignment = Alignment.Start,
-                modifier = Modifier.fillMaxHeight()
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.weight(1f, fill = true)
             ) {
-                Text(
-                    text = currency.currencyCode,
-                    style = MaterialTheme.typography.headlineSmall
-                )
+                FlagImage(currency.flagImageUrl)
                 Text(
                     text = currency.currencyName,
-                    style = MaterialTheme.typography.bodySmall
-                )
-                Text(
-                    text = currency.fetchTimeInstant.toLocalDateTimeText(),
-                    style = MaterialTheme.typography.labelSmall
+                    style = MaterialTheme.typography.bodyLarge
                 )
             }
+            Text(
+                text = currency.currencyCode,
+                style = MaterialTheme.typography.bodySmall
+            )
         }
     }
+}
+
+@Composable
+private fun FlagImage(model: String) {
+    SubcomposeAsyncImage(
+        model = model,
+        contentDescription = null,
+        imageLoader = ImageLoader.Builder(LocalPlatformContext.current)
+            .crossfade(true)
+            .build(),
+        modifier = Modifier
+            .fillMaxHeight(0.8f)
+            .aspectRatio(1f)
+            .clip(CircleShape)
+            .border(
+                width = 2.dp,
+                color = MaterialTheme.colorScheme.primary,
+                shape = CircleShape
+            ),
+        loading = { CircularProgressIndicator() },
+        contentScale = ContentScale.Crop
+    )
 }
