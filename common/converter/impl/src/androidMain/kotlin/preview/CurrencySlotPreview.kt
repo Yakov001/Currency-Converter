@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import presentation.composables.ButtonSwitchCurrencies
 import presentation.composables.CurrencySlot
-import presentation.composables.CurrencySlotTextView
+import presentation.composables.CurrencySlotTextField
 import presentation.decompose.TextFieldState
 import theme.ResonanseTheme
 
@@ -38,7 +38,7 @@ private fun CurrencySlotPreview() = ResonanseTheme {
                 fetchDate = "18:43 - 09.11.2024",
                 onClick = {},
                 textField = {
-                    CurrencySlotTextView(
+                    CurrencySlotTextField(
                         amountState = TextFieldState(),
                         onTextChange = {  }
                     )
@@ -54,7 +54,7 @@ private fun CurrencySlotPreview() = ResonanseTheme {
                 fetchDate = "18:43 - 09.11.2024",
                 onClick = {},
                 textField = {
-                    CurrencySlotTextView(
+                    CurrencySlotTextField(
                         amountState = TextFieldState(),
                         onTextChange = {  }
                     )

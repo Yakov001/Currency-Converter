@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -26,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
@@ -108,13 +110,14 @@ fun CurrencySlot(
 }
 
 @Composable
-fun CurrencySlotTextView(
+fun CurrencySlotTextField(
     amountState: TextFieldState,
     onTextChange: (TextFieldState) -> Unit,
     enabled: Boolean = true,
     singleLine: Boolean = true,
     modifier: Modifier = Modifier
 ) {
+    val focusManager = LocalFocusManager.current
     val textColor = MaterialTheme.typography.bodyMedium.color
     OutlinedTextField(
         value = amountState.toCompose(),
@@ -122,14 +125,19 @@ fun CurrencySlotTextView(
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
         enabled = enabled,
         shape = MaterialTheme.shapes.medium,
-        modifier = modifier,
         colors = OutlinedTextFieldDefaults.colors(
             disabledTextColor = textColor,
             focusedTextColor = textColor,
-            unfocusedTextColor = textColor,
-
+            unfocusedTextColor = textColor
         ),
-        singleLine = singleLine
+        singleLine = singleLine,
+        keyboardActions = KeyboardActions(
+            onDone = {
+                focusManager.clearFocus()
+                onTextChange(amountState.copy())
+            }
+        ),
+        modifier = modifier
     )
 }
 

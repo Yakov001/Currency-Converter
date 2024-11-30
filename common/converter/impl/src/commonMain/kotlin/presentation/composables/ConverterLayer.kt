@@ -20,6 +20,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import presentation.decompose.ConverterComponent
 import presentation.decompose.ConverterScreenState
@@ -67,14 +68,19 @@ fun ConverterBlock(
             modifier = Modifier.padding(16.dp)
         ) {
             Column {
+                val focusManager = LocalFocusManager.current
+
                 CurrencySlot(
                     flagImageUrl = state.fromCurrency.flagImageUrl,
                     currencyName = state.fromCurrency.currencyName,
                     currencyCode = state.fromCurrency.currencyCode,
                     fetchDate = state.fromCurrency.fetchDate,
-                    onClick = component::changeFromCurrency,
+                    onClick = {
+                        focusManager.clearFocus()
+                        component.changeFromCurrency()
+                    },
                     textField = {
-                        CurrencySlotTextView(
+                        CurrencySlotTextField(
                             amountState = state.fromAmountState,
                             onTextChange = component::changeFromState
                         )
@@ -86,9 +92,12 @@ fun ConverterBlock(
                     currencyName = state.toCurrency.currencyName,
                     currencyCode = state.toCurrency.currencyCode,
                     fetchDate = state.fromCurrency.fetchDate,
-                    onClick = component::changeToCurrency,
+                    onClick = {
+                        focusManager.clearFocus()
+                        component.changeToCurrency()
+                    },
                     textField = {
-                        CurrencySlotTextView(
+                        CurrencySlotTextField(
                             amountState = state.toAmountState,
                             onTextChange = { },
                             enabled = false
