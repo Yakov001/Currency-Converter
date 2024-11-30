@@ -11,10 +11,8 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material3.MaterialTheme
@@ -25,15 +23,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.paint
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.dp
-import org.jetbrains.compose.resources.painterResource
-import resonanse.common.converter.impl.generated.resources.Res
-import resonanse.common.converter.impl.generated.resources.background
 
 @Composable
 fun BackgroundLayer() {
@@ -72,10 +65,6 @@ fun BackgroundLayer() {
                         end = offset
                     ),
                     shape = shape
-                )
-                .paint(
-                    painter = painterResource(Res.drawable.background),
-                    contentScale = ContentScale.Crop,
                 )
         )
         Spacer(
