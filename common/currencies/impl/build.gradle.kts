@@ -13,6 +13,8 @@ kotlin {
             implementation(libs.bundles.coil)
             implementation(libs.decompose)
             implementation(libs.kstore)
+
+            implementation(compose.components.resources)
         }
         iosMain.dependencies {
             implementation(libs.kstore.file)

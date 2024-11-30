@@ -76,7 +76,8 @@ class ConverterComponentImpl(
                     }
                 }
                 recalculateToAmount()
-            }
+            },
+            onBackClick = slotNavigation::dismiss
         )
     }
 

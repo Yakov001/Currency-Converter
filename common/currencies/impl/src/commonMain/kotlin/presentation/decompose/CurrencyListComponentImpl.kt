@@ -33,6 +33,7 @@ import utils.SnackbarEvent
 class CurrencyListComponentImpl(
     componentContext: ComponentContext,
     private val onCurrencySelected: (CurrencyEntity) -> Unit,
+    private val onBackClick: () -> Unit,
     private val componentScope: CoroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
 ) : CurrencyListComponent, ComponentContext by componentContext, KoinComponent {
 
@@ -81,9 +82,9 @@ class CurrencyListComponentImpl(
         }
     }
 
-    override fun onCurrencyClick(currency: CurrencyEntity) {
-        onCurrencySelected.invoke(currency)
-    }
+    override fun onCurrencyClick(currency: CurrencyEntity) = onCurrencySelected.invoke(currency)
+
+    override fun onBackClick() = onBackClick.invoke()
 
     private fun sortCurrenciesByName() {
         _screenState.update {

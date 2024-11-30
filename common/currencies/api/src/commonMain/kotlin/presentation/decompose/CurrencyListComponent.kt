@@ -8,6 +8,7 @@ interface CurrencyListComponent {
     fun searchByName(searchText: String)
     fun refreshCurrencies()
     fun onCurrencyClick(currency: CurrencyEntity)
+    fun onBackClick()
 
     fun List<CurrencyEntity>?.sortedBySearchText(): List<CurrencyEntity>? = this?.filter { cur ->
         val searchText = screenState.value.searchText
