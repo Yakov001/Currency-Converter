@@ -107,10 +107,11 @@ class ConverterComponentImpl(
             it.copy(
                 fromCurrency = it.toCurrency,
                 toCurrency = it.fromCurrency,
-                fromAmountState = it.toAmountState.copy(caretPos = it.toAmountState.amountText.length),
-                toAmountState = it.fromAmountState.copy(caretPos = 0)
+                fromAmountState = it.fromAmountState.copy(caretPos = it.toAmountState.amountText.length),
+                toAmountState = it.toAmountState.copy(caretPos = 0)
             )
         }
+        recalculateToAmount()
     }
 
     override fun changeFromState(state: TextFieldState) {
