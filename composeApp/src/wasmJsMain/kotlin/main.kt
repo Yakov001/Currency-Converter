@@ -17,6 +17,19 @@ import org.w3c.dom.set
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
 
+    val rootComponent = RootComponentImpl(componentContext = getComponentContext())
+
+    ComposeViewport(document.body!!) {
+        KoinApplication(application = resonanseKoinAppDeclaration()) {
+            App(
+                rootComponent = rootComponent
+            )
+        }
+    }
+
+}
+
+private fun getComponentContext() : DefaultComponentContext {
     val lifecycle = LifecycleRegistry()
     val stateKeeper = StateKeeperDispatcher(
         savedState = localStorage[KEY_SAVED_STATE]?.decodeSerializableContainer()
@@ -29,20 +42,10 @@ fun main() {
         null
     }
 
-    val componentContext = DefaultComponentContext(
+    return DefaultComponentContext(
         lifecycle = lifecycle,
         stateKeeper = stateKeeper
     )
-
-    val rootComponent = RootComponentImpl(componentContext = componentContext)
-
-    ComposeViewport(document.body!!) {
-        KoinApplication(application = resonanseKoinAppDeclaration()) {
-            App(
-                rootComponent = rootComponent
-            )
-        }
-    }
 
 }
 
