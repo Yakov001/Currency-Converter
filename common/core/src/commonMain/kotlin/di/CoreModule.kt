@@ -14,7 +14,6 @@ import ktor.HttpEngineFactory
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-
 private const val BASE_URL_NEW = "https://v6.exchangerate-api.com/v6/"
 private const val BASE_URL_OLD = "https://currency-rate-exchange-api.onrender.com/"
 
@@ -37,10 +36,7 @@ fun coreModule() = module {
                 level = LogLevel.ALL
             }
             defaultRequest {
-                url {
-                    host = BASE_URL_NEW
-                    parameters.append("api-key", BuildKonfig.API_KEY)
-                }
+                url(BASE_URL_NEW + BuildKonfig.API_KEY + "/")
             }
         }
     }

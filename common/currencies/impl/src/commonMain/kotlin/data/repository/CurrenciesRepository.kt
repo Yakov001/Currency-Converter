@@ -1,7 +1,7 @@
 package data.repository
 
 import data.Response
-import data.data_source.ktor.KtorCurrenciesDataSource
+import data.data_source.remote.KtorCurrenciesDataSource
 import data.data_source.local.KStoreDataSource
 import data.model.CurrencyInitial
 import domain.model.CurrencyEntity

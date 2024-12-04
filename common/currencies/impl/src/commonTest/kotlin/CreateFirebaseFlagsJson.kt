@@ -1,10 +1,9 @@
 import data.Response
-import data.data_source.ktor.KtorCurrenciesDataSource
-import data.data_source.ktor.dto.old_api.InitRequest
+import data.data_source.remote.KtorCurrenciesDataSource
+import data.data_source.remote.dto.old_api.InitRequest
 import data.model.CurrencyDto
 import di.coreModule
 import di.currenciesModule
-import domain.model.CurrencyEntity
 import io.ktor.client.network.sockets.SocketTimeoutException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.joinAll

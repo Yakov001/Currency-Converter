@@ -1,5 +1,5 @@
-import data.data_source.ktor.dto.old_api.InitRequest
-import data.data_source.ktor.dto.old_api.Rates
+import data.data_source.remote.dto.old_api.InitRequest
+import data.data_source.remote.dto.old_api.Rates
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
 

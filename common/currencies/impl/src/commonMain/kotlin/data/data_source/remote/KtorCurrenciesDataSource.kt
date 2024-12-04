@@ -1,8 +1,8 @@
-package data.data_source.ktor
+package data.data_source.remote
 
 import data.Response
-import data.data_source.ktor.dto.new_api.NewApiRequest
-import data.data_source.ktor.dto.old_api.InitRequest
+import data.data_source.remote.dto.new_api.NewApiRequest
+import data.data_source.remote.dto.old_api.InitRequest
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get

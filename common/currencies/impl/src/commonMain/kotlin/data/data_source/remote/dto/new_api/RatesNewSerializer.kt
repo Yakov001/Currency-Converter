@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalSerializationApi::class)
 
-package data.data_source.ktor.dto.old_api
+package data.data_source.remote.dto.new_api
 
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
@@ -16,38 +16,26 @@ import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 
-object RatesSerializer : KSerializer<Rates> {
+object RatesNewSerializer : KSerializer<RatesNew> {
 
     override val descriptor: SerialDescriptor by lazy {
-        buildClassSerialDescriptor("data.ktor.dto.Rates") {
-            element<String>("date")
+        buildClassSerialDescriptor("data.ktor.dto.newApi.RatesNew") {
             element<Map<String, Double>>("currencyRates")
         }
     }
 
-    override fun serialize(encoder: Encoder, value: Rates) {
-        val jsonEncoder = encoder as JsonEncoder
-        val jsonObject = buildJsonObject {
-            put("date", JsonPrimitive(value.date))
-        }
-        jsonEncoder.encodeJsonElement(jsonObject)
-    }
+    override fun serialize(encoder: Encoder, value: RatesNew) {}
 
-    override fun deserialize(decoder: Decoder): Rates {
+    override fun deserialize(decoder: Decoder): RatesNew {
         val jsonDecoder = decoder as JsonDecoder
         val jsonObject = jsonDecoder.decodeJsonElement().jsonObject
 
-        val date = jsonObject["date"]?.jsonPrimitive?.content!!
-
         val currencyRates: Map<String, Double> = jsonObject
-            .filterKeys { it != "date" }
-            .values
-            .first()
-            .jsonObject
             .mapValues {
                 it.value.jsonPrimitive.content.toDouble()
             }
 
-        return Rates(date = date, ratesMap = currencyRates)
+
+        return RatesNew(ratesMap = currencyRates)
     }
 }

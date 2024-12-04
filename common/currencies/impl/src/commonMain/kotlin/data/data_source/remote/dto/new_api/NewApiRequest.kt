@@ -1,4 +1,4 @@
-package data.data_source.ktor.dto.new_api
+package data.data_source.remote.dto.new_api
 
 
 import kotlinx.serialization.SerialName

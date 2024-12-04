@@ -4,6 +4,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import data.repository.CurrenciesRepository
 import data.Response
+import data.repository.CurrenciesRepositoryNew
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
@@ -38,6 +39,7 @@ class CurrencyListComponentImpl(
 ) : CurrencyListComponent, ComponentContext by componentContext, KoinComponent {
 
     private val repo: CurrenciesRepository by inject()
+    private val newRepo: CurrenciesRepositoryNew by inject()
 
     private val _screenState = MutableStateFlow(CurrencyListScreenState())
     override val screenState: StateFlow<CurrencyListScreenState> = _screenState
@@ -76,9 +78,12 @@ class CurrencyListComponentImpl(
 
     private fun fetchCurrencies() {
         componentScope.launch {
-            repo.getCurrencies()
-                .onCompletion { _screenState.update { it.copy(loadingStatus = LoadingStatus.Idle) } }
-                .handleResponse()
+            val response = newRepo.getCurrencies()
+            response.handleResponse()
+
+//            repo.getCurrencies()
+//                .onCompletion { _screenState.update { it.copy(loadingStatus = LoadingStatus.Idle) } }
+//                .handleResponse()
         }
     }
 
@@ -89,6 +94,39 @@ class CurrencyListComponentImpl(
     private fun sortCurrenciesByName() {
         _screenState.update {
             it.copy(sortedData = it.data.sortedBySearchText())
+        }
+    }
+
+    private suspend fun Response<List<CurrencyEntity>>.handleResponse() {
+        when (this) {
+            is Response.Success -> {
+                _screenState.update {
+                    it.copy(
+                        data = this.data,
+                        sortedData = this.data
+                    )
+                }
+                sortCurrenciesByName()
+            }
+
+            is Response.Loading -> {
+                _screenState.update { it.copy(loadingStatus = LoadingStatus.Loading) }
+            }
+
+            is Response.Failure -> {
+                _screenState.update { it.copy(loadingStatus = LoadingStatus.Idle) }
+                SnackbarController.sendEvent(
+                    SnackbarEvent(
+                        message = this.message,
+                        action = SnackbarAction(
+                            name = "Retry",
+                            action = {
+                                fetchCurrencies()
+                            }
+                        )
+                    )
+                )
+            }
         }
     }
 
