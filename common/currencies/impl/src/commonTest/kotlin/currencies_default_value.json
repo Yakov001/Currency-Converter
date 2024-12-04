@@ -1,0 +1,1052 @@
+[
+  {
+    "currencyCode": "AFN",
+    "currencyName": "Afghan Afghani",
+    "flagImageUrl": "https://flagcdn.com/w320/af.png",
+    "usdRate": 0.014699281,
+    "fetchTimeInstant": "2024-12-04T21:00:24.221361900Z"
+  },
+  {
+    "currencyCode": "AMD",
+    "currencyName": "Armenian Dram",
+    "flagImageUrl": "https://flagcdn.com/w320/am.png",
+    "usdRate": 0.0025093015,
+    "fetchTimeInstant": "2024-12-04T21:00:24.594875800Z"
+  },
+  {
+    "currencyCode": "ANG",
+    "currencyName": "Netherlands Antillean Guilder",
+    "flagImageUrl": "https://flagcdn.com/w320/sx.png",
+    "usdRate": 0.55548438,
+    "fetchTimeInstant": "2024-12-04T21:00:24.771692500Z"
+  },
+  {
+    "currencyCode": "AOA",
+    "currencyName": "Angolan Kwanza",
+    "flagImageUrl": "https://flagcdn.com/w320/ao.png",
+    "usdRate": 0.0010845995,
+    "fetchTimeInstant": "2024-12-04T21:00:25.051395800Z"
+  },
+  {
+    "currencyCode": "ALL",
+    "currencyName": "Albanian Lek",
+    "flagImageUrl": "https://flagcdn.com/w320/al.png",
+    "usdRate": 0.010703742,
+    "fetchTimeInstant": "2024-12-04T21:00:25.245687300Z"
+  },
+  {
+    "currencyCode": "ARS",
+    "currencyName": "Argentine Peso",
+    "flagImageUrl": "https://flagcdn.com/w320/ar.png",
+    "usdRate": 9.8840975E-4,
+    "fetchTimeInstant": "2024-12-04T21:00:25.616203Z"
+  },
+  {
+    "currencyCode": "AUD",
+    "currencyName": "Australian Dollar",
+    "flagImageUrl": "https://flagcdn.com/w320/au.png",
+    "usdRate": 0.64547432,
+    "fetchTimeInstant": "2024-12-04T21:00:26.160186300Z"
+  },
+  {
+    "currencyCode": "AWG",
+    "currencyName": "Aruban Florin",
+    "flagImageUrl": "https://flagcdn.com/w320/aw.png",
+    "usdRate": 0.55865922,
+    "fetchTimeInstant": "2024-12-04T21:00:26.501807600Z"
+  },
+  {
+    "currencyCode": "AZN",
+    "currencyName": "Azerbaijani Manat",
+    "flagImageUrl": "https://flagcdn.com/w320/az.png",
+    "usdRate": 0.58824334,
+    "fetchTimeInstant": "2024-12-04T21:00:26.503972300Z"
+  },
+  {
+    "currencyCode": "BAM",
+    "currencyName": "Bosnia-Herzegovina Convertible Mark",
+    "flagImageUrl": "https://flagcdn.com/w320/ba.png",
+    "usdRate": 0.53722623,
+    "fetchTimeInstant": "2024-12-04T21:00:26.711490900Z"
+  },
+  {
+    "currencyCode": "BBD",
+    "currencyName": "Barbadian Dollar",
+    "flagImageUrl": "https://flagcdn.com/w320/bb.png",
+    "usdRate": 0.5,
+    "fetchTimeInstant": "2024-12-04T21:00:27.055312800Z"
+  },
+  {
+    "currencyCode": "BDT",
+    "currencyName": "Bangladeshi Taka",
+    "flagImageUrl": "https://flagcdn.com/w320/bd.png",
+    "usdRate": 0.0083666478,
+    "fetchTimeInstant": "2024-12-04T21:00:27.336426100Z"
+  },
+  {
+    "currencyCode": "BGN",
+    "currencyName": "Bulgarian Lev",
+    "flagImageUrl": "https://flagcdn.com/w320/bg.png",
+    "usdRate": 0.53722623,
+    "fetchTimeInstant": "2024-12-04T21:00:27.557905500Z"
+  },
+  {
+    "currencyCode": "BHD",
+    "currencyName": "Bahraini Dinar",
+    "flagImageUrl": "https://flagcdn.com/w320/bh.png",
+    "usdRate": 2.65957447,
+    "fetchTimeInstant": "2024-12-04T21:00:27.760207800Z"
+  },
+  {
+    "currencyCode": "BMD",
+    "currencyName": "Bermudian Dollar",
+    "flagImageUrl": "https://flagcdn.com/w320/bm.png",
+    "usdRate": 1.0,
+    "fetchTimeInstant": "2024-12-04T21:00:27.941442700Z"
+  },
+  {
+    "currencyCode": "BRL",
+    "currencyName": "Brazilian Real",
+    "flagImageUrl": "https://flagcdn.com/w320/br.png",
+    "usdRate": 0.16543058,
+    "fetchTimeInstant": "2024-12-04T21:00:28.402446400Z"
+  },
+  {
+    "currencyCode": "BSD",
+    "currencyName": "Bahamian Dollar",
+    "flagImageUrl": "https://flagcdn.com/w320/bs.png",
+    "usdRate": 1.0,
+    "fetchTimeInstant": "2024-12-04T21:00:28.404962900Z"
+  },
+  {
+    "currencyCode": "BND",
+    "currencyName": "Brunei Dollar",
+    "flagImageUrl": "https://flagcdn.com/w320/bn.png",
+    "usdRate": 0.7432044,
+    "fetchTimeInstant": "2024-12-04T21:00:28.717611500Z"
+  },
+  {
+    "currencyCode": "BWP",
+    "currencyName": "Botswana Pula",
+    "flagImageUrl": "https://flagcdn.com/w320/bw.png",
+    "usdRate": 0.073461251,
+    "fetchTimeInstant": "2024-12-04T21:00:29.259121800Z"
+  },
+  {
+    "currencyCode": "BTN",
+    "currencyName": "Bhutanese Ngultrum",
+    "flagImageUrl": "https://flagcdn.com/w320/bt.png",
+    "usdRate": 0.01180595,
+    "fetchTimeInstant": "2024-12-04T21:00:29.436688200Z"
+  },
+  {
+    "currencyCode": "BYN",
+    "currencyName": "Belarusian Ruble",
+    "flagImageUrl": "https://flagcdn.com/w320/by.png",
+    "usdRate": 0.30582358,
+    "fetchTimeInstant": "2024-12-04T21:00:29.531175300Z"
+  },
+  {
+    "currencyCode": "BOB",
+    "currencyName": "Bolivian Boliviano",
+    "flagImageUrl": "https://flagcdn.com/w320/bo.png",
+    "usdRate": 0.14477782,
+    "fetchTimeInstant": "2024-12-04T21:00:29.602049500Z"
+  },
+  {
+    "currencyCode": "CAD",
+    "currencyName": "Canadian Dollar",
+    "flagImageUrl": "https://flagcdn.com/w320/ca.png",
+    "usdRate": 0.71060529,
+    "fetchTimeInstant": "2024-12-04T21:00:30.051661500Z"
+  },
+  {
+    "currencyCode": "CHF",
+    "currencyName": "Swiss Franc",
+    "flagImageUrl": "https://flagcdn.com/w320/ch.png",
+    "usdRate": 1.1275599,
+    "fetchTimeInstant": "2024-12-04T21:00:30.721458400Z"
+  },
+  {
+    "currencyCode": "CLP",
+    "currencyName": "Chilean Peso",
+    "flagImageUrl": "https://flagcdn.com/w320/cl.png",
+    "usdRate": 0.0010276281,
+    "fetchTimeInstant": "2024-12-04T21:00:30.731156400Z"
+  },
+  {
+    "currencyCode": "BZD",
+    "currencyName": "Belize Dollar",
+    "flagImageUrl": "https://flagcdn.com/w320/bz.png",
+    "usdRate": 0.49647393,
+    "fetchTimeInstant": "2024-12-04T21:00:30.904515200Z"
+  },
+  {
+    "currencyCode": "CNY",
+    "currencyName": "Chinese Yuan",
+    "flagImageUrl": "https://flagcdn.com/w320/cn.png",
+    "usdRate": 0.13733448,
+    "fetchTimeInstant": "2024-12-04T21:00:30.912710Z"
+  },
+  {
+    "currencyCode": "COP",
+    "currencyName": "Colombian Peso",
+    "flagImageUrl": "https://flagcdn.com/w320/co.png",
+    "usdRate": 2.2537336E-4,
+    "fetchTimeInstant": "2024-12-04T21:00:31.229427800Z"
+  },
+  {
+    "currencyCode": "CRC",
+    "currencyName": "Costa Rican Colón",
+    "flagImageUrl": "https://flagcdn.com/w320/cr.png",
+    "usdRate": 0.0019686486,
+    "fetchTimeInstant": "2024-12-04T21:00:31.231494700Z"
+  },
+  {
+    "currencyCode": "CVE",
+    "currencyName": "Cape Verdean Escudo",
+    "flagImageUrl": "https://flagcdn.com/w320/cv.png",
+    "usdRate": 0.0095286404,
+    "fetchTimeInstant": "2024-12-04T21:00:31.733588500Z"
+  },
+  {
+    "currencyCode": "CZK",
+    "currencyName": "Czech Koruna",
+    "flagImageUrl": "https://flagcdn.com/w320/cz.png",
+    "usdRate": 0.04176495,
+    "fetchTimeInstant": "2024-12-04T21:00:32.171295Z"
+  },
+  {
+    "currencyCode": "DKK",
+    "currencyName": "Danish Krone",
+    "flagImageUrl": "https://flagcdn.com/w320/dk.png",
+    "usdRate": 0.1408815,
+    "fetchTimeInstant": "2024-12-04T21:00:32.509770300Z"
+  },
+  {
+    "currencyCode": "DJF",
+    "currencyName": "Djiboutian Franc",
+    "flagImageUrl": "https://flagcdn.com/w320/dj.png",
+    "usdRate": 0.0056222129,
+    "fetchTimeInstant": "2024-12-04T21:00:32.531148800Z"
+  },
+  {
+    "currencyCode": "DOP",
+    "currencyName": "Dominican Peso",
+    "flagImageUrl": "https://flagcdn.com/w320/do.png",
+    "usdRate": 0.01653803,
+    "fetchTimeInstant": "2024-12-04T21:00:33.141289800Z"
+  },
+  {
+    "currencyCode": "EGP",
+    "currencyName": "Egyptian Pound",
+    "flagImageUrl": "https://flagcdn.com/w320/eg.png",
+    "usdRate": 0.020101526,
+    "fetchTimeInstant": "2024-12-04T21:00:33.282282500Z"
+  },
+  {
+    "currencyCode": "DZD",
+    "currencyName": "Algerian Dinar",
+    "flagImageUrl": "https://flagcdn.com/w320/dz.png",
+    "usdRate": 0.0074711196,
+    "fetchTimeInstant": "2024-12-04T21:00:33.584364600Z"
+  },
+  {
+    "currencyCode": "ERN",
+    "currencyName": "Eritrean Nakfa",
+    "flagImageUrl": "https://flagcdn.com/w320/er.png",
+    "usdRate": 0.066666667,
+    "fetchTimeInstant": "2024-12-04T21:00:33.671425Z"
+  },
+  {
+    "currencyCode": "ETB",
+    "currencyName": "Ethiopian Birr",
+    "flagImageUrl": "https://flagcdn.com/w320/et.png",
+    "usdRate": 0.0079746248,
+    "fetchTimeInstant": "2024-12-04T21:00:33.781287Z"
+  },
+  {
+    "currencyCode": "EUR",
+    "currencyName": "Euro",
+    "flagImageUrl": "https://flagcdn.com/w320/eu.png",
+    "usdRate": 1.04864322,
+    "fetchTimeInstant": "2024-12-04T21:00:33.879448300Z"
+  },
+  {
+    "currencyCode": "FJD",
+    "currencyName": "Fijian Dollar",
+    "flagImageUrl": "https://flagcdn.com/w320/fj.png",
+    "usdRate": 0.43967828,
+    "fetchTimeInstant": "2024-12-04T21:00:34.358568100Z"
+  },
+  {
+    "currencyCode": "FKP",
+    "currencyName": "Falkland Islands Pound",
+    "flagImageUrl": "https://flagcdn.com/w320/fk.png",
+    "usdRate": 1.26685307,
+    "fetchTimeInstant": "2024-12-04T21:00:34.468187900Z"
+  },
+  {
+    "currencyCode": "GBP",
+    "currencyName": "British Pound Sterling",
+    "flagImageUrl": "https://flagcdn.com/w320/gb.png",
+    "usdRate": 1.26444684,
+    "fetchTimeInstant": "2024-12-04T21:00:34.796657400Z"
+  },
+  {
+    "currencyCode": "GEL",
+    "currencyName": "Georgian Lari",
+    "flagImageUrl": "https://flagcdn.com/w320/ge.png",
+    "usdRate": 0.35251782,
+    "fetchTimeInstant": "2024-12-04T21:00:35.101172400Z"
+  },
+  {
+    "currencyCode": "GHS",
+    "currencyName": "Ghanaian Cedi",
+    "flagImageUrl": "https://flagcdn.com/w320/gh.png",
+    "usdRate": 0.065857071,
+    "fetchTimeInstant": "2024-12-04T21:00:35.331650500Z"
+  },
+  {
+    "currencyCode": "GIP",
+    "currencyName": "Gibraltar Pound",
+    "flagImageUrl": "https://flagcdn.com/w320/gi.png",
+    "usdRate": 1.26685307,
+    "fetchTimeInstant": "2024-12-04T21:00:35.365235800Z"
+  },
+  {
+    "currencyCode": "GMD",
+    "currencyName": "Gambian Dalasi",
+    "flagImageUrl": "https://flagcdn.com/w320/gm.png",
+    "usdRate": 0.01393196,
+    "fetchTimeInstant": "2024-12-04T21:00:35.501234900Z"
+  },
+  {
+    "currencyCode": "GNF",
+    "currencyName": "Guinean Franc",
+    "flagImageUrl": "https://flagcdn.com/w320/gn.png",
+    "usdRate": 1.1600459E-4,
+    "fetchTimeInstant": "2024-12-04T21:00:35.833330400Z"
+  },
+  {
+    "currencyCode": "GTQ",
+    "currencyName": "Guatemalan Quetzal",
+    "flagImageUrl": "https://flagcdn.com/w320/gt.png",
+    "usdRate": 0.1295769,
+    "fetchTimeInstant": "2024-12-04T21:00:36.161599800Z"
+  },
+  {
+    "currencyCode": "GYD",
+    "currencyName": "Guyanese Dollar",
+    "flagImageUrl": "https://flagcdn.com/w320/gy.png",
+    "usdRate": 0.0047905409,
+    "fetchTimeInstant": "2024-12-04T21:00:36.313296700Z"
+  },
+  {
+    "currencyCode": "HKD",
+    "currencyName": "Hong Kong Dollar",
+    "flagImageUrl": "https://flagcdn.com/w320/hk.png",
+    "usdRate": 0.12847827,
+    "fetchTimeInstant": "2024-12-04T21:00:36.436641100Z"
+  },
+  {
+    "currencyCode": "HNL",
+    "currencyName": "Honduran Lempira",
+    "flagImageUrl": "https://flagcdn.com/w320/hn.png",
+    "usdRate": 0.039518591,
+    "fetchTimeInstant": "2024-12-04T21:00:36.646054100Z"
+  },
+  {
+    "currencyCode": "HTG",
+    "currencyName": "Haitian Gourde",
+    "flagImageUrl": "https://flagcdn.com/w320/ht.png",
+    "usdRate": 0.007630507,
+    "fetchTimeInstant": "2024-12-04T21:00:36.961465100Z"
+  },
+  {
+    "currencyCode": "IDR",
+    "currencyName": "Indonesian Rupiah",
+    "flagImageUrl": "https://flagcdn.com/w320/id.png",
+    "usdRate": 6.2800473E-5,
+    "fetchTimeInstant": "2024-12-04T21:00:36.976497Z"
+  },
+  {
+    "currencyCode": "HUF",
+    "currencyName": "Hungarian Forint",
+    "flagImageUrl": "https://flagcdn.com/w320/hu.png",
+    "usdRate": 0.0025339505,
+    "fetchTimeInstant": "2024-12-04T21:00:37.046608600Z"
+  },
+  {
+    "currencyCode": "HRK",
+    "currencyName": "Croatian Kuna",
+    "flagImageUrl": "https://flagcdn.com/w320/hr.png",
+    "usdRate": 0.13945493,
+    "fetchTimeInstant": "2024-12-04T21:00:37.089262200Z"
+  },
+  {
+    "currencyCode": "ILS",
+    "currencyName": "Israeli New Shekel",
+    "flagImageUrl": "https://flagcdn.com/w320/il.png",
+    "usdRate": 0.27603685,
+    "fetchTimeInstant": "2024-12-04T21:00:37.513917800Z"
+  },
+  {
+    "currencyCode": "INR",
+    "currencyName": "Indian Rupee",
+    "flagImageUrl": "https://flagcdn.com/w320/in.png",
+    "usdRate": 0.01180595,
+    "fetchTimeInstant": "2024-12-04T21:00:37.614221800Z"
+  },
+  {
+    "currencyCode": "IMP",
+    "currencyName": "Isle of Man Pound",
+    "flagImageUrl": "https://flagcdn.com/w320/im.png",
+    "usdRate": 1.26685307,
+    "fetchTimeInstant": "2024-12-04T21:00:37.821301700Z"
+  },
+  {
+    "currencyCode": "IQD",
+    "currencyName": "Iraqi Dinar",
+    "flagImageUrl": "https://flagcdn.com/w320/iq.png",
+    "usdRate": 7.6310151E-4,
+    "fetchTimeInstant": "2024-12-04T21:00:38.001082200Z"
+  },
+  {
+    "currencyCode": "IRR",
+    "currencyName": "Iranian Rial",
+    "flagImageUrl": "https://flagcdn.com/w320/ir.png",
+    "usdRate": 2.3741615E-5,
+    "fetchTimeInstant": "2024-12-04T21:00:38.047961400Z"
+  },
+  {
+    "currencyCode": "ISK",
+    "currencyName": "Icelandic Króna",
+    "flagImageUrl": "https://flagcdn.com/w320/is.png",
+    "usdRate": 0.0072111941,
+    "fetchTimeInstant": "2024-12-04T21:00:38.144344500Z"
+  },
+  {
+    "currencyCode": "JMD",
+    "currencyName": "Jamaican Dollar",
+    "flagImageUrl": "https://flagcdn.com/w320/jm.png",
+    "usdRate": 0.0063525252,
+    "fetchTimeInstant": "2024-12-04T21:00:38.581174100Z"
+  },
+  {
+    "currencyCode": "JOD",
+    "currencyName": "Jordanian Dinar",
+    "flagImageUrl": "https://flagcdn.com/w320/jo.png",
+    "usdRate": 1.41043724,
+    "fetchTimeInstant": "2024-12-04T21:00:38.589667Z"
+  },
+  {
+    "currencyCode": "JPY",
+    "currencyName": "Japanese Yen",
+    "flagImageUrl": "https://flagcdn.com/w320/jp.png",
+    "usdRate": 0.0066720745,
+    "fetchTimeInstant": "2024-12-04T21:00:38.631283400Z"
+  },
+  {
+    "currencyCode": "KHR",
+    "currencyName": "Cambodian Riel",
+    "flagImageUrl": "https://flagcdn.com/w320/kh.png",
+    "usdRate": 2.4757871E-4,
+    "fetchTimeInstant": "2024-12-04T21:00:39.270973400Z"
+  },
+  {
+    "currencyCode": "KGS",
+    "currencyName": "Kyrgyzstani Som",
+    "flagImageUrl": "https://flagcdn.com/w320/kg.png",
+    "usdRate": 0.011520707,
+    "fetchTimeInstant": "2024-12-04T21:00:39.339192200Z"
+  },
+  {
+    "currencyCode": "KMF",
+    "currencyName": "Comorian Franc",
+    "flagImageUrl": "https://flagcdn.com/w320/km.png",
+    "usdRate": 0.0021357562,
+    "fetchTimeInstant": "2024-12-04T21:00:39.364426800Z"
+  },
+  {
+    "currencyCode": "KES",
+    "currencyName": "Kenyan Shilling",
+    "flagImageUrl": "https://flagcdn.com/w320/ke.png",
+    "usdRate": 0.0077220527,
+    "fetchTimeInstant": "2024-12-04T21:00:39.645491500Z"
+  },
+  {
+    "currencyCode": "KWD",
+    "currencyName": "Kuwaiti Dinar",
+    "flagImageUrl": "https://flagcdn.com/w320/kw.png",
+    "usdRate": 3.25454578,
+    "fetchTimeInstant": "2024-12-04T21:00:39.914711100Z"
+  },
+  {
+    "currencyCode": "KRW",
+    "currencyName": "South Korean Won",
+    "flagImageUrl": "https://flagcdn.com/w320/kr.png",
+    "usdRate": 7.0639033E-4,
+    "fetchTimeInstant": "2024-12-04T21:00:40.021081400Z"
+  },
+  {
+    "currencyCode": "KYD",
+    "currencyName": "Cayman Islands Dollar",
+    "flagImageUrl": "https://flagcdn.com/w320/ky.png",
+    "usdRate": 1.20876504,
+    "fetchTimeInstant": "2024-12-04T21:00:40.175717100Z"
+  },
+  {
+    "currencyCode": "LAK",
+    "currencyName": "Lao Kip",
+    "flagImageUrl": "https://flagcdn.com/w320/la.png",
+    "usdRate": 4.5515979E-5,
+    "fetchTimeInstant": "2024-12-04T21:00:40.203285100Z"
+  },
+  {
+    "currencyCode": "KZT",
+    "currencyName": "Kazakhstani Tenge",
+    "flagImageUrl": "https://flagcdn.com/w320/kz.png",
+    "usdRate": 0.001966379,
+    "fetchTimeInstant": "2024-12-04T21:00:40.209546500Z"
+  },
+  {
+    "currencyCode": "LBP",
+    "currencyName": "Lebanese Pound",
+    "flagImageUrl": "https://flagcdn.com/w320/lb.png",
+    "usdRate": 1.1147317E-5,
+    "fetchTimeInstant": "2024-12-04T21:00:40.431440700Z"
+  },
+  {
+    "currencyCode": "LRD",
+    "currencyName": "Liberian Dollar",
+    "flagImageUrl": "https://flagcdn.com/w320/lr.png",
+    "usdRate": 0.005586961,
+    "fetchTimeInstant": "2024-12-04T21:00:40.950927Z"
+  },
+  {
+    "currencyCode": "LKR",
+    "currencyName": "Sri Lankan Rupee",
+    "flagImageUrl": "https://flagcdn.com/w320/lk.png",
+    "usdRate": 0.0034402538,
+    "fetchTimeInstant": "2024-12-04T21:00:41.192497700Z"
+  },
+  {
+    "currencyCode": "LSL",
+    "currencyName": "Lesotho Loti",
+    "flagImageUrl": "https://flagcdn.com/w320/ls.png",
+    "usdRate": 0.055150349,
+    "fetchTimeInstant": "2024-12-04T21:00:41.431064500Z"
+  },
+  {
+    "currencyCode": "LYD",
+    "currencyName": "Libyan Dinar",
+    "flagImageUrl": "https://flagcdn.com/w320/ly.png",
+    "usdRate": 0.20491846,
+    "fetchTimeInstant": "2024-12-04T21:00:41.675335600Z"
+  },
+  {
+    "currencyCode": "MDL",
+    "currencyName": "Moldovan Leu",
+    "flagImageUrl": "https://flagcdn.com/w320/md.png",
+    "usdRate": 0.054669358,
+    "fetchTimeInstant": "2024-12-04T21:00:42.065125600Z"
+  },
+  {
+    "currencyCode": "MGA",
+    "currencyName": "Malagasy Ariary",
+    "flagImageUrl": "https://flagcdn.com/w320/mg.png",
+    "usdRate": 2.1288312E-4,
+    "fetchTimeInstant": "2024-12-04T21:00:42.191035100Z"
+  },
+  {
+    "currencyCode": "MMK",
+    "currencyName": "Myanmar Kyat",
+    "flagImageUrl": "https://flagcdn.com/w320/mm.png",
+    "usdRate": 4.7643206E-4,
+    "fetchTimeInstant": "2024-12-04T21:00:42.644035Z"
+  },
+  {
+    "currencyCode": "MAD",
+    "currencyName": "Moroccan Dirham",
+    "flagImageUrl": "https://flagcdn.com/w320/ma.png",
+    "usdRate": 0.10000831,
+    "fetchTimeInstant": "2024-12-04T21:00:42.665458300Z"
+  },
+  {
+    "currencyCode": "MKD",
+    "currencyName": "Macedonian Denar",
+    "flagImageUrl": "https://flagcdn.com/w320/mk.png",
+    "usdRate": 0.017083885,
+    "fetchTimeInstant": "2024-12-04T21:00:42.665458300Z"
+  },
+  {
+    "currencyCode": "MNT",
+    "currencyName": "Mongolian Tögrög",
+    "flagImageUrl": "https://flagcdn.com/w320/mn.png",
+    "usdRate": 2.9114736E-4,
+    "fetchTimeInstant": "2024-12-04T21:00:42.754584Z"
+  },
+  {
+    "currencyCode": "MOP",
+    "currencyName": "Macanese Pataca",
+    "flagImageUrl": "https://flagcdn.com/w320/mo.png",
+    "usdRate": 0.12473618,
+    "fetchTimeInstant": "2024-12-04T21:00:42.970660500Z"
+  },
+  {
+    "currencyCode": "MUR",
+    "currencyName": "Mauritian Rupee",
+    "flagImageUrl": "https://flagcdn.com/w320/mu.png",
+    "usdRate": 0.021381494,
+    "fetchTimeInstant": "2024-12-04T21:00:43.291047900Z"
+  },
+  {
+    "currencyCode": "MRU",
+    "currencyName": "Mauritanian Ouguiya",
+    "flagImageUrl": "https://flagcdn.com/w320/mr.png",
+    "usdRate": 0.025064076,
+    "fetchTimeInstant": "2024-12-04T21:00:43.303968600Z"
+  },
+  {
+    "currencyCode": "MVR",
+    "currencyName": "Maldivian Rufiyaa",
+    "flagImageUrl": "https://flagcdn.com/w320/mv.png",
+    "usdRate": 0.06477212,
+    "fetchTimeInstant": "2024-12-04T21:00:43.531884400Z"
+  },
+  {
+    "currencyCode": "MWK",
+    "currencyName": "Malawian Kwacha",
+    "flagImageUrl": "https://flagcdn.com/w320/mw.png",
+    "usdRate": 5.7606369E-4,
+    "fetchTimeInstant": "2024-12-04T21:00:43.541018600Z"
+  },
+  {
+    "currencyCode": "MXN",
+    "currencyName": "Mexican Peso",
+    "flagImageUrl": "https://flagcdn.com/w320/mx.png",
+    "usdRate": 0.049174545,
+    "fetchTimeInstant": "2024-12-04T21:00:43.591139Z"
+  },
+  {
+    "currencyCode": "MYR",
+    "currencyName": "Malaysian Ringgit",
+    "flagImageUrl": "https://flagcdn.com/w320/my.png",
+    "usdRate": 0.22376048,
+    "fetchTimeInstant": "2024-12-04T21:00:43.623591300Z"
+  },
+  {
+    "currencyCode": "MZN",
+    "currencyName": "Mozambican Metical",
+    "flagImageUrl": "https://flagcdn.com/w320/mz.png",
+    "usdRate": 0.015649612,
+    "fetchTimeInstant": "2024-12-04T21:00:44.089314600Z"
+  },
+  {
+    "currencyCode": "NAD",
+    "currencyName": "Namibian Dollar",
+    "flagImageUrl": "https://flagcdn.com/w320/na.png",
+    "usdRate": 0.055150349,
+    "fetchTimeInstant": "2024-12-04T21:00:44.180959200Z"
+  },
+  {
+    "currencyCode": "NGN",
+    "currencyName": "Nigerian Naira",
+    "flagImageUrl": "https://flagcdn.com/w320/ng.png",
+    "usdRate": 6.0275874E-4,
+    "fetchTimeInstant": "2024-12-04T21:00:44.663367Z"
+  },
+  {
+    "currencyCode": "NIO",
+    "currencyName": "Nicaraguan Córdoba",
+    "flagImageUrl": "https://flagcdn.com/w320/ni.png",
+    "usdRate": 0.0271742,
+    "fetchTimeInstant": "2024-12-04T21:00:44.720656800Z"
+  },
+  {
+    "currencyCode": "NOK",
+    "currencyName": "Norwegian Krone",
+    "flagImageUrl": "https://flagcdn.com/w320/no.png",
+    "usdRate": 0.090300969,
+    "fetchTimeInstant": "2024-12-04T21:00:44.791027900Z"
+  },
+  {
+    "currencyCode": "NPR",
+    "currencyName": "Nepalese Rupee",
+    "flagImageUrl": "https://flagcdn.com/w320/np.png",
+    "usdRate": 0.0073752613,
+    "fetchTimeInstant": "2024-12-04T21:00:44.930649700Z"
+  },
+  {
+    "currencyCode": "NZD",
+    "currencyName": "New Zealand Dollar",
+    "flagImageUrl": "https://flagcdn.com/w320/nz.png",
+    "usdRate": 0.58661934,
+    "fetchTimeInstant": "2024-12-04T21:00:45.672557800Z"
+  },
+  {
+    "currencyCode": "PAB",
+    "currencyName": "Panamanian Balboa",
+    "flagImageUrl": "https://flagcdn.com/w320/pa.png",
+    "usdRate": 1.0,
+    "fetchTimeInstant": "2024-12-04T21:00:45.751065800Z"
+  },
+  {
+    "currencyCode": "PEN",
+    "currencyName": "Peruvian Sol",
+    "flagImageUrl": "https://flagcdn.com/w320/pe.png",
+    "usdRate": 0.26647374,
+    "fetchTimeInstant": "2024-12-04T21:00:45.949334700Z"
+  },
+  {
+    "currencyCode": "PHP",
+    "currencyName": "Philippine Peso",
+    "flagImageUrl": "https://flagcdn.com/w320/ph.png",
+    "usdRate": 0.017115995,
+    "fetchTimeInstant": "2024-12-04T21:00:46.040961900Z"
+  },
+  {
+    "currencyCode": "OMR",
+    "currencyName": "Omani Rial",
+    "flagImageUrl": "https://flagcdn.com/w320/om.png",
+    "usdRate": 2.59745312,
+    "fetchTimeInstant": "2024-12-04T21:00:46.186739200Z"
+  },
+  {
+    "currencyCode": "PGK",
+    "currencyName": "Papua New Guinean Kina",
+    "flagImageUrl": "https://flagcdn.com/w320/pg.png",
+    "usdRate": 0.25080149,
+    "fetchTimeInstant": "2024-12-04T21:00:46.215138400Z"
+  },
+  {
+    "currencyCode": "PKR",
+    "currencyName": "Pakistani Rupee",
+    "flagImageUrl": "https://flagcdn.com/w320/pk.png",
+    "usdRate": 0.0035977215,
+    "fetchTimeInstant": "2024-12-04T21:00:46.426589600Z"
+  },
+  {
+    "currencyCode": "PLN",
+    "currencyName": "Polish Zloty",
+    "flagImageUrl": "https://flagcdn.com/w320/pl.png",
+    "usdRate": 0.24475404,
+    "fetchTimeInstant": "2024-12-04T21:00:46.496467200Z"
+  },
+  {
+    "currencyCode": "PYG",
+    "currencyName": "Paraguayan Guaraní",
+    "flagImageUrl": "https://flagcdn.com/w320/py.png",
+    "usdRate": 1.2807193E-4,
+    "fetchTimeInstant": "2024-12-04T21:00:46.717481400Z"
+  },
+  {
+    "currencyCode": "QAR",
+    "currencyName": "Qatari Rial",
+    "flagImageUrl": "https://flagcdn.com/w320/qa.png",
+    "usdRate": 0.27472527,
+    "fetchTimeInstant": "2024-12-04T21:00:46.742830600Z"
+  },
+  {
+    "currencyCode": "RON",
+    "currencyName": "Romanian Leu",
+    "flagImageUrl": "https://flagcdn.com/w320/ro.png",
+    "usdRate": 0.21115868,
+    "fetchTimeInstant": "2024-12-04T21:00:47.111322800Z"
+  },
+  {
+    "currencyCode": "RSD",
+    "currencyName": "Serbian Dinar",
+    "flagImageUrl": "https://flagcdn.com/w320/rs.png",
+    "usdRate": 0.0089835882,
+    "fetchTimeInstant": "2024-12-04T21:00:47.345781100Z"
+  },
+  {
+    "currencyCode": "RUB",
+    "currencyName": "Russian Ruble",
+    "flagImageUrl": "https://flagcdn.com/w320/ru.png",
+    "usdRate": 0.0095236579,
+    "fetchTimeInstant": "2024-12-04T21:00:47.347079500Z"
+  },
+  {
+    "currencyCode": "SBD",
+    "currencyName": "Solomon Islands Dollar",
+    "flagImageUrl": "https://flagcdn.com/w320/sb.png",
+    "usdRate": 0.11900937,
+    "fetchTimeInstant": "2024-12-04T21:00:47.927009200Z"
+  },
+  {
+    "currencyCode": "SCR",
+    "currencyName": "Seychellois Rupee",
+    "flagImageUrl": "https://flagcdn.com/w320/sc.png",
+    "usdRate": 0.070228727,
+    "fetchTimeInstant": "2024-12-04T21:00:47.928498600Z"
+  },
+  {
+    "currencyCode": "SAR",
+    "currencyName": "Saudi Riyal",
+    "flagImageUrl": "https://flagcdn.com/w320/sa.png",
+    "usdRate": 0.26666667,
+    "fetchTimeInstant": "2024-12-04T21:00:47.930052900Z"
+  },
+  {
+    "currencyCode": "SDG",
+    "currencyName": "Sudanese Pound",
+    "flagImageUrl": "https://flagcdn.com/w320/sd.png",
+    "usdRate": 0.0016625232,
+    "fetchTimeInstant": "2024-12-04T21:00:48.177621Z"
+  },
+  {
+    "currencyCode": "SGD",
+    "currencyName": "Singapore Dollar",
+    "flagImageUrl": "https://flagcdn.com/w320/sg.png",
+    "usdRate": 0.7432044,
+    "fetchTimeInstant": "2024-12-04T21:00:48.278166900Z"
+  },
+  {
+    "currencyCode": "SEK",
+    "currencyName": "Swedish Krona",
+    "flagImageUrl": "https://flagcdn.com/w320/se.png",
+    "usdRate": 0.090765807,
+    "fetchTimeInstant": "2024-12-04T21:00:48.479069Z"
+  },
+  {
+    "currencyCode": "RWF",
+    "currencyName": "Rwandan Franc",
+    "flagImageUrl": "https://flagcdn.com/w320/rw.png",
+    "usdRate": 7.2474622E-4,
+    "fetchTimeInstant": "2024-12-04T21:00:48.595653800Z"
+  },
+  {
+    "currencyCode": "SHP",
+    "currencyName": "Saint Helena Pound",
+    "flagImageUrl": "https://flagcdn.com/w320/sh.png",
+    "usdRate": 1.26685307,
+    "fetchTimeInstant": "2024-12-04T21:00:48.800692200Z"
+  },
+  {
+    "currencyCode": "SLL",
+    "currencyName": "Sierra Leonean Leone",
+    "flagImageUrl": "https://flagcdn.com/w320/sl.png",
+    "usdRate": 4.3958427E-5,
+    "fetchTimeInstant": "2024-12-04T21:00:49.090786600Z"
+  },
+  {
+    "currencyCode": "SOS",
+    "currencyName": "Somali Shilling",
+    "flagImageUrl": "https://flagcdn.com/w320/so.png",
+    "usdRate": 0.0017513409,
+    "fetchTimeInstant": "2024-12-04T21:00:49.300448900Z"
+  },
+  {
+    "currencyCode": "SRD",
+    "currencyName": "Surinamese Dollar",
+    "flagImageUrl": "https://flagcdn.com/w320/sr.png",
+    "usdRate": 0.028154725,
+    "fetchTimeInstant": "2024-12-04T21:00:49.473032700Z"
+  },
+  {
+    "currencyCode": "STN",
+    "currencyName": "São Tomé and Príncipe Dobra",
+    "flagImageUrl": "https://flagcdn.com/w320/st.png",
+    "usdRate": 0.042492231,
+    "fetchTimeInstant": "2024-12-04T21:00:49.780862800Z"
+  },
+  {
+    "currencyCode": "SVC",
+    "currencyName": "Salvadoran Colón",
+    "flagImageUrl": "https://flagcdn.com/w320/sv.png",
+    "usdRate": 0.11428571,
+    "fetchTimeInstant": "2024-12-04T21:00:50.121629200Z"
+  },
+  {
+    "currencyCode": "THB",
+    "currencyName": "Thai Baht",
+    "flagImageUrl": "https://flagcdn.com/w320/th.png",
+    "usdRate": 0.029086702,
+    "fetchTimeInstant": "2024-12-04T21:00:50.132448800Z"
+  },
+  {
+    "currencyCode": "SYP",
+    "currencyName": "Syrian Pound",
+    "flagImageUrl": "https://flagcdn.com/w320/sy.png",
+    "usdRate": 7.6911999E-5,
+    "fetchTimeInstant": "2024-12-04T21:00:50.240482200Z"
+  },
+  {
+    "currencyCode": "SZL",
+    "currencyName": "Swazi Lilangeni",
+    "flagImageUrl": "https://flagcdn.com/w320/sz.png",
+    "usdRate": 0.055150349,
+    "fetchTimeInstant": "2024-12-04T21:00:50.336983700Z"
+  },
+  {
+    "currencyCode": "TJS",
+    "currencyName": "Tajikistani Somoni",
+    "flagImageUrl": "https://flagcdn.com/w320/tj.png",
+    "usdRate": 0.091689661,
+    "fetchTimeInstant": "2024-12-04T21:00:50.723645800Z"
+  },
+  {
+    "currencyCode": "TMT",
+    "currencyName": "Turkmenistani Manat",
+    "flagImageUrl": "https://flagcdn.com/w320/tm.png",
+    "usdRate": 0.28507153,
+    "fetchTimeInstant": "2024-12-04T21:00:50.920804200Z"
+  },
+  {
+    "currencyCode": "TND",
+    "currencyName": "Tunisian Dinar",
+    "flagImageUrl": "https://flagcdn.com/w320/tn.png",
+    "usdRate": 0.31690135,
+    "fetchTimeInstant": "2024-12-04T21:00:50.935741300Z"
+  },
+  {
+    "currencyCode": "TOP",
+    "currencyName": "Tongan Paʻanga",
+    "flagImageUrl": "https://flagcdn.com/w320/to.png",
+    "usdRate": 0.41764997,
+    "fetchTimeInstant": "2024-12-04T21:00:51.020731400Z"
+  },
+  {
+    "currencyCode": "TRY",
+    "currencyName": "Turkish Lira",
+    "flagImageUrl": "https://flagcdn.com/w320/tr.png",
+    "usdRate": 0.028770151,
+    "fetchTimeInstant": "2024-12-04T21:00:51.487767400Z"
+  },
+  {
+    "currencyCode": "TTD",
+    "currencyName": "Trinidad and Tobago Dollar",
+    "flagImageUrl": "https://flagcdn.com/w320/tt.png",
+    "usdRate": 0.14751231,
+    "fetchTimeInstant": "2024-12-04T21:00:51.560845100Z"
+  },
+  {
+    "currencyCode": "TWD",
+    "currencyName": "New Taiwan Dollar",
+    "flagImageUrl": "https://flagcdn.com/w320/tw.png",
+    "usdRate": 0.03074657,
+    "fetchTimeInstant": "2024-12-04T21:00:51.830522300Z"
+  },
+  {
+    "currencyCode": "TZS",
+    "currencyName": "Tanzanian Shilling",
+    "flagImageUrl": "https://flagcdn.com/w320/tz.png",
+    "usdRate": 3.7969342E-4,
+    "fetchTimeInstant": "2024-12-04T21:00:52.029083700Z"
+  },
+  {
+    "currencyCode": "UAH",
+    "currencyName": "Ukrainian Hryvnia",
+    "flagImageUrl": "https://flagcdn.com/w320/ua.png",
+    "usdRate": 0.024070422,
+    "fetchTimeInstant": "2024-12-04T21:00:52.080652400Z"
+  },
+  {
+    "currencyCode": "UGX",
+    "currencyName": "Ugandan Shilling",
+    "flagImageUrl": "https://flagcdn.com/w320/ug.png",
+    "usdRate": 2.7156628E-4,
+    "fetchTimeInstant": "2024-12-04T21:00:52.267173800Z"
+  },
+  {
+    "currencyCode": "USD",
+    "currencyName": "United States Dollar",
+    "flagImageUrl": "https://flagcdn.com/w320/us.png",
+    "usdRate": 1.0,
+    "fetchTimeInstant": "2024-12-04T21:00:52.409955400Z"
+  },
+  {
+    "currencyCode": "UYU",
+    "currencyName": "Uruguayan Peso",
+    "flagImageUrl": "https://flagcdn.com/w320/uy.png",
+    "usdRate": 0.023147464,
+    "fetchTimeInstant": "2024-12-04T21:00:52.841337Z"
+  },
+  {
+    "currencyCode": "UZS",
+    "currencyName": "Uzbekistani Som",
+    "flagImageUrl": "https://flagcdn.com/w320/uz.png",
+    "usdRate": 7.782003E-5,
+    "fetchTimeInstant": "2024-12-04T21:00:52.928607900Z"
+  },
+  {
+    "currencyCode": "VEF",
+    "currencyName": "Venezuelan Bolívar",
+    "flagImageUrl": "https://flagcdn.com/w320/ve.png",
+    "usdRate": 2.0922806E-7,
+    "fetchTimeInstant": "2024-12-04T21:00:53.409842100Z"
+  },
+  {
+    "currencyCode": "VND",
+    "currencyName": "Vietnamese Dong",
+    "flagImageUrl": "https://flagcdn.com/w320/vn.png",
+    "usdRate": 3.9342616E-5,
+    "fetchTimeInstant": "2024-12-04T21:00:53.429707Z"
+  },
+  {
+    "currencyCode": "VES",
+    "currencyName": "Venezuelan Bolívar Soberano",
+    "flagImageUrl": "https://flagcdn.com/w320/ve.png",
+    "usdRate": 0.020922806,
+    "fetchTimeInstant": "2024-12-04T21:00:53.735796200Z"
+  },
+  {
+    "currencyCode": "XAF",
+    "currencyName": "Central African CFA Franc",
+    "flagImageUrl": "https://flagcdn.com/w320/cf.png",
+    "usdRate": 0.0016018171,
+    "fetchTimeInstant": "2024-12-04T21:00:54.002318800Z"
+  },
+  {
+    "currencyCode": "XCD",
+    "currencyName": "East Caribbean Dollar",
+    "flagImageUrl": "https://flagcdn.com/w320/xcd.png",
+    "usdRate": 0.36946861,
+    "fetchTimeInstant": "2024-12-04T21:00:54.374808Z"
+  },
+  {
+    "currencyCode": "XOF",
+    "currencyName": "West African CFA Franc",
+    "flagImageUrl": "https://flagcdn.com/w320/bj.png",
+    "usdRate": 0.0016018171,
+    "fetchTimeInstant": "2024-12-04T21:00:54.880484100Z"
+  },
+  {
+    "currencyCode": "XPF",
+    "currencyName": "CFP Franc",
+    "flagImageUrl": "https://flagcdn.com/w320/pf.png",
+    "usdRate": 0.0088050602,
+    "fetchTimeInstant": "2024-12-04T21:00:54.950551300Z"
+  },
+  {
+    "currencyCode": "YER",
+    "currencyName": "Yemeni Rial",
+    "flagImageUrl": "https://flagcdn.com/w320/ye.png",
+    "usdRate": 0.0040000474,
+    "fetchTimeInstant": "2024-12-04T21:00:55.330231800Z"
+  },
+  {
+    "currencyCode": "ZAR",
+    "currencyName": "South African Rand",
+    "flagImageUrl": "https://flagcdn.com/w320/za.png",
+    "usdRate": 0.055150349,
+    "fetchTimeInstant": "2024-12-04T21:00:55.422222Z"
+  },
+  {
+    "currencyCode": "ZMW",
+    "currencyName": "Zambian Kwacha",
+    "flagImageUrl": "https://flagcdn.com/w320/zm.png",
+    "usdRate": 0.037071378,
+    "fetchTimeInstant": "2024-12-04T21:00:55.710339Z"
+  },
+  {
+    "currencyCode": "ZWL",
+    "currencyName": "Zimbabwean Dollar",
+    "flagImageUrl": "https://flagcdn.com/w320/zw.png",
+    "usdRate": 1.5710835E-5,
+    "fetchTimeInstant": "2024-12-04T21:00:56.130594Z"
+  }
+]

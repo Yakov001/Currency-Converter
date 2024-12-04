@@ -48,8 +48,6 @@ class CurrenciesRepository(
                                 val newCurrencyData = CurrencyEntity(
                                     currencyCode = data.currencyCode,
                                     currencyName = data.currencyName,
-                                    countryCode = data.countryCode,
-                                    currencySymbol = data.currencySymbol,
                                     flagImageUrl = data.flagImage,
                                     // properly use the rates
                                     usdRate = data.rates.ratesMap["usd"] ?: (1/obj.usdRate)

@@ -1,8 +1,10 @@
 import data.Response
 import data.data_source.ktor.KtorCurrenciesDataSource
 import data.data_source.ktor.dto.old_api.InitRequest
+import data.model.CurrencyDto
 import di.coreModule
 import di.currenciesModule
+import domain.model.CurrencyEntity
 import io.ktor.client.network.sockets.SocketTimeoutException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.joinAll
@@ -16,6 +18,9 @@ import org.koin.test.get
 import kotlin.test.Test
 
 class CreateFirebaseFlagsJson : KoinTest {
+
+    private val dataSource: KtorCurrenciesDataSource by lazy { get() }
+
     @Test
     fun makeKtorRequest() = runTest {
         startKoin {
@@ -24,27 +29,28 @@ class CreateFirebaseFlagsJson : KoinTest {
                 currenciesModule()
             )
         }
-        val dataSource: KtorCurrenciesDataSource = get()
+        val currenciesDomain = mutableListOf<CurrencyDto>()
 
-        val initRequest = request(dataSource)
-
-        val validCurrencyNameAndFlagUrl = mutableMapOf<String, String>()
-        val validCurrencies = initRequest.rates.ratesMap.entries.map {
+        request(dataSource).rates.ratesMap.entries.map {
             launch {
                 val response = dataSource.getCurrenciesInitial(it.key)
                 if (response is Response.Success) {
-                    validCurrencyNameAndFlagUrl[it.key] = response.data.flagImage
+                    currenciesDomain.add(CurrencyDto(
+                        currencyCode = response.data.currencyCode,
+                        currencyName = response.data.currencyName,
+                        flagImageUrl = response.data.flagImage,
+                        usdRate = response.data.rates.ratesMap["usd"]!!
+                    ))
                 }
             }
         }.joinAll()
-
-        println(validCurrencyNameAndFlagUrl.entries.joinToString { it.key + ": " + it.value + "\n" })
 
         val json = Json {
             ignoreUnknownKeys = true
             allowStructuredMapKeys = true
         }
-        val jsonString = json.encodeToJsonElement(validCurrencyNameAndFlagUrl).toString()
+        val jsonString = json.encodeToJsonElement(currenciesDomain).toString()
+        repeat(100) { println("brake-line") }
         println(jsonString)
     }
 
@@ -59,5 +65,4 @@ class CreateFirebaseFlagsJson : KoinTest {
             return request(dataSource)
         }
     }
-
 }

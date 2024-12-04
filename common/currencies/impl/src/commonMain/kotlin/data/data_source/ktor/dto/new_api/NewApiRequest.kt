@@ -8,8 +8,6 @@ import kotlinx.serialization.Serializable
 data class NewApiRequest(
     @SerialName("base_code")
     val baseCode: String,
-    @SerialName("conversion_rates")
-    val conversionRates: ConversionRates,
     @SerialName("documentation")
     val documentation: String,
     @SerialName("result")
@@ -23,5 +21,8 @@ data class NewApiRequest(
     @SerialName("time_next_update_unix")
     val timeNextUpdateUnix: Int,
     @SerialName("time_next_update_utc")
-    val timeNextUpdateUtc: String
+    val timeNextUpdateUtc: String,
+    @SerialName("conversion_rates")
+    @Serializable(with = RatesNewSerializer::class)
+    val conversionRates: RatesNew
 )
