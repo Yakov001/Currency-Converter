@@ -1,6 +1,6 @@
 import data.Response
 import data.data_source.ktor.KtorCurrenciesDataSource
-import data.data_source.ktor.dto.InitRequest
+import data.data_source.ktor.dto.old_api.InitRequest
 import di.coreModule
 import di.currenciesModule
 import io.ktor.client.network.sockets.SocketTimeoutException

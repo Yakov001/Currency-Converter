@@ -2,7 +2,7 @@
 
 package data.data_source.ktor
 
-import data.data_source.ktor.dto.Rates
+import data.data_source.ktor.dto.old_api.Rates
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor

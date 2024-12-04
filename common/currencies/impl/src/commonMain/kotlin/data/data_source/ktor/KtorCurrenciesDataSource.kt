@@ -1,14 +1,16 @@
 package data.data_source.ktor
 
 import data.Response
-import data.data_source.ktor.dto.InitRequest
+import data.data_source.ktor.dto.new_api.NewApiRequest
+import data.data_source.ktor.dto.old_api.InitRequest
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.http.path
 
 class KtorCurrenciesDataSource(
-    private val httpClient: HttpClient
+    private val httpClient: HttpClient,
+    private val httpClientNew: HttpClient
 ) {
     suspend fun getCurrenciesInitial(currencyCode: String = "usd"): Response<InitRequest> {
         try {
@@ -25,6 +27,24 @@ class KtorCurrenciesDataSource(
             }
         } catch (e: Exception) {
             return Response.Failure(e.message?.take(20).toString())
+        }
+    }
+
+    suspend fun getCurrenciesNew() : Response<NewApiRequest> {
+        try {
+            val response = httpClientNew.get {
+                url {
+                    path("/latest/USD")
+                }
+            }
+            if (response.status.value in 200..299) {
+                val body: NewApiRequest = response.body()
+                return Response.Success(body)
+            } else {
+                return Response.Failure("error code: ${response.status.description}")
+            }
+        } catch (e: Exception) {
+            return Response.Failure(e.message.toString())
         }
     }
 

@@ -17,6 +17,7 @@ mockitoKotlin = "5.4.0"
 coroutines = "1.9.0"
 kstore = "0.9.0"
 kotlinx-datetime = "0.6.1"
+buildkonfig = "0.13.3"
 
 [libraries]
 plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -24,6 +25,7 @@ plugin-android = { module = "com.android.tools.build:gradle", version.ref = "agp
 plugin-compose = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "compose-plugin-jetbrains" }
 plugin-compose-compiler = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
 plugin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
+plugin-buildkonfig = { module = "com.codingfeline.buildkonfig:buildkonfig-gradle-plugin", version.ref = "buildkonfig" }
 
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version = "1.9.2" }
 serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.7.1" }
@@ -67,3 +69,4 @@ serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref 
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 javaLibrary = { id = "java-library" }
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm" }
+buildConfig = { id = "com.codingfeline.buildkonfig" }

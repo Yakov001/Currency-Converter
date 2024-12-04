@@ -1,5 +1,9 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
+
 plugins {
     id("multiplatform-setup")
+    id(libs.plugins.buildConfig.get().pluginId)
 }
 
 kotlin {
@@ -21,4 +25,18 @@ kotlin {
 
 android {
     namespace = "com.resonanse.common.core"
+}
+
+buildkonfig {
+    packageName = "com.resonanse.common.core"
+
+    defaultConfigs {
+        val apiKey: String = gradleLocalProperties(rootDir, providers).getProperty("apiKey")
+
+        require(apiKey.isNotEmpty()) {
+            "Missing API_KEY in local.properties as `apiKey=apiKey`"
+        }
+
+        buildConfigField(STRING, "API_KEY", apiKey)
+    }
 }
