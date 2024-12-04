@@ -31,6 +31,12 @@ kotlin {
             implementation(libs.serialization.json)
             implementation(libs.bundles.mockito)
         }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.koin.test)
+            implementation(libs.serialization.json)
+        }
     }
 }
 
