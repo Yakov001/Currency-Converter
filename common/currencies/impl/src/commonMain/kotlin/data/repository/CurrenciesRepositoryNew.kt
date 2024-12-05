@@ -42,8 +42,15 @@ class CurrenciesRepositoryNew(
                         usdRate = remoteCur.value
                     )
                 }
+            updateLocalCurrencies(result)
             return Response.Success(result)
-        } else return Response.Failure((remoteResponse as? Response.Failure)?.message ?: "unknown error")
+        } else return Response.Failure(
+            message = (remoteResponse as? Response.Failure)?.message ?: DEFAULT_ERROR_MESSAGE
+        )
+    }
+
+    private suspend fun updateLocalCurrencies(currencies: List<CurrencyEntity>) {
+        localDataSource.addCurrencies(currencies)
     }
 
     private suspend inline fun getLocalCurrencies(
@@ -63,5 +70,6 @@ class CurrenciesRepositoryNew(
 
     companion object {
         const val FILE_PATH = "files/default_currencies.json"
+        const val DEFAULT_ERROR_MESSAGE = "Unknown Error"
     }
 }
