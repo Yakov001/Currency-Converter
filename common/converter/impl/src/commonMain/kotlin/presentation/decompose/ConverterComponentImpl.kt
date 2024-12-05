@@ -31,6 +31,7 @@ import presentation.util.defaultFrom
 import presentation.util.defaultTo
 import presentation.util.toEntity
 import presentation.util.toUiModel
+import utils.Log
 import utils.toLocalDateTimeText
 
 class ConverterComponentImpl(
@@ -88,6 +89,8 @@ class ConverterComponentImpl(
                 fromCurrency = state.fromCurrency.toEntity(),
                 toCurrency = state.toCurrency.toEntity()
             )
+            Log.d("fromAmount = ${state.fromAmountState.amount}\nfromCurrency = ${state.fromCurrency}")
+            Log.d("new amount = $newAmount")
             state.copy(
                 toAmountState = state.toAmountState.copy(newAmount)
             )

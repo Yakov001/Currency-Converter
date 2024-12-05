@@ -50,7 +50,7 @@ class CurrenciesRepository(
                                     currencyName = data.currencyName,
                                     flagImageUrl = data.flagImage,
                                     // properly use the rates
-                                    usdRate = data.rates.ratesMap["usd"] ?: (1/obj.usdRate)
+                                    fromUsd = data.rates.ratesMap["usd"] ?: (1/obj.usdRate)
                                 )
                                 val updated = result.swapElementWithNew(
                                     findOldElement = { it.currencyCode == newCurrencyData.currencyCode },

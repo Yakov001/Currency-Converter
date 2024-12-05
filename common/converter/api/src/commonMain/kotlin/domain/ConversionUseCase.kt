@@ -11,16 +11,18 @@ class ConversionUseCase {
         fromCurrency: CurrencyEntity,
         toCurrency: CurrencyEntity
     ) : Double {
-        val dollars: Double = fromCurrency.usdRate * fromAmount
-        val toAmount: Double = dollars / toCurrency.usdRate
+        val dollars: Double = fromAmount / fromCurrency.fromUsd
+        val toAmount: Double = dollars * toCurrency.fromUsd
 
-        return toAmount.roundToNDecimals(3)
+        return toAmount.roundToNDecimals()
     }
 
-    private fun Double.roundToNDecimals(decimalPlaces: Int): Double {
-        val factor = 10.0.pow(decimalPlaces)
-        val roundedValue = round(this * factor) / factor
-        return roundedValue
+    companion object {
+        fun Double.roundToNDecimals(decimalPlaces: Int = 3): Double {
+            val factor = 10.0.pow(decimalPlaces)
+            val roundedValue = round(this * factor) / factor
+            return roundedValue
+        }
     }
 
 }

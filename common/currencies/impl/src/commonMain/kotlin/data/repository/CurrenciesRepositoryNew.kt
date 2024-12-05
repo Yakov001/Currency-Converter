@@ -39,7 +39,7 @@ class CurrenciesRepositoryNew(
                         currencyCode = defaultCur.currencyCode,
                         currencyName = defaultCur.currencyName,
                         flagImageUrl = defaultCur.flagImageUrl,
-                        usdRate = remoteCur.value
+                        fromUsd = remoteCur.value
                     )
                 }
             updateLocalCurrencies(result)

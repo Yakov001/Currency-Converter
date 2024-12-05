@@ -7,7 +7,7 @@ fun CurrencyDto.toEntity() = CurrencyEntity(
     currencyCode = currencyCode,
     currencyName = currencyName,
     flagImageUrl = flagImageUrl,
-    usdRate = usdRate,
+    fromUsd = usdRate,
     fetchTimeInstant = fetchTimeInstant
 )
 
@@ -15,6 +15,6 @@ fun CurrencyEntity.toDto() = CurrencyDto(
     currencyCode = currencyCode,
     currencyName = currencyName,
     flagImageUrl = flagImageUrl,
-    usdRate = usdRate,
+    usdRate = fromUsd,
     fetchTimeInstant = fetchTimeInstant
 )

@@ -1,6 +1,6 @@
 import domain.ConversionUseCase
+import domain.ConversionUseCase.Companion.roundToNDecimals
 import domain.model.CurrencyEntity
-import presentation.model.CurrencyUiModel
 import presentation.util.defaultFrom
 import presentation.util.defaultTo
 import kotlin.test.Test
@@ -8,11 +8,13 @@ import kotlin.test.assertEquals
 
 class ConversionUseCaseTest {
 
+    // TODO: test is useless now, need to consider if API gives to usd of from usd rate
+
     private val useCase = ConversionUseCase()
 
-    private val rub = CurrencyEntity.defaultFrom().copy(usdRate = 0.010429639)
-    private val usd = CurrencyEntity.defaultTo().copy(usdRate = 1.0)
-    private val eur = CurrencyEntity.defaultTo().copy(currencyCode = "EUR", currencyName = "Euro", usdRate = 1.08753394)
+    private val rub = CurrencyEntity.defaultFrom().copy(fromUsd = 0.010429639)
+    private val usd = CurrencyEntity.defaultTo().copy(fromUsd = 1.0)
+    private val eur = CurrencyEntity.defaultTo().copy(fromUsd = 1.08753394)
 
     @Test
     fun correctly_convert_RUB_to_USD() {
@@ -21,7 +23,7 @@ class ConversionUseCaseTest {
             fromCurrency = rub,
             toCurrency = usd
         )
-        assertEquals(expected = 0.010429639, actual = result)
+        assertEquals(expected = 0.010429639.roundToNDecimals(), actual = result)
     }
 
     @Test
@@ -32,8 +34,8 @@ class ConversionUseCaseTest {
             toCurrency = eur
         )
         assertEquals(
-            expected = 0.0095901734.toString().take(8).toDouble(),
-            actual = result.toString().take(8).toDouble()
+            expected = 0.0095901734.roundToNDecimals(),
+            actual = result
         )
     }
 }
