@@ -13,16 +13,20 @@ import resonanse.common.currencies.impl.generated.resources.Res
 import utils.toEntity
 
 class CurrenciesRepositoryNew(
-    private val dataSource: KtorCurrenciesDataSource,
-    private val kStore: KStoreDataSource
+    private val remoteDataSource: KtorCurrenciesDataSource,
+    private val localDataSource: KStoreDataSource
 ) {
 
     suspend fun getCurrencies(): Response<List<CurrencyEntity>> {
-//      first, return what we have saved locally, if success -> return
+        // first, fetch local data, if success -> return
         getLocalCurrencies { return it }
 
-        // if no local data, try to get from remote
-        val remoteResponse = dataSource.getCurrenciesNew()
+        // if no local data, fetch remote
+        return getUpdatedCurrencies()
+    }
+
+    suspend fun getUpdatedCurrencies(): Response<List<CurrencyEntity>> {
+        val remoteResponse = remoteDataSource.getCurrenciesNew()
         if (remoteResponse is Response.Success) {
             val defaultCurs = getDefaultCurrencies()
             val result = remoteResponse.data.conversionRates.ratesMap
@@ -45,15 +49,19 @@ class CurrenciesRepositoryNew(
     private suspend inline fun getLocalCurrencies(
         onSuccess: (Response<List<CurrencyEntity>>) -> Unit
     ) {
-        kStore.getAllCurrencies()?.let { onSuccess(Response.Success(it)) }
+        localDataSource.getAllCurrencies()?.let { onSuccess(Response.Success(it)) }
     }
 
     private suspend fun getDefaultCurrencies(): List<CurrencyEntity> {
-        val defaultCurrenciesJson = Res.readBytes("files/default_currencies.json").decodeToString()
+        val defaultCurrenciesJson = Res.readBytes(FILE_PATH).decodeToString()
         val json = Json {
             ignoreUnknownKeys = true
             allowStructuredMapKeys = true
         }
         return json.decodeFromString<List<CurrencyDto>>(defaultCurrenciesJson).map { it.toEntity() }
+    }
+
+    companion object {
+        const val FILE_PATH = "files/default_currencies.json"
     }
 }
