@@ -1,8 +1,7 @@
 @file:OptIn(ExperimentalSerializationApi::class)
 
-package data.data_source.ktor
+package data.data_source.remote.dto.old_api
 
-import data.data_source.ktor.dto.Rates
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor

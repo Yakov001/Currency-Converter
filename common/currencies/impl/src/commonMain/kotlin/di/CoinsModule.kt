@@ -1,8 +1,11 @@
 package di
 
 import data.repository.CurrenciesRepository
-import data.data_source.ktor.KtorCurrenciesDataSource
+import data.data_source.remote.KtorCurrenciesDataSource
 import data.data_source.local.KStoreDataSource
+import data.repository.CurrenciesRepositoryNew
+import org.koin.core.module.dsl.singleOf
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 fun currenciesModule() = module {
@@ -11,14 +14,12 @@ fun currenciesModule() = module {
         kStoreDataSourceModule()
     )
     single {
-        KStoreDataSource(
-            store = get()
+        KtorCurrenciesDataSource(
+            httpClientNew = get(qualifier = named(NEW_API_KOIN_QUALIFIER)),
+            httpClient = get(qualifier = named(OLD_API_KOIN_QUALIFIER))
         )
     }
-    single {
-        KtorCurrenciesDataSource(httpClient = get())
-    }
-    single {
-        CurrenciesRepository(dataSource = get(), kStore = get())
-    }
+    singleOf(::KStoreDataSource)
+    singleOf(::CurrenciesRepository)
+    singleOf(::CurrenciesRepositoryNew)
 }

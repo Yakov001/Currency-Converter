@@ -8,42 +8,42 @@ import com.arkivanov.decompose.router.slot.childSlot
 import com.arkivanov.decompose.router.slot.dismiss
 import com.arkivanov.decompose.value.Value
 import data.Response
-import data.repository.CurrenciesRepository
+import data.repository.CurrenciesRepositoryNew
 import domain.ConversionUseCase
+import domain.model.CurrencyEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import presentation.model.ConverterScreenState
+import presentation.model.CurrencyUiModel
+import presentation.model.TextFieldState
+import presentation.util.defaultFrom
+import presentation.util.defaultTo
+import presentation.util.toEntity
+import presentation.util.toUiModel
+import utils.Log
+import utils.toLocalDateTimeText
 
 class ConverterComponentImpl(
     componentContext: ComponentContext,
     private val componentScope: CoroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
 ) : ConverterComponent, ComponentContext by componentContext, KoinComponent {
 
-    private val repo: CurrenciesRepository by inject()
+    private val repo: CurrenciesRepositoryNew by inject()
 
-    private val _screenState: MutableStateFlow<ConverterScreenState> = MutableStateFlow(ConverterScreenState())
+    private val _screenState = MutableStateFlow(ConverterScreenState())
     override val screenState: StateFlow<ConverterScreenState> = _screenState
-        .onStart {
-            repo.getCurrencies().collectLatest { currencies ->
-                if (currencies !is Response.Success) return@collectLatest
-                _screenState.update { state ->
-                    state.copy(
-                        fromCurrency = currencies.data.find { it.currencyCode == "RUB" }?.toConverterCurrency() ?: Currency.stubFrom(),
-                        toCurrency = currencies.data.find { it.currencyCode == "USD" }?.toConverterCurrency() ?: Currency.stubTo()
-                    )
-                }
-            }
-        }
+        .onStart { fetchDataAndUpdateUiState() }
         .stateIn(
             scope = componentScope,
             started = SharingStarted.WhileSubscribed(5000),
@@ -63,14 +63,20 @@ class ConverterComponentImpl(
                 _screenState.update {
                     when (config.changedCurrenciesConfig) {
                         CurrenciesConfig.ChangedCurrency.From -> {
-                            it.copy(fromCurrency = currencySelected.toConverterCurrency())
+                            it.copy(fromCurrency = currencySelected.toUiModel())
                         }
                         CurrenciesConfig.ChangedCurrency.To -> {
-                            it.copy(toCurrency = currencySelected.toConverterCurrency())
+                            it.copy(toCurrency = currencySelected.toUiModel())
                         }
                     }
                 }
                 recalculateToAmount()
+            },
+            onBackClick = {
+                slotNavigation.dismiss()
+                componentScope.launch {
+                    fetchDataAndUpdateUiState()
+                }
             }
         )
     }
@@ -80,9 +86,11 @@ class ConverterComponentImpl(
         _screenState.update { state ->
             val newAmount = useCase.calculateToAmount(
                 fromAmount = state.fromAmountState.amount,
-                fromCurrency = state.fromCurrency,
-                toCurrency = state.toCurrency
+                fromCurrency = state.fromCurrency.toEntity(),
+                toCurrency = state.toCurrency.toEntity()
             )
+            Log.d("fromAmount = ${state.fromAmountState.amount}\nfromCurrency = ${state.fromCurrency}")
+            Log.d("new amount = $newAmount")
             state.copy(
                 toAmountState = state.toAmountState.copy(newAmount)
             )
@@ -97,6 +105,18 @@ class ConverterComponentImpl(
         slotNavigation.activate(CurrenciesConfig(CurrenciesConfig.ChangedCurrency.To))
     }
 
+    override fun switchCurrencies() {
+        _screenState.update {
+            it.copy(
+                fromCurrency = it.toCurrency,
+                toCurrency = it.fromCurrency,
+                fromAmountState = it.fromAmountState.copy(caretPos = it.toAmountState.amountText.length),
+                toAmountState = it.toAmountState.copy(caretPos = 0)
+            )
+        }
+        recalculateToAmount()
+    }
+
     override fun changeFromState(state: TextFieldState) {
         if (state.amountText.contains("-")) return
         state.amount.let { double ->
@@ -105,6 +125,30 @@ class ConverterComponentImpl(
             else _screenState.update { it.copy(fromAmountState = state) }
         }
         recalculateToAmount()
+    }
+
+    private suspend fun fetchDataAndUpdateUiState() {
+        val response = repo.getCurrencies()
+        if (response is Response.Success) {
+            val data = response.data
+            _screenState.update { state ->
+                state.copy(
+                    fetchDateTimeText = data.random().fetchTimeInstant.toLocalDateTimeText(),
+                    fromCurrency = data.findFromCurrency(),
+                    toCurrency = data.findToCurrency()
+                )
+            }
+        }
+    }
+
+    companion object {
+        private val defaultFrom = CurrencyEntity.defaultFrom().toUiModel()
+        private val defaultTo = CurrencyEntity.defaultTo().toUiModel()
+
+        private fun List<CurrencyEntity>.findFromCurrency() : CurrencyUiModel =
+            find { it.currencyCode == defaultFrom.currencyCode }?.toUiModel() ?: defaultFrom
+        private fun List<CurrencyEntity>.findToCurrency() : CurrencyUiModel =
+            find { it.currencyCode == defaultTo.currencyCode }?.toUiModel() ?: defaultTo
     }
 
     @Serializable

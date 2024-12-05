@@ -1,6 +1,5 @@
-package data.data_source.ktor.dto
+package data.data_source.remote.dto.old_api
 
-import data.data_source.ktor.RatesSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

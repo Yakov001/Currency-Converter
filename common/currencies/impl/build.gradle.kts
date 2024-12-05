@@ -13,6 +13,8 @@ kotlin {
             implementation(libs.bundles.coil)
             implementation(libs.decompose)
             implementation(libs.kstore)
+
+            implementation(compose.components.resources)
         }
         iosMain.dependencies {
             implementation(libs.kstore.file)
@@ -28,6 +30,12 @@ kotlin {
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.serialization.json)
             implementation(libs.bundles.mockito)
+        }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.koin.test)
+            implementation(libs.serialization.json)
         }
     }
 }

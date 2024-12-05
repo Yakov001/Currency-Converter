@@ -1,4 +1,4 @@
-package presentation.decompose
+package presentation.model
 
 import kotlin.math.ceil
 import kotlin.math.floor
