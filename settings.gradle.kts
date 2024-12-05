@@ -15,7 +15,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Resonanse"
+rootProject.name = "Currency-Converter"
 
 include(":composeApp")
 

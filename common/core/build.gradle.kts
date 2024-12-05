@@ -23,12 +23,8 @@ kotlin {
     }
 }
 
-android {
-    namespace = "com.resonanse.common.core"
-}
-
 buildkonfig {
-    packageName = "com.resonanse.common.core"
+    packageName = "${Android.namespace}.common.core"
 
     defaultConfigs {
         val apiKey: String = gradleLocalProperties(rootDir, providers).getProperty("apiKey")

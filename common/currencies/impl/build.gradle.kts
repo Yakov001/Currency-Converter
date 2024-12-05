@@ -39,7 +39,3 @@ kotlin {
         }
     }
 }
-
-android {
-    namespace = "com.resonanse.currencies.impl"
-}

@@ -15,7 +15,7 @@ import com.arkivanov.decompose.extensions.compose.stack.animation.scale
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import kotlinx.coroutines.launch
 import presentation.decompose.ConverterContent
-import theme.ResonanseTheme
+import theme.CurrencyConverterTheme
 import utils.ObserveAsEvents
 import utils.SnackbarController
 
@@ -23,7 +23,7 @@ import utils.SnackbarController
 @Composable
 fun App(
     rootComponent: RootComponent
-) = ResonanseTheme {
+) = CurrencyConverterTheme {
 
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()

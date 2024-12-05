@@ -14,11 +14,11 @@ import presentation.composables.ButtonSwitchCurrencies
 import presentation.composables.CurrencySlot
 import presentation.composables.CurrencySlotTextField
 import presentation.model.TextFieldState
-import theme.ResonanseTheme
+import theme.CurrencyConverterTheme
 
 @Composable
 @Preview
-private fun CurrencySlotPreview() = ResonanseTheme {
+private fun CurrencySlotPreview() = CurrencyConverterTheme {
     Surface {
 
         Column(

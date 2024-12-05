@@ -16,7 +16,3 @@ kotlin {
         }
     }
 }
-
-android {
-    namespace = "com.resonanse.common.converter.api"
-}

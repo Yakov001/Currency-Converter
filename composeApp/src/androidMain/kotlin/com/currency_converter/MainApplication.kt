@@ -1,4 +1,4 @@
-package com.resonanse
+package com.currency_converter
 
 import android.app.Application
 import di.resonanseKoinAppDeclaration

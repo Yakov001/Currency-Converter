@@ -32,4 +32,5 @@ kotlin {
 
 android {
     compileSdk = libs.versions.android.compileSdk.get().toInt()
+    namespace = Android.namespace + "." + project.name.replace("-", ".")
 }
