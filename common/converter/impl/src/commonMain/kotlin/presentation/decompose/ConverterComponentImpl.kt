@@ -25,6 +25,13 @@ import kotlinx.coroutines.flow.update
 import kotlinx.serialization.Serializable
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import presentation.model.ConverterScreenState
+import presentation.model.CurrencyUiModel
+import presentation.model.TextFieldState
+import presentation.util.defaultFrom
+import presentation.util.defaultTo
+import presentation.util.toEntity
+import presentation.util.toUiModel
 
 class ConverterComponentImpl(
     componentContext: ComponentContext,
@@ -33,7 +40,7 @@ class ConverterComponentImpl(
 
     private val repo: CurrenciesRepository by inject()
 
-    private val _screenState: MutableStateFlow<ConverterScreenState> = MutableStateFlow(ConverterScreenState())
+    private val _screenState = MutableStateFlow(ConverterScreenState())
     override val screenState: StateFlow<ConverterScreenState> = _screenState
         .onStart {
             // Get the first successful response (likely from local storage)
@@ -86,8 +93,8 @@ class ConverterComponentImpl(
         _screenState.update { state ->
             val newAmount = useCase.calculateToAmount(
                 fromAmount = state.fromAmountState.amount,
-                fromCurrency = state.fromCurrency,
-                toCurrency = state.toCurrency
+                fromCurrency = state.fromCurrency.toEntity(),
+                toCurrency = state.toCurrency.toEntity()
             )
             state.copy(
                 toAmountState = state.toAmountState.copy(newAmount)
@@ -126,8 +133,8 @@ class ConverterComponentImpl(
     }
 
     companion object {
-        private val defaultFrom = CurrencyUiModel.defaultFrom()
-        private val defaultTo = CurrencyUiModel.defaultTo()
+        private val defaultFrom = CurrencyEntity.defaultFrom().toUiModel()
+        private val defaultTo = CurrencyEntity.defaultTo().toUiModel()
 
         private fun List<CurrencyEntity>.findFromCurrency() : CurrencyUiModel =
             find { it.currencyCode == defaultFrom.currencyCode }?.toUiModel() ?: defaultFrom

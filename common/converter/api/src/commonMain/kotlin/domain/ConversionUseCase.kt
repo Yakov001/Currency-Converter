@@ -1,6 +1,6 @@
 package domain
 
-import presentation.decompose.CurrencyUiModel
+import domain.model.CurrencyEntity
 import kotlin.math.pow
 import kotlin.math.round
 
@@ -8,8 +8,8 @@ class ConversionUseCase {
 
     fun calculateToAmount(
         fromAmount: Double,
-        fromCurrency: CurrencyUiModel,
-        toCurrency: CurrencyUiModel
+        fromCurrency: CurrencyEntity,
+        toCurrency: CurrencyEntity
     ) : Double {
         val dollars: Double = fromCurrency.usdRate * fromAmount
         val toAmount: Double = dollars / toCurrency.usdRate

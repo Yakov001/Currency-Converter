@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import presentation.decompose.ConverterComponent
-import presentation.decompose.ConverterScreenState
+import presentation.model.ConverterScreenState
 
 @Composable
 fun ConverterLayer(

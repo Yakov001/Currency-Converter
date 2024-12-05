@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import presentation.composables.ButtonSwitchCurrencies
 import presentation.composables.CurrencySlot
 import presentation.composables.CurrencySlotTextField
-import presentation.decompose.TextFieldState
+import presentation.model.TextFieldState
 import theme.ResonanseTheme
 
 @Composable

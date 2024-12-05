@@ -36,7 +36,7 @@ import coil3.ImageLoader
 import coil3.compose.LocalPlatformContext
 import coil3.compose.SubcomposeAsyncImage
 import coil3.request.crossfade
-import presentation.decompose.TextFieldState
+import presentation.model.TextFieldState
 
 @Composable
 fun CurrencySlot(

@@ -9,4 +9,6 @@ data class CurrencyEntity(
     val flagImageUrl: String,
     val usdRate: Double,
     val fetchTimeInstant: Instant = Clock.System.now()
-)
+) {
+    companion object
+}
