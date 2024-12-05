@@ -35,7 +35,6 @@ private fun CurrencySlotPreview() = ResonanseTheme {
                 flagImageUrl = """https://flagcdn.com/w320/ru.png""",
                 currencyName = "Russian Ruble",
                 currencyCode = "RUB",
-                fetchDate = "18:43 - 09.11.2024",
                 onClick = {},
                 textField = {
                     CurrencySlotTextField(
@@ -51,7 +50,6 @@ private fun CurrencySlotPreview() = ResonanseTheme {
                 flagImageUrl = """https://flagcdn.com/w320/ru.png""",
                 currencyName = "US Dollar",
                 currencyCode = "USD",
-                fetchDate = "18:43 - 09.11.2024",
                 onClick = {},
                 textField = {
                     CurrencySlotTextField(

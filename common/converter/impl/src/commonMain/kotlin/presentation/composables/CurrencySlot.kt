@@ -43,7 +43,6 @@ fun CurrencySlot(
     flagImageUrl: String,
     currencyName: String,
     currencyCode: String,
-    fetchDate: String,
     onClick: () -> Unit,
     textField: @Composable () -> Unit
 ) {
@@ -96,10 +95,6 @@ fun CurrencySlot(
             )
             Text(
                 text = currencyName,
-                style = MaterialTheme.typography.bodySmall
-            )
-            Text(
-                text = fetchDate,
                 style = MaterialTheme.typography.bodySmall
             )
         }

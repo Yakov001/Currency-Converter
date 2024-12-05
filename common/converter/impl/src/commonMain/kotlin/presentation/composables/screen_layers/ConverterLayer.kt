@@ -1,4 +1,4 @@
-package presentation.composables
+package presentation.composables.screen_layers
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,6 +21,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
+import presentation.composables.ButtonSwitchCurrencies
+import presentation.composables.CurrencySlot
+import presentation.composables.CurrencySlotTextField
 import presentation.decompose.ConverterComponent
 import presentation.model.ConverterScreenState
 
@@ -73,7 +76,6 @@ fun ConverterBlock(
                     flagImageUrl = state.fromCurrency.flagImageUrl,
                     currencyName = state.fromCurrency.currencyName,
                     currencyCode = state.fromCurrency.currencyCode,
-                    fetchDate = state.fromCurrency.fetchDate,
                     onClick = {
                         focusManager.clearFocus()
                         component.changeFromCurrency()
@@ -90,7 +92,6 @@ fun ConverterBlock(
                     flagImageUrl = state.toCurrency.flagImageUrl,
                     currencyName = state.toCurrency.currencyName,
                     currencyCode = state.toCurrency.currencyCode,
-                    fetchDate = state.fromCurrency.fetchDate,
                     onClick = {
                         focusManager.clearFocus()
                         component.changeToCurrency()

@@ -1,4 +1,4 @@
-package presentation.composables
+package presentation.composables.screen_layers
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
