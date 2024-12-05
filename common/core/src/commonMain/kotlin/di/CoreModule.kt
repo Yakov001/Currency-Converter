@@ -1,6 +1,6 @@
 package di
 
-import com.resonanse.common.core.BuildKonfig
+import com.currency_converter.common.core.BuildKonfig
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest

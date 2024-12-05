@@ -2,6 +2,7 @@
 
 package data.repository
 
+import currency_converter.common.currencies.impl.generated.resources.Res
 import data.Response
 import data.data_source.local.KStoreDataSource
 import data.data_source.remote.KtorCurrenciesDataSource
@@ -9,7 +10,6 @@ import data.model.CurrencyDto
 import domain.model.CurrencyEntity
 import kotlinx.serialization.json.Json
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import resonanse.common.currencies.impl.generated.resources.Res
 import utils.toEntity
 
 class CurrenciesRepositoryNew(

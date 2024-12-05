@@ -20,12 +20,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
+import currency_converter.common.converter.impl.generated.resources.Res
+import currency_converter.common.converter.impl.generated.resources.button_switch_currencies_desc
+import currency_converter.common.converter.impl.generated.resources.swap_vert
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.imageResource
 import org.jetbrains.compose.resources.stringResource
-import resonanse.common.converter.impl.generated.resources.Res
-import resonanse.common.converter.impl.generated.resources.button_switch_currencies_desc
-import resonanse.common.converter.impl.generated.resources.swap_vert
 
 @Composable
 fun ButtonSwitchCurrencies(

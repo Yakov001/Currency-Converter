@@ -34,11 +34,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import currency_converter.common.currencies.impl.generated.resources.Res
+import currency_converter.common.currencies.impl.generated.resources.button_back_desc
 import org.jetbrains.compose.resources.stringResource
 import presentation.composables.CurrencyListCard
 import presentation.composables.SearchCurrencyTextField
-import resonanse.common.currencies.impl.generated.resources.Res
-import resonanse.common.currencies.impl.generated.resources.button_back_desc
 import utils.toLocalDateTimeText
 
 @OptIn(ExperimentalMaterial3Api::class)

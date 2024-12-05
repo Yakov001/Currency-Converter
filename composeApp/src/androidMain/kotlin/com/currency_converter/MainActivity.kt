@@ -1,4 +1,4 @@
-package com.resonanse
+package com.currency_converter
 
 import App
 import RootComponentImpl
