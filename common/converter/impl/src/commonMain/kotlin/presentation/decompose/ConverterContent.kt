@@ -28,7 +28,7 @@ fun ConverterContent(component: ConverterComponent) {
             component = component
         )
         TopBarLayer(
-            lastFetchTimeText = state.fromCurrency.fetchDate
+            lastFetchTimeText = state.fetchDateTimeText
         )
         // Draw currency picker screen like a dialog: on top of the converter screen
         slot.child?.instance?.let { currencyListComponent ->

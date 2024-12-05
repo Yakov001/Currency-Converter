@@ -8,7 +8,7 @@ import com.arkivanov.decompose.router.slot.childSlot
 import com.arkivanov.decompose.router.slot.dismiss
 import com.arkivanov.decompose.value.Value
 import data.Response
-import data.repository.CurrenciesRepository
+import data.repository.CurrenciesRepositoryNew
 import domain.ConversionUseCase
 import domain.model.CurrencyEntity
 import kotlinx.coroutines.CoroutineScope
@@ -17,11 +17,10 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -32,30 +31,18 @@ import presentation.util.defaultFrom
 import presentation.util.defaultTo
 import presentation.util.toEntity
 import presentation.util.toUiModel
+import utils.toLocalDateTimeText
 
 class ConverterComponentImpl(
     componentContext: ComponentContext,
     private val componentScope: CoroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
 ) : ConverterComponent, ComponentContext by componentContext, KoinComponent {
 
-    private val repo: CurrenciesRepository by inject()
+    private val repo: CurrenciesRepositoryNew by inject()
 
     private val _screenState = MutableStateFlow(ConverterScreenState())
     override val screenState: StateFlow<ConverterScreenState> = _screenState
-        .onStart {
-            // Get the first successful response (likely from local storage)
-            repo.getCurrencies()
-                .filterIsInstance<Response.Success<List<CurrencyEntity>>>()
-                .take(1)
-                .collect { currencies ->
-                    _screenState.update { state ->
-                        state.copy(
-                            fromCurrency = currencies.data.findFromCurrency(),
-                            toCurrency = currencies.data.findToCurrency()
-                        )
-                    }
-                }
-        }
+        .onStart { fetchDataAndUpdateUiState() }
         .stateIn(
             scope = componentScope,
             started = SharingStarted.WhileSubscribed(5000),
@@ -84,7 +71,12 @@ class ConverterComponentImpl(
                 }
                 recalculateToAmount()
             },
-            onBackClick = slotNavigation::dismiss
+            onBackClick = {
+                slotNavigation.dismiss()
+                componentScope.launch {
+                    fetchDataAndUpdateUiState()
+                }
+            }
         )
     }
 
@@ -132,6 +124,20 @@ class ConverterComponentImpl(
         recalculateToAmount()
     }
 
+    private suspend fun fetchDataAndUpdateUiState() {
+        val response = repo.getCurrencies()
+        if (response is Response.Success) {
+            val data = response.data
+            _screenState.update { state ->
+                state.copy(
+                    fetchDateTimeText = data.random().fetchTimeInstant.toLocalDateTimeText(),
+                    fromCurrency = data.findFromCurrency(),
+                    toCurrency = data.findToCurrency()
+                )
+            }
+        }
+    }
+
     companion object {
         private val defaultFrom = CurrencyEntity.defaultFrom().toUiModel()
         private val defaultTo = CurrencyEntity.defaultTo().toUiModel()
@@ -140,7 +146,6 @@ class ConverterComponentImpl(
             find { it.currencyCode == defaultFrom.currencyCode }?.toUiModel() ?: defaultFrom
         private fun List<CurrencyEntity>.findToCurrency() : CurrencyUiModel =
             find { it.currencyCode == defaultTo.currencyCode }?.toUiModel() ?: defaultTo
-
     }
 
     @Serializable

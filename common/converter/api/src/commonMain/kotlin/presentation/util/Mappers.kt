@@ -8,8 +8,7 @@ fun CurrencyEntity.toUiModel(): CurrencyUiModel = CurrencyUiModel(
     currencyCode = currencyCode,
     currencyName = currencyName,
     flagImageUrl = flagImageUrl,
-    usdRate = usdRate,
-    fetchDate = fetchTimeInstant.toLocalDateTimeText()
+    usdRate = usdRate
 )
 
 fun CurrencyUiModel.toEntity(): CurrencyEntity = CurrencyEntity(
