@@ -1,5 +1,5 @@
 <resources>
     <string name="button_back_desc">Return</string>
     <string name="currency_code">Code</string>
-    <string name="currency_name">Country</string>
+    <string name="currency_name">Currency</string>
 </resources>

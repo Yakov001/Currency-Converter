@@ -84,8 +84,8 @@ fun CurrencyListContent(component: CurrencyListComponent) {
             }
         }
         SearchCurrencyTextField(
-            text = screenState.searchText,
-            onTextChange = component::searchByName,
+            text = component.searchText,
+            onTextChange = component::changeSearchText,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
@@ -121,7 +121,7 @@ fun CurrencyListContent(component: CurrencyListComponent) {
                     .fillMaxSize()
             ) {
                 items(
-                    items = screenState.sortedData ?: emptyList()
+                    items = screenState.consumableData ?: emptyList()
                 ) {
                     Column(
                         modifier = Modifier.padding(horizontal = 16.dp)

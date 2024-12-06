@@ -69,7 +69,7 @@ private fun SortOptionTappableBox(
     val isIconVisible = isAscending != null
 
     val rotationDegrees by animateFloatAsState(
-        targetValue = if (isAscending == true) 0f else 180f,
+        targetValue = if (isAscending == true) 180f else 0f,
         animationSpec = tween(durationMillis = 500)
     )
     Row(
