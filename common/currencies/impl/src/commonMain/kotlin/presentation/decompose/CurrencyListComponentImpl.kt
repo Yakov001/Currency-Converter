@@ -22,7 +22,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import presentation.decompose.CurrencyListScreenState.LoadingStatus
+import presentation.model.CurrencyListScreenState
+import presentation.model.CurrencyListScreenState.LoadingStatus
+import presentation.model.SortOption
 import utils.SnackbarAction
 import utils.SnackbarController
 import utils.SnackbarEvent
@@ -82,6 +84,10 @@ class CurrencyListComponentImpl(
     override fun onCurrencyClick(currency: CurrencyEntity) = onCurrencySelected.invoke(currency)
 
     override fun onBackClick() = onBackClick.invoke()
+
+    override fun changeSortOrder(newSortOption: SortOption) {
+        _screenState.update { it.copy(sortOption = newSortOption) }
+    }
 
     private fun sortCurrenciesByName() {
         _screenState.update { it.copy(sortedData = it.data.sortedBySearchText()) }

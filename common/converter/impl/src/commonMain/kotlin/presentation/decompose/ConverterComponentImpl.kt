@@ -89,8 +89,6 @@ class ConverterComponentImpl(
                 fromCurrency = state.fromCurrency.toEntity(),
                 toCurrency = state.toCurrency.toEntity()
             )
-            Log.d("fromAmount = ${state.fromAmountState.amount}\nfromCurrency = ${state.fromCurrency}")
-            Log.d("new amount = $newAmount")
             state.copy(
                 toAmountState = state.toAmountState.copy(newAmount)
             )
@@ -133,7 +131,7 @@ class ConverterComponentImpl(
             val data = response.data
             _screenState.update { state ->
                 state.copy(
-                    fetchDateTimeText = data.random().fetchTimeInstant.toLocalDateTimeText(),
+                    fetchDateTimeText = data.randomOrNull()?.fetchTimeInstant?.toLocalDateTimeText() ?: "",
                     fromCurrency = data.findFromCurrency(),
                     toCurrency = data.findToCurrency()
                 )

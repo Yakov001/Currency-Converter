@@ -56,7 +56,7 @@ class CurrenciesRepositoryNew(
     private suspend inline fun getLocalCurrencies(
         onSuccess: (Response<List<CurrencyEntity>>) -> Unit
     ) {
-        localDataSource.getAllCurrencies()?.let { onSuccess(Response.Success(it)) }
+        localDataSource.getAllCurrencies()?.takeIf { it.isNotEmpty() }?.let { onSuccess(Response.Success(it)) }
     }
 
     private suspend fun getDefaultCurrencies(): List<CurrencyEntity> {

@@ -2,6 +2,8 @@ package presentation.decompose
 
 import kotlinx.coroutines.flow.StateFlow
 import domain.model.CurrencyEntity
+import presentation.model.CurrencyListScreenState
+import presentation.model.SortOption
 
 interface CurrencyListComponent {
     val screenState: StateFlow<CurrencyListScreenState>
@@ -9,6 +11,7 @@ interface CurrencyListComponent {
     fun refreshCurrencies()
     fun onCurrencyClick(currency: CurrencyEntity)
     fun onBackClick()
+    fun changeSortOrder(newSortOption: SortOption)
 
     fun List<CurrencyEntity>?.sortedBySearchText(): List<CurrencyEntity>? = this?.filter { cur ->
         val searchText = screenState.value.searchText

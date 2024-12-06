@@ -39,6 +39,8 @@ import currency_converter.common.currencies.impl.generated.resources.button_back
 import org.jetbrains.compose.resources.stringResource
 import presentation.composables.CurrencyListCard
 import presentation.composables.SearchCurrencyTextField
+import presentation.composables.SortingOptionsRow
+import presentation.model.CurrencyListScreenState
 import utils.toLocalDateTimeText
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,6 +56,7 @@ fun CurrencyListContent(component: CurrencyListComponent) {
             .fillMaxSize()
             .windowInsetsPadding(WindowInsets.statusBars)
     ) {
+        // Top later
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
@@ -88,6 +91,13 @@ fun CurrencyListContent(component: CurrencyListComponent) {
                 .padding(horizontal = 16.dp)
         )
 
+        // Sort Options bar
+        SortingOptionsRow(
+            sortOption = screenState.sortOption,
+            onSortOrderChange = component::changeSortOrder
+        )
+
+        // LazyColumn with currencies
         val pullToRefreshState = rememberPullToRefreshState()
         val isRefreshing by remember {
             derivedStateOf {
@@ -104,12 +114,11 @@ fun CurrencyListContent(component: CurrencyListComponent) {
                 .weight(9f)
         ) {
             LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(top = 16.dp),
                 contentPadding = PaddingValues(
                     bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
                 ),
+                modifier = Modifier
+                    .fillMaxSize()
             ) {
                 items(
                     items = screenState.sortedData ?: emptyList()
