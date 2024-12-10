@@ -9,7 +9,6 @@ fun List<CurrencyEntity>?.sortedByOptions(sortOption: SortOption): List<Currency
         is SortOption.CurrencyCode -> cur.currencyCode
         is SortOption.CurrencyName -> cur.currencyName
     }
-    Log.d("sort Option = $sortOption")
     return if (sortOption.ascending)
         this?.sortedBy { cur -> getStringToCompare(cur) }
     else
