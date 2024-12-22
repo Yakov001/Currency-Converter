@@ -32,6 +32,11 @@ render.experimental.xml
 # Google Services (e.g. APIs or Firebase)
 google-services.json
 
+# Firebase Hosting
+/.firebaserc
+/firebase.json
+/.firebase/hosting.Y29tcG9zZUFwcFxidWlsZFxkaXN0XHdhc21Kc1xwcm9kdWN0aW9uRXhlY3V0YWJsZQ.cache
+
 # Android Profiling
 *.hprof
 
