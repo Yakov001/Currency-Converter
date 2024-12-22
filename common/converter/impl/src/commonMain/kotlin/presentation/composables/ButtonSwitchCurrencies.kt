@@ -32,7 +32,7 @@ fun ButtonSwitchCurrencies(
     onClick: () -> Unit
 ) {
     val rotation = remember { Animatable(0f) }
-    val scope = rememberCoroutineScope()
+        val scope = rememberCoroutineScope()
     val shape = CircleShape
     val duration = 500
     var enabled by remember { mutableStateOf(true) }

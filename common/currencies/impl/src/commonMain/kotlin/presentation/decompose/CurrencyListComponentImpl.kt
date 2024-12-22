@@ -1,5 +1,9 @@
 package presentation.decompose
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.essenty.lifecycle.doOnDestroy
 import data.Response
@@ -16,13 +20,17 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import presentation.decompose.CurrencyListScreenState.LoadingStatus
+import presentation.model.CurrencyListScreenState
+import presentation.model.CurrencyListScreenState.LoadingStatus
+import presentation.model.SortOption
+import utils.Log
 import utils.SnackbarAction
 import utils.SnackbarController
 import utils.SnackbarEvent
@@ -32,14 +40,19 @@ class CurrencyListComponentImpl(
     componentContext: ComponentContext,
     private val onCurrencySelected: (CurrencyEntity) -> Unit,
     private val onBackClick: () -> Unit,
-    private val componentScope: CoroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
+    private val componentScope: CoroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob()),
 ) : CurrencyListComponent, ComponentContext by componentContext, KoinComponent {
 
     private val newRepo: CurrenciesRepositoryNew by inject()
 
+    override var searchText: String by mutableStateOf("")
+
     private val _screenState = MutableStateFlow(CurrencyListScreenState())
     override val screenState: StateFlow<CurrencyListScreenState> = _screenState
         .onStart { fetchCurrencies() }
+        .map {
+            it.copy(consumableData = it.data.filteredAndSorted(it.sortOption))
+        }
         .stateIn(
             scope = componentScope,
             started = SharingStarted.WhileSubscribed(5000),
@@ -48,19 +61,15 @@ class CurrencyListComponentImpl(
 
     init {
         lifecycle.doOnDestroy { componentScope.coroutineContext.cancelChildren() }
-
-        CoroutineScope(Dispatchers.Default).launch {
-            _screenState
-                .distinctUntilChanged { old, new -> old.searchText == new.searchText }
-                .debounce(500)
-                .collectLatest {
-                    sortCurrenciesByName()
-                }
+        componentScope.launch {
+            snapshotFlow { searchText }.debounce(500).collectLatest {
+                _screenState.update { it.copy(consumableData = it.data.filteredAndSorted(it.sortOption)) }
+            }
         }
     }
 
-    override fun searchByName(searchText: String) {
-        _screenState.update { it.copy(searchText = searchText) }
+    override fun changeSearchText(searchText: String) {
+        this.searchText = searchText
     }
 
     override fun refreshCurrencies() {
@@ -71,28 +80,23 @@ class CurrencyListComponentImpl(
         }
     }
 
-    private fun fetchCurrencies() {
+    private suspend fun fetchCurrencies() {
         _screenState.update { it.copy(loadingStatus = LoadingStatus.Loading) }
-        componentScope.launch {
-            newRepo.getCurrencies().handleResponse()
-            _screenState.update { it.copy(loadingStatus = LoadingStatus.Idle) }
-        }
+        newRepo.getCurrencies().handleResponse()
+        _screenState.update { it.copy(loadingStatus = LoadingStatus.Idle) }
     }
 
     override fun onCurrencyClick(currency: CurrencyEntity) = onCurrencySelected.invoke(currency)
 
     override fun onBackClick() = onBackClick.invoke()
 
-    private fun sortCurrenciesByName() {
-        _screenState.update { it.copy(sortedData = it.data.sortedBySearchText()) }
+    override fun changeSortOrder(newSortOption: SortOption) {
+        _screenState.update { it.copy(sortOption = newSortOption) }
     }
 
     private suspend fun Response<List<CurrencyEntity>>.handleResponse() = when (this) {
         is Response.Loading -> _screenState.update { it.copy(loadingStatus = LoadingStatus.Loading) }
-        is Response.Success -> {
-            _screenState.update { it.copy(data = data, sortedData = data) }
-            sortCurrenciesByName()
-        }
+        is Response.Success -> _screenState.update { it.copy(data = data) }
         is Response.Failure -> {
             _screenState.update { it.copy(loadingStatus = LoadingStatus.Idle) }
             SnackbarController.sendEvent(
