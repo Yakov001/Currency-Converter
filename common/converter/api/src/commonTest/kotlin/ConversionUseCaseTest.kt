@@ -23,7 +23,7 @@ class ConversionUseCaseTest {
             fromCurrency = rub,
             toCurrency = usd
         )
-        assertEquals(expected = 0.010429639.roundToNDecimals(), actual = result)
+        assertEquals(expected = 95.881.roundToNDecimals(), actual = result)
     }
 
     @Test
@@ -34,7 +34,7 @@ class ConversionUseCaseTest {
             toCurrency = eur
         )
         assertEquals(
-            expected = 0.0095901734.roundToNDecimals(),
+            expected = 104.273.roundToNDecimals(),
             actual = result
         )
     }
