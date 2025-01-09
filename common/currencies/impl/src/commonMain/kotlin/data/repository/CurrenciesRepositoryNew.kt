@@ -7,6 +7,7 @@ import data.Response
 import data.data_source.local.KStoreDataSource
 import data.data_source.remote.KtorCurrenciesDataSource
 import data.model.CurrencyDto
+import data.model.LastSelected
 import domain.model.CurrencyEntity
 import kotlinx.serialization.json.Json
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -16,6 +17,16 @@ class CurrenciesRepositoryNew(
     private val remoteDataSource: KtorCurrenciesDataSource,
     private val localDataSource: KStoreDataSource
 ) {
+
+    suspend fun getLastSelectedCurrencies(): Response<LastSelected> {
+        return localDataSource.getLastSelectedCurrencies()?.let {
+            Response.Success(it)
+        } ?: Response.Failure(DEFAULT_ERROR_MESSAGE)
+    }
+
+    suspend fun updateLastSelectedCurrencies(from: CurrencyEntity, to: CurrencyEntity) {
+        localDataSource.updateLastSelectedCurrencies(from, to)
+    }
 
     suspend fun getCurrencies(): Response<List<CurrencyEntity>> {
         // first, fetch local data, if success -> return

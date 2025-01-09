@@ -16,12 +16,19 @@ kotlin {
             implementation(libs.decompose.compose)
 
             implementation(compose.components.resources)
+
+            implementation(libs.kotlinx.coroutines.core)
         }
         androidUnitTest.dependencies {
             implementation(libs.kotlin.test)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.serialization.json)
             implementation(libs.bundles.mockito)
+        }
+        getByName("commonMain") {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+            }
         }
     }
 }

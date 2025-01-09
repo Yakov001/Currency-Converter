@@ -7,6 +7,8 @@ import com.arkivanov.decompose.router.slot.activate
 import com.arkivanov.decompose.router.slot.childSlot
 import com.arkivanov.decompose.router.slot.dismiss
 import com.arkivanov.decompose.value.Value
+import com.arkivanov.essenty.lifecycle.doOnDestroy
+import com.arkivanov.essenty.lifecycle.doOnPause
 import data.Response
 import data.repository.CurrenciesRepositoryNew
 import domain.ConversionUseCase
@@ -31,7 +33,7 @@ import presentation.util.defaultFrom
 import presentation.util.defaultTo
 import presentation.util.toEntity
 import presentation.util.toUiModel
-import utils.Log
+import utils.toEntity
 import utils.toLocalDateTimeText
 
 class ConverterComponentImpl(
@@ -40,6 +42,17 @@ class ConverterComponentImpl(
 ) : ConverterComponent, ComponentContext by componentContext, KoinComponent {
 
     private val repo: CurrenciesRepositoryNew by inject()
+
+    init {
+        componentContext.doOnPause {
+            componentScope.launch {
+                repo.updateLastSelectedCurrencies(
+                    from = _screenState.value.fromCurrency.toEntity(),
+                    to = _screenState.value.toCurrency.toEntity()
+                )
+            }
+        }
+    }
 
     private val _screenState = MutableStateFlow(ConverterScreenState())
     override val screenState: StateFlow<ConverterScreenState> = _screenState
@@ -81,7 +94,7 @@ class ConverterComponentImpl(
         )
     }
 
-    private val useCase : ConversionUseCase by inject()
+    private val useCase: ConversionUseCase by inject()
     override fun recalculateToAmount() {
         _screenState.update { state ->
             val newAmount = useCase.calculateToAmount(
@@ -126,14 +139,15 @@ class ConverterComponentImpl(
     }
 
     private suspend fun fetchDataAndUpdateUiState() {
-        val response = repo.getCurrencies()
-        if (response is Response.Success) {
-            val data = response.data
+        val currencyListResponse = repo.getCurrencies()
+        if (currencyListResponse is Response.Success) {
+            val lastSelected = (repo.getLastSelectedCurrencies() as? Response.Success)?.data
+            val currencyList = currencyListResponse.data
             _screenState.update { state ->
                 state.copy(
-                    fetchDateTimeText = data.randomOrNull()?.fetchTimeInstant?.toLocalDateTimeText() ?: "",
-                    fromCurrency = data.findFromCurrency(),
-                    toCurrency = data.findToCurrency()
+                    fetchDateTimeText = currencyList.randomOrNull()?.fetchTimeInstant?.toLocalDateTimeText() ?: "",
+                    fromCurrency = lastSelected?.from?.toEntity()?.toUiModel() ?: currencyListResponse.data.findFromCurrency(),
+                    toCurrency = lastSelected?.to?.toEntity()?.toUiModel() ?: currencyListResponse.data.findToCurrency()
                 )
             }
         }
@@ -143,9 +157,10 @@ class ConverterComponentImpl(
         private val defaultFrom = CurrencyEntity.defaultFrom().toUiModel()
         private val defaultTo = CurrencyEntity.defaultTo().toUiModel()
 
-        private fun List<CurrencyEntity>.findFromCurrency() : CurrencyUiModel =
+        private fun List<CurrencyEntity>.findFromCurrency(): CurrencyUiModel =
             find { it.currencyCode == defaultFrom.currencyCode }?.toUiModel() ?: defaultFrom
-        private fun List<CurrencyEntity>.findToCurrency() : CurrencyUiModel =
+
+        private fun List<CurrencyEntity>.findToCurrency(): CurrencyUiModel =
             find { it.currencyCode == defaultTo.currencyCode }?.toUiModel() ?: defaultTo
     }
 

@@ -19,7 +19,12 @@ fun currenciesModule() = module {
             httpClient = get(qualifier = named(OLD_API_KOIN_QUALIFIER))
         )
     }
-    singleOf(::KStoreDataSource)
+    single {
+        KStoreDataSource(
+            currenciesStore = get(),
+            lastSelectedCurrenciesStore = get(qualifier = named("last_selected_currencies"))
+        )
+    }
     singleOf(::CurrenciesRepository)
     singleOf(::CurrenciesRepositoryNew)
 }
